@@ -43,7 +43,7 @@ Upload `docs/demo-captions.vtt` after the video is cut. The captions end at 2:52
    "Small teams coordinate security incidents in Slack, but they often do not have a SOC."
 
 2. 0:12-0:28: Runtime proof.
-   Show the Slack sandbox App Home with the judge test path. Click `Demo guide` or `Proof checklist`, then run `/signaldesk demo` or use the `Triage with SignalDesk` message shortcut.
+   Show the Slack sandbox App Home with the judge test path. Click `Demo guide` or `Proof checklist`, then run `/signaldesk proof` and `/signaldesk demo` or use the `Triage with SignalDesk` message shortcut.
 
 3. 0:28-1:10: Triage brief.
    Show runtime `MCP stdio`, severity, scenario, indicators, ATT&CK candidates, evidence IDs, claim audit, detection checks, and first-response readiness.

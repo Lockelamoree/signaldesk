@@ -6,7 +6,8 @@ import {
   buildAppHomeView,
   buildHomeDemoGuideModal,
   buildHomeProofChecklistModal,
-  buildSignalDeskHelp
+  buildSignalDeskHelp,
+  buildSignalDeskProof
 } from "./appHome.js";
 import { assertSlackBlocksValid } from "./blockKitValidation.js";
 
@@ -20,6 +21,7 @@ test("buildAppHomeView returns a valid judge onboarding home tab", () => {
   assert.ok(serialized.includes("Runtime: MCP stdio"));
   assert.ok(serialized.includes("Triage with SignalDesk"));
   assert.ok(serialized.includes("/signaldesk demo"));
+  assert.ok(serialized.includes("/signaldesk proof"));
   assert.ok(serialized.includes("/signaldesk"));
   assert.ok(serialized.includes(HOME_DEMO_GUIDE_ACTION));
   assert.ok(serialized.includes(HOME_PROOF_CHECKLIST_ACTION));
@@ -37,7 +39,21 @@ test("buildSignalDeskHelp returns valid no-input guidance", () => {
   assert.ok(serialized.includes("MCP stdio"));
   assert.ok(serialized.includes("Sample commands"));
   assert.ok(serialized.includes("/signaldesk demo"));
+  assert.ok(serialized.includes("/signaldesk proof"));
   assert.ok(serialized.includes("First-response readiness"));
+});
+
+test("buildSignalDeskProof returns valid slash-command proof guidance", () => {
+  const payload = buildSignalDeskProof({ runtimeMode: "mcp" });
+  const serialized = JSON.stringify(payload);
+  const result = assertSlackBlocksValid(payload.blocks);
+
+  assert.equal(result.valid, true);
+  assert.ok(payload.text.includes("SignalDesk proof checklist"));
+  assert.ok(serialized.includes("MCP stdio"));
+  assert.ok(serialized.includes("/signaldesk proof"));
+  assert.ok(serialized.includes("npm.cmd run mcp:transcript"));
+  assert.ok(serialized.includes("Evidence boundary"));
 });
 
 test("buildHomeDemoGuideModal returns valid clickable demo guidance", () => {

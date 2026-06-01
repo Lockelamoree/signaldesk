@@ -128,11 +128,14 @@ check("manifest defines /signaldesk", manifest.features?.slash_commands?.some((c
 check("manifest defines message shortcut", manifest.features?.shortcuts?.some((shortcut) => shortcut.callback_id === "signaldesk_triage_message" && shortcut.type === "message"), "message-level Slack UX");
 const appHomeSource = readFileSync("src/slack/appHome.js", "utf8");
 const slackAppSource = readFileSync("src/slack/app.js", "utf8");
+const commandInputSource = readFileSync("src/slack/commandInput.js", "utf8");
 check("Slack app has help payload", appHomeSource.includes("buildSignalDeskHelp"), "no-input judge guidance");
 check("Slack app has App Home demo modal", appHomeSource.includes("buildHomeDemoGuideModal") && slackAppSource.includes("HOME_DEMO_GUIDE_ACTION"), "clickable judge guide");
 check("Slack app has App Home proof modal", appHomeSource.includes("buildHomeProofChecklistModal") && slackAppSource.includes("HOME_PROOF_CHECKLIST_ACTION"), "clickable proof guide");
+check("Slack app has slash proof payload", appHomeSource.includes("buildSignalDeskProof") && slackAppSource.includes("proofPayload"), "judge proof checklist");
 check("Slack app has optional private brief store", existsSync("src/slack/briefStore.js") && slackAppSource.includes("createBriefStore"), "demo action recovery");
-check("Slack app has short demo alias", readFileSync("src/slack/commandInput.js", "utf8").includes("DEMO_ALIASES"), "low-friction judge demo path");
+check("Slack app has short demo alias", commandInputSource.includes("DEMO_ALIASES"), "low-friction judge demo path");
+check("Slack app has proof alias", commandInputSource.includes("PROOF_ALIASES"), "slash-command proof checklist");
 check("Slack app has safe error payload", readFileSync("src/slack/errorResponses.js", "utf8").includes("buildTriageErrorPayload"), "live demo failure guidance");
 check("README has judge test path", readme.includes("How Judges Can Test"), "judge friction reducer");
 check("README links judge quickstart", readme.includes("docs/judge-quickstart.md"), "judge friction reducer");
@@ -144,6 +147,7 @@ check("README names safe final URL setter", readme.includes("submission:set-urls
 check("README names Devpost paste bundle", readme.includes("submission:bundle"), "paste-ready submission packet");
 check("README names live gate status", readme.includes("submission:live-gates"), "external gate packet");
 check("README links judge one-pager", readme.includes("docs/judge-one-pager.md"), "30-second judge landing path");
+check("README names proof command", readme.includes("/signaldesk proof"), "judge proof checklist");
 check("Devpost copy names Agent for Good", devpostCopy.includes("Slack Agent for Good"), "track alignment");
 check("Devpost copy names MCP", devpostCopy.includes("Model Context Protocol") || devpostCopy.includes("MCP"), "required tech alignment");
 check("Devpost form exists", existsSync("docs/devpost-form.md"), "paste-ready fields");
@@ -153,7 +157,7 @@ check("Judge quickstart exists", existsSync("docs/judge-quickstart.md") && readF
 check("live handoff names required URLs", existsSync("docs/live-gate-handoff.md") && readFileSync("docs/live-gate-handoff.md", "utf8").includes("GitHub remote URL") && readFileSync("docs/live-gate-handoff.md", "utf8").includes("Slack sandbox URL"), "Max-owned account gates");
 check("Impact evaluation records PASS", existsSync("docs/impact-evaluation.md") && readFileSync("docs/impact-evaluation.md", "utf8").includes("Overall result: **PASS**"), "Potential Impact proof");
 check("Bonus prize map exists", existsSync("docs/bonus-prize-map.md") && readFileSync("docs/bonus-prize-map.md", "utf8").includes("Most Innovative Slack Agent"), "side-prize proof");
-check("Slack UX proof exists", existsSync("docs/slack-ux-proof.md") && readFileSync("docs/slack-ux-proof.md", "utf8").includes("Proof Checklist Modal"), "Best UX proof");
+check("Slack UX proof exists", existsSync("docs/slack-ux-proof.md") && readFileSync("docs/slack-ux-proof.md", "utf8").includes("Proof Checklist Modal") && readFileSync("docs/slack-ux-proof.md", "utf8").includes("Slash Proof Checklist"), "Best UX proof");
 check("Slack interaction transcript exists", existsSync("docs/slack-interaction-transcript.md") && readFileSync("docs/slack-interaction-transcript.md", "utf8").includes("Create channel"), "interactive workflow proof");
 check("MCP tool transcript exists", existsSync("docs/mcp-tool-transcript.md") && readFileSync("docs/mcp-tool-transcript.md", "utf8").includes("list_demo_incidents"), "Best Technological Implementation proof");
 check("Recording readiness records PASS", existsSync("docs/recording-readiness.md") && readFileSync("docs/recording-readiness.md", "utf8").includes("Overall result: **PASS**"), "demo proof preflight");

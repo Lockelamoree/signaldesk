@@ -18,6 +18,12 @@ test("resolveSignalDeskInput returns the canonical demo fixture for demo aliases
   }
 });
 
+test("resolveSignalDeskInput returns proof for judge proof aliases", () => {
+  for (const alias of ["proof", "Checklist", " judge ", "receipts", "verify"]) {
+    assert.deepEqual(resolveSignalDeskInput(alias), { type: "proof" });
+  }
+});
+
 test("resolveSignalDeskInput preserves arbitrary triage text", () => {
   assert.deepEqual(resolveSignalDeskInput(" suspicious oauth consent from 198.51.100.23 "), {
     type: "triage",

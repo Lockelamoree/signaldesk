@@ -2,7 +2,13 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { buildIncidentBrief, buildSlackBlocks } from "../core/incidentBrief.js";
 import { sampleIncidents } from "../core/sampleIncidents.js";
-import { buildAppHomeView, buildHomeDemoGuideModal, buildHomeProofChecklistModal, buildSignalDeskHelp } from "./appHome.js";
+import {
+  buildAppHomeView,
+  buildHomeDemoGuideModal,
+  buildHomeProofChecklistModal,
+  buildSignalDeskHelp,
+  buildSignalDeskProof
+} from "./appHome.js";
 import { assertSlackBlocksValid, validateSlackBlocks } from "./blockKitValidation.js";
 import { buildTriageErrorPayload } from "./errorResponses.js";
 
@@ -30,6 +36,13 @@ test("SignalDesk App Home blocks fit Block Kit limits", () => {
 
 test("SignalDesk help blocks fit Block Kit limits", () => {
   const result = assertSlackBlocksValid(buildSignalDeskHelp({ runtimeMode: "mcp" }).blocks);
+
+  assert.equal(result.valid, true);
+  assert.ok(result.summary.blocks <= 50);
+});
+
+test("SignalDesk proof blocks fit Block Kit limits", () => {
+  const result = assertSlackBlocksValid(buildSignalDeskProof({ runtimeMode: "mcp" }).blocks);
 
   assert.equal(result.valid, true);
   assert.ok(result.summary.blocks <= 50);

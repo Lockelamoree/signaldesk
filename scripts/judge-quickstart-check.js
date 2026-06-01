@@ -62,6 +62,7 @@ check("quickstart names live Slack proof path", includesAll(quickstart, [
   "SIGNALDESK_TRIAGE_MODE=\"mcp\"",
   "npm.cmd run sandbox:doctor -- --strict",
   "npm.cmd run start",
+  "/signaldesk proof",
   "/signaldesk demo",
   "Triage with SignalDesk",
   "Runtime: MCP stdio",

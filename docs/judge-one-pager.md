@@ -8,7 +8,7 @@ SignalDesk is a Slack-native security incident triage agent for nonprofits, scho
 
 - Track: `Slack Agent for Good`.
 - Required technology: MCP server integration through `SIGNALDESK_TRIAGE_MODE=mcp`.
-- Slack proof: App Home, `/signaldesk demo`, message shortcut, Block Kit brief, action buttons, and incident channel creation.
+- Slack proof: App Home, `/signaldesk proof`, `/signaldesk demo`, message shortcut, Block Kit brief, action buttons, and incident channel creation.
 - Security proof: evidence IDs (`EV-*`), claim IDs (`CL-*`), detection IDs (`DET-*`), impact/readiness metrics (`IM-*`), and unsupported-claim guardrails.
 - Impact proof: `npm.cmd run impact:evaluate` records 98.3/100 average first-response readiness across synthetic nonprofit, school, clinic, and community-team incidents.
 
@@ -30,7 +30,7 @@ Small public-interest teams often discover security issues inside Slack: a suspi
 | Criterion | SignalDesk proof |
 | --- | --- |
 | Technological Implementation | Slack Bolt app, Socket Mode, Block Kit, MCP stdio server, `triage_slack_alert`, full MCP transcript, Slack-to-MCP smoke test, unit tests, secret scan, and CI. |
-| Design | App Home judge path, short demo command, no-input help, readable Block Kit brief, action buttons, safe runtime-check guidance, and button transcript. |
+| Design | App Home judge path, slash proof checklist, short demo command, no-input help, readable Block Kit brief, action buttons, safe runtime-check guidance, and button transcript. |
 | Potential Impact | Agent for Good focus for under-resourced teams plus measurable first-response readiness across nonprofit, education, public health, and community scenarios. |
 | Quality of the Idea | Narrow evidence-gated incident response workflow inside Slack, not a generic chatbot. It preserves assumptions and turns conversation into coordinated action. |
 
@@ -70,4 +70,3 @@ Still required before Devpost submit:
 - Public or unlisted demo video under 3 minutes.
 - Devpost project URL.
 - Passing `npm.cmd run submission:final:check` and `npm.cmd run submission:final:online`.
-

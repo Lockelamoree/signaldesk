@@ -5,7 +5,7 @@
 "Small nonprofits and community teams live in Slack, but when someone reports a phishing link or leaked token, they usually do not have a SOC. SignalDesk gives them a safe first 15 minutes."
 
 Show the Slack channel and a suspicious message. Right-click the message and select `Triage with SignalDesk`.
-If the judge opens SignalDesk first, show the App Home tab with the test path, click `Demo guide` or `Proof checklist`, then run `/signaldesk demo` before running the shortcut.
+If the judge opens SignalDesk first, show the App Home tab with the test path, click `Demo guide` or `Proof checklist`, then run `/signaldesk proof` and `/signaldesk demo` before running the shortcut.
 If the live sandbox is not yet open during rehearsal, use `docs/demo-preview.html` only as a storyboard preview, not as final proof.
 
 ## 0:20-1:05 - Slack Flow

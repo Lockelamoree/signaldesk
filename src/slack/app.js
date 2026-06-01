@@ -16,7 +16,8 @@ import {
   buildAppHomeView,
   buildHomeDemoGuideModal,
   buildHomeProofChecklistModal,
-  buildSignalDeskHelp
+  buildSignalDeskHelp,
+  buildSignalDeskProof
 } from "./appHome.js";
 import { createBriefStore } from "./briefStore.js";
 import { resolveSignalDeskInput } from "./commandInput.js";
@@ -52,6 +53,12 @@ function briefFromAction(body) {
 
 function helpPayload() {
   return buildSignalDeskHelp({
+    runtimeMode: process.env.SIGNALDESK_TRIAGE_MODE || "local"
+  });
+}
+
+function proofPayload() {
+  return buildSignalDeskProof({
     runtimeMode: process.env.SIGNALDESK_TRIAGE_MODE || "local"
   });
 }
@@ -104,6 +111,13 @@ app.command("/signaldesk", async ({ command, ack, respond }) => {
     });
     return;
   }
+  if (input.type === "proof") {
+    await respond({
+      response_type: "ephemeral",
+      ...proofPayload()
+    });
+    return;
+  }
 
   await postBrief({
     text: input.alertText,
@@ -137,6 +151,10 @@ app.event("app_mention", async ({ event, say }) => {
   const input = resolveSignalDeskInput(event.text?.replace(/<@[^>]+>/g, ""));
   if (input.type === "help") {
     await say(helpPayload());
+    return;
+  }
+  if (input.type === "proof") {
+    await say(proofPayload());
     return;
   }
 

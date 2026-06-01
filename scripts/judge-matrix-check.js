@@ -26,6 +26,7 @@ const requiredTerms = [
   "App Home",
   "Demo guide",
   "Proof checklist",
+  "/signaldesk proof",
   "/signaldesk demo",
   "demo help",
   "runtime-check guidance",

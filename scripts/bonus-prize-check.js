@@ -29,6 +29,7 @@ check("map names Most Innovative Slack Agent", map.includes("Most Innovative Sla
 check("map names Best Technological Implementation", map.includes("Best Technological Implementation"), "side-prize target");
 check("map keeps Agent for Good primary", map.includes("Slack Agent for Good"), "primary track");
 check("map links UX evidence", containsAll(map, [
+  "/signaldesk proof",
   "docs/slack-ux-proof.md",
   "docs/slack-interaction-transcript.md",
   "npm.cmd run slack:ux:proof",
@@ -54,6 +55,7 @@ check("map preserves live boundary", containsAll(map, [
 check("map has no TODO placeholders", !/TODO_/i.test(map), "judge-facing artifact");
 check("Slack UX proof supports Best UX", containsAll(slackUxProof, [
   "App Home",
+  "Slash Proof Checklist",
   "Demo Guide Modal",
   "Proof Checklist Modal",
   "Runtime Error Guidance"

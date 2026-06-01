@@ -52,6 +52,7 @@ check("README links judge quickstart", contains("README.md", "docs/judge-quickst
 check("README names App Home onboarding", contains("README.md", "App Home"), "judge onboarding surface");
 check("README names App Home modals", contains("README.md", "Demo guide") && contains("README.md", "Proof checklist"), "Best UX proof");
 check("README names short demo command", contains("README.md", "/signaldesk demo"), "judge low-friction path");
+check("README names proof command", contains("README.md", "/signaldesk proof"), "judge proof checklist");
 check("README names no-input help", contains("README.md", "demo help"), "judge no-input path");
 check("README names MCP runtime", contains("README.md", "SIGNALDESK_TRIAGE_MODE=mcp"), "required tech proof");
 check("README names safe runtime-check guidance", contains("README.md", "runtime-check guidance") && contains("README.md", "token-shaped strings"), "live demo failure safety");

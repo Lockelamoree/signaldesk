@@ -4,7 +4,8 @@ import {
   buildAppHomeView,
   buildHomeDemoGuideModal,
   buildHomeProofChecklistModal,
-  buildSignalDeskHelp
+  buildSignalDeskHelp,
+  buildSignalDeskProof
 } from "../src/slack/appHome.js";
 import { assertSlackBlocksValid } from "../src/slack/blockKitValidation.js";
 import { buildTriageErrorPayload } from "../src/slack/errorResponses.js";
@@ -61,6 +62,15 @@ rows.push({
   blocks: helpResult.summary.blocks,
   actions: helpResult.summary.actionsBlocks,
   elements: helpResult.summary.interactiveElements
+});
+
+const proofResult = assertSlackBlocksValid(buildSignalDeskProof({ runtimeMode: "mcp" }).blocks);
+rows.push({
+  fixture: "proof-checklist",
+  runtime: "mcp",
+  blocks: proofResult.summary.blocks,
+  actions: proofResult.summary.actionsBlocks,
+  elements: proofResult.summary.interactiveElements
 });
 
 const demoGuideResult = assertSlackBlocksValid(buildHomeDemoGuideModal({ runtimeMode: "mcp" }).blocks);

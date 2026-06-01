@@ -55,7 +55,7 @@ Nonprofits, schools, clinics, and volunteer teams often coordinate security inci
 
 ## What It Does
 
-SignalDesk adds a Slack App Home tab, clickable App Home demo/proof modals, message shortcut, `/signaldesk demo` shortcut command, no-input demo help, and app mention flow for security incident triage. The App Home and help payload give judges the test path and proof signals, while the triage flows convert messy alert text into a Block Kit incident brief with scenario, severity, indicators, candidate MITRE ATT&CK techniques, evidence IDs, claim audit, detection checks, first-response readiness, response roles, and buttons for ownership, evidence, detections, report export, guardrails, and incident channel creation.
+SignalDesk adds a Slack App Home tab, clickable App Home demo/proof modals, message shortcut, `/signaldesk demo` shortcut command, `/signaldesk proof` proof checklist, no-input demo help, and app mention flow for security incident triage. The App Home, proof, and help payloads give judges the test path and proof signals, while the triage flows convert messy alert text into a Block Kit incident brief with scenario, severity, indicators, candidate MITRE ATT&CK techniques, evidence IDs, claim audit, detection checks, first-response readiness, response roles, and buttons for ownership, evidence, detections, report export, guardrails, and incident channel creation.
 
 For the judged demo, SignalDesk runs with `SIGNALDESK_TRIAGE_MODE=mcp`, so Slack triage calls the MCP `triage_slack_alert` tool over stdio. The MCP server also exposes `build_response_checklist`, `build_impact_summary`, `export_evidence_ledger`, `build_detection_plan`, `generate_incident_report`, and `list_demo_incidents`.
 
@@ -71,7 +71,7 @@ The hardest tradeoff was making the agent useful without pretending it completed
 
 ## Accomplishments
 
-- Slack app with App Home onboarding, slash command, app mention flow, message shortcut, Block Kit brief, and interactive buttons.
+- Slack app with App Home onboarding, slash command, proof checklist, app mention flow, message shortcut, Block Kit brief, and interactive buttons.
 - MCP-backed Slack triage mode through `triage_slack_alert`.
 - Evidence ledger, claim audit, detection opportunities, and Markdown incident report export.
 - First-response readiness metrics that quantify evidence, detection, role, guardrail, and Slack coordination coverage without claiming live impact.

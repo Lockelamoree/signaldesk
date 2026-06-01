@@ -26,7 +26,7 @@ The tiebreak starts with technological implementation, so this repo prioritizes 
 1. A team member runs `/signaldesk` with a suspicious Slack message, alert text, or pasted thread context.
 2. SignalDesk extracts indicators, assigns a severity band, maps likely ATT&CK techniques, and generates evidence-linked detection checks.
 3. The agent posts a Slack Block Kit brief with first-response readiness, actions, response roles, suggested incident channel, evidence needed, detection opportunities, and guardrails.
-4. The App Home tab gives judges the test path, fallback command, and proof signals to look for.
+4. The App Home tab and `/signaldesk proof` give judges the test path, fallback command, and proof signals to look for.
 5. For the judged demo, Slack can run in `SIGNALDESK_TRIAGE_MODE=mcp`, delegating triage to the MCP stdio server through `triage_slack_alert`.
 
 ## Repository Proof
@@ -169,7 +169,7 @@ npm.cmd run start
 /signaldesk demo
 ```
 
-Expected result: the App Home tab shows the judge test path plus clickable `Demo guide` and `Proof checklist` modals, `/signaldesk demo` triggers the canonical synthetic incident, `/signaldesk` without text shows demo help, and the Slack workflow produces a Block Kit incident brief with runtime `MCP stdio`, severity, indicators, candidate ATT&CK techniques, evidence IDs, claim audit, detection checks, first-response readiness, response roles, and buttons for creating an incident channel, ownership, checklist, evidence, detections, report, and guardrails.
+Expected result: the App Home tab shows the judge test path plus clickable `Demo guide` and `Proof checklist` modals, `/signaldesk proof` shows the proof checklist as a Slack message, `/signaldesk demo` triggers the canonical synthetic incident, `/signaldesk` without text shows demo help, and the Slack workflow produces a Block Kit incident brief with runtime `MCP stdio`, severity, indicators, candidate ATT&CK techniques, evidence IDs, claim audit, detection checks, first-response readiness, response roles, and buttons for creating an incident channel, ownership, checklist, evidence, detections, report, and guardrails.
 
 ## Security Notes
 

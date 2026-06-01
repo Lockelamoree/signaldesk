@@ -71,15 +71,17 @@ npm.cmd run sandbox:doctor -- --strict
 npm.cmd run start
 ```
 
-In Slack, use the `Triage with SignalDesk` message shortcut on a synthetic suspicious message, or run the short demo command:
+In Slack, use the `Triage with SignalDesk` message shortcut on a synthetic suspicious message, or run the proof and short demo commands:
 
 ```text
+/signaldesk proof
 /signaldesk demo
 ```
 
 Expected Slack result:
 
 - Opening SignalDesk App Home shows the judge test path, fallback command, proof signals, evidence boundary, and clickable `Demo guide` plus `Proof checklist` modals.
+- Running `/signaldesk proof` shows the proof checklist as a Slack message if App Home is not visible during recording.
 - Running `/signaldesk demo` or mentioning SignalDesk with `demo` triggers the canonical synthetic OAuth-phishing incident.
 - Running `/signaldesk` without text or mentioning SignalDesk without context shows demo help with the same sample commands and proof signals.
 - A Block Kit incident brief appears in Slack.

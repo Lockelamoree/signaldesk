@@ -100,6 +100,7 @@ check("what-it-does names MCP runtime", whatItDoes.includes("SIGNALDESK_TRIAGE_M
 check("what-it-does names App Home", whatItDoes.includes("App Home"), "judge onboarding proof");
 check("what-it-does names App Home modals", whatItDoes.includes("demo/proof modals"), "Best UX proof");
 check("what-it-does names short demo command", whatItDoes.includes("/signaldesk demo"), "judge low-friction proof");
+check("what-it-does names proof command", whatItDoes.includes("/signaldesk proof"), "judge proof checklist");
 check("what-it-does names demo help", whatItDoes.includes("demo help"), "judge no-input proof");
 check("what-it-does names readiness metrics", whatItDoes.includes("first-response readiness"), "impact proof");
 check("how-built names Slack-to-MCP bridge", howBuilt.includes("Slack-to-MCP bridge"), "runtime proof");

@@ -70,7 +70,7 @@ for (const file of requiredFiles) {
 
 check("video target stays under three minutes", videoPackage.includes("Target length: 2:40-2:55"), "judges may stop at three minutes");
 check("shot order opens with user problem", containsAll(videoPackage, ["0:00-0:12", "Small teams coordinate security incidents in Slack"]), "first 12 seconds");
-check("shot order shows Slack proof before 30 seconds", containsAll(videoPackage, ["0:12-0:28", "Slack sandbox", "App Home", "Demo guide", "Proof checklist", "/signaldesk demo", "Triage with SignalDesk"]), "first 30 seconds");
+check("shot order shows Slack proof before 30 seconds", containsAll(videoPackage, ["0:12-0:28", "Slack sandbox", "App Home", "Demo guide", "Proof checklist", "/signaldesk proof", "/signaldesk demo", "Triage with SignalDesk"]), "first 30 seconds");
 check("shot order shows MCP runtime before workflow depth", containsAll(videoPackage, ["0:28-1:10", "MCP stdio", "evidence IDs", "first-response readiness"]), "required tech and proof");
 check("shot order includes incident channel creation", containsAll(videoPackage, ["1:10-1:35", "Create channel", "#inc-token-exposure"]), "complete Slack workflow");
 check("shot order includes MCP proof", containsAll(videoPackage, ["smoke:slack-mcp", "mcp:transcript", "triage_slack_alert", "build_impact_summary"]), "integration proof");
@@ -78,6 +78,7 @@ check("shot order includes impact close", containsAll(videoPackage, ["2:30-2:50"
 check("rules compliance map covers video restrictions", containsAll(rulesCompliance, ["less than three minutes", "YouTube", "sensitive information", "Manual Final Attestations"]), "official rules preflight");
 check("demo script names live sandbox requirement", demoScript.includes("live sandbox") && demoScript.includes("storyboard preview, not as final proof"), "evidence boundary");
 check("demo script includes short demo fallback command", demoScript.includes("/signaldesk demo"), "recording fallback");
+check("demo script includes proof command", demoScript.includes("/signaldesk proof"), "judge proof checklist");
 check("demo transcript includes expected MCP tools", containsAll(demoTranscript, [
   "triage_slack_alert",
   "build_response_checklist",
@@ -93,7 +94,7 @@ check("thumbnail is 1280x720 PNG", thumbnail?.width === 1280 && thumbnail?.heigh
 check("demo preview is 1440x1000 PNG", preview?.width === 1440 && preview?.height === 1000, preview ? `${preview.width}x${preview.height}, ${preview.bytes} bytes` : "missing");
 check("judge proof latest result passes", judgeProof.includes("Overall result: **PASS**"), "docs/judge-proof.md");
 check("impact evaluation latest result passes", impactEvaluation.includes("Overall result: **PASS**") && impactEvaluation.includes("98.3/100"), "Potential Impact proof");
-check("Slack UX proof includes App Home modals", containsAll(slackUxProof, ["App Home", "Demo Guide Modal", "Proof Checklist Modal"]), "Best UX proof");
+check("Slack UX proof includes App Home surfaces", containsAll(slackUxProof, ["App Home", "Slash Proof Checklist", "Demo Guide Modal", "Proof Checklist Modal"]), "Best UX proof");
 check("Slack interaction transcript covers buttons", containsAll(slackInteractionTranscript, [
   "Take owner",
   "Create channel",
@@ -159,7 +160,7 @@ const markdown = [
   "- Live Slack developer sandbox, not the static storyboard.",
   "- Rules compliance check from `npm.cmd run rules:check` before final upload.",
   "- App Home `Demo guide` or `Proof checklist` modal in the first 30 seconds.",
-  "- Message shortcut or `/signaldesk demo` flow immediately after App Home proof.",
+  "- `/signaldesk proof` checklist, then message shortcut or `/signaldesk demo` flow immediately after App Home proof.",
   "- `Runtime: MCP stdio` visible in the incident brief.",
   "- Evidence IDs, claim audit, detection checks, first-response readiness, and guardrails.",
   "- `Create channel` action and the incident kickoff message.",

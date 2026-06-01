@@ -39,7 +39,7 @@ SignalDesk adds a message shortcut, `/signaldesk` command, and app mention flow 
 - Evidence checklist and safety guardrails.
 - Interactive buttons for taking ownership, creating the incident channel, showing the evidence checklist, reviewing detection opportunities, exporting the report, and checking guardrails.
 
-SignalDesk also publishes a Slack App Home tab, clickable Demo guide and Proof checklist modals, and no-input demo help that give judges and responders the `/signaldesk demo` command, full synthetic fallback command, expected proof signals, MCP runtime expectation, and evidence boundary before they run the workflow.
+SignalDesk also publishes a Slack App Home tab, clickable Demo guide and Proof checklist modals, `/signaldesk proof`, and no-input demo help that give judges and responders the `/signaldesk demo` command, full synthetic fallback command, expected proof signals, MCP runtime expectation, and evidence boundary before they run the workflow.
 
 For the judged demo, the Slack app can run with `SIGNALDESK_TRIAGE_MODE=mcp`, so Slack triage delegates to the MCP stdio server through `triage_slack_alert`. The MCP server also exposes `build_response_checklist`, `build_impact_summary`, `export_evidence_ledger`, `build_detection_plan`, `generate_incident_report`, and `list_demo_incidents`.
 
@@ -95,7 +95,7 @@ The hardest design tradeoff was keeping the output useful without pretending det
 - Slack Block Kit response with clear roles and action buttons.
 - Slack App Home onboarding surface for the judge test path.
 - App Home Demo guide and Proof checklist modals for low-friction judge verification.
-- `/signaldesk demo`, no-input `/signaldesk`, and app mention help for judges who need the synthetic demo command without typing a long fixture.
+- `/signaldesk demo`, `/signaldesk proof`, no-input `/signaldesk`, and app mention help for judges who need the synthetic demo command or proof checklist without typing a long fixture.
 - Safe runtime-check response if MCP or Slack setup fails during live testing, without exposing tokens or stack traces.
 - Optional private synthetic-demo brief recovery so Slack buttons can survive a local app restart during recording without committing state.
 - Slack channel creation action for incident coordination.

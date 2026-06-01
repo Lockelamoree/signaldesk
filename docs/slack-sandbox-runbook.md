@@ -76,9 +76,16 @@ Fast demo command:
 /signaldesk demo
 ```
 
+Judge proof command:
+
+```text
+/signaldesk proof
+```
+
 Expected Slack output:
 
 - App Home shows the judge test path, fallback command, proof signals, synthetic-data boundary, and clickable `Demo guide` plus `Proof checklist` modals.
+- `/signaldesk proof` shows the proof checklist as a Slack message if App Home is not visible during recording.
 - `/signaldesk demo` and app mentions containing `demo` trigger the canonical synthetic OAuth-phishing incident.
 - `/signaldesk` without text and empty app mentions show demo help with the same fallback commands.
 - Header: `SignalDesk: HIGH triage`.

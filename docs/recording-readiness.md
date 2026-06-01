@@ -35,6 +35,7 @@ Overall result: **PASS**
 | rules compliance map covers video restrictions | PASS | official rules preflight |
 | demo script names live sandbox requirement | PASS | evidence boundary |
 | demo script includes short demo fallback command | PASS | recording fallback |
+| demo script includes proof command | PASS | judge proof checklist |
 | demo transcript includes expected MCP tools | PASS | MCP proof list |
 | captions are WebVTT | PASS | uploadable captions |
 | captions mention required proof terms | PASS | caption proof terms |
@@ -42,7 +43,7 @@ Overall result: **PASS**
 | demo preview is 1440x1000 PNG | PASS | 1440x1000, 60769 bytes |
 | judge proof latest result passes | PASS | docs/judge-proof.md |
 | impact evaluation latest result passes | PASS | Potential Impact proof |
-| Slack UX proof includes App Home modals | PASS | Best UX proof |
+| Slack UX proof includes App Home surfaces | PASS | Best UX proof |
 | Slack interaction transcript covers buttons | PASS | interactive workflow proof |
 | MCP transcript includes every tool | PASS | Best Technological Implementation proof |
 | sandbox runbook includes judge invite emails | PASS | FAQ-aligned access |
@@ -68,7 +69,7 @@ Overall result: **PASS**
 - Live Slack developer sandbox, not the static storyboard.
 - Rules compliance check from `npm.cmd run rules:check` before final upload.
 - App Home `Demo guide` or `Proof checklist` modal in the first 30 seconds.
-- Message shortcut or `/signaldesk demo` flow immediately after App Home proof.
+- `/signaldesk proof` checklist, then message shortcut or `/signaldesk demo` flow immediately after App Home proof.
 - `Runtime: MCP stdio` visible in the incident brief.
 - Evidence IDs, claim audit, detection checks, first-response readiness, and guardrails.
 - `Create channel` action and the incident kickoff message.
