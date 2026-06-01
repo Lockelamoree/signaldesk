@@ -35,6 +35,7 @@ const rulesCompliance = read("docs/rules-compliance.md");
 const demoScript = read("docs/demo-script.md");
 const demoTranscript = read("docs/demo-transcript.md");
 const videoPackage = read("docs/video-package.md");
+const takeCard = read("docs/recording-take-card.md");
 const captions = read("docs/demo-captions.vtt");
 const judgeProof = read("docs/judge-proof.md");
 const impactEvaluation = read("docs/impact-evaluation.md");
@@ -50,6 +51,7 @@ const requiredFiles = [
   "docs/demo-script.md",
   "docs/demo-transcript.md",
   "docs/video-package.md",
+  "docs/recording-take-card.md",
   "docs/rules-compliance.md",
   "docs/demo-captions.vtt",
   "docs/thumbnail.png",
@@ -75,6 +77,11 @@ check("shot order shows MCP runtime before workflow depth", containsAll(videoPac
 check("shot order includes incident channel creation", containsAll(videoPackage, ["1:10-1:35", "Create channel", "#inc-token-exposure"]), "complete Slack workflow");
 check("shot order includes MCP proof", containsAll(videoPackage, ["smoke:slack-mcp", "mcp:transcript", "triage_slack_alert", "build_impact_summary"]), "integration proof");
 check("shot order includes impact close", containsAll(videoPackage, ["2:30-2:50", "safe first 15 minutes"]), "Agent for Good close");
+check("recording take card includes first-minute proof order", containsAll(takeCard, ["0:12-0:28", "Demo guide", "Proof checklist", "/signaldesk proof", "0:28-0:45", "/signaldesk demo", "Triage with SignalDesk", "0:45-1:10", "Runtime: MCP stdio"]), "live operator card");
+check("recording take card includes Slack handoff proof", containsAll(takeCard, ["Create channel", "#inc-token-exposure", "Evidence", "Detections", "Report"]), "Slack workflow proof");
+check("recording take card includes terminal proof", containsAll(takeCard, ["smoke:slack-mcp", "mcp:transcript", "impact:evaluate", "triage_slack_alert", "build_detection_plan", "generate_incident_report", "build_impact_summary"]), "MCP proof");
+check("recording take card includes impact and safety boundaries", containsAll(takeCard, ["98.3/100", "under three minutes", "synthetic", "Do Not Show", "tokens", "confirmed compromise"]), "demo safety");
+check("recording take card includes final submission actions", containsAll(takeCard, ["YouTube", "Vimeo", "Facebook Video", "Youku", "slackhack@salesforce.com", "testing@devpost.com", "submission:set-urls", "submission:final:online"]), "post-recording closeout");
 check("rules compliance map covers video restrictions", containsAll(rulesCompliance, ["less than three minutes", "YouTube", "sensitive information", "Manual Final Attestations"]), "official rules preflight");
 check("demo script names live sandbox requirement", demoScript.includes("live sandbox") && demoScript.includes("storyboard preview, not as final proof"), "evidence boundary");
 check("demo script includes short demo fallback command", demoScript.includes("/signaldesk demo"), "recording fallback");
@@ -161,6 +168,7 @@ const markdown = [
   "- Rules compliance check from `npm.cmd run rules:check` before final upload.",
   "- App Home `Demo guide` or `Proof checklist` modal in the first 30 seconds.",
   "- `/signaldesk proof` checklist, then message shortcut or `/signaldesk demo` flow immediately after App Home proof.",
+  "- `docs/recording-take-card.md` visible or rehearsed so the live take preserves proof order.",
   "- `Runtime: MCP stdio` visible in the incident brief.",
   "- Evidence IDs, claim audit, detection checks, first-response readiness, and guardrails.",
   "- `Create channel` action and the incident kickoff message.",

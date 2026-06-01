@@ -101,6 +101,7 @@ const evidenceArtifacts = [
   ["MCP tool transcript", "docs/mcp-tool-transcript.md"],
   ["Impact evaluation", "docs/impact-evaluation.md"],
   ["Recording readiness", "docs/recording-readiness.md"],
+  ["Recording take card", "docs/recording-take-card.md"],
   ["Sandbox runbook", "docs/slack-sandbox-runbook.md"]
 ].map(([label, path]) => ({ label, path, exists: existsSync(path) }));
 

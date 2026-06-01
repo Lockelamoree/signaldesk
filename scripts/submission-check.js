@@ -28,6 +28,7 @@ const requiredFiles = [
   "docs/demo-preview.html",
   "docs/demo-preview.png",
   "docs/recording-readiness.md",
+  "docs/recording-take-card.md",
   "docs/thumbnail.svg",
   "docs/thumbnail.png",
   "docs/devpost-checklist.md",
@@ -161,6 +162,7 @@ check("Slack UX proof exists", existsSync("docs/slack-ux-proof.md") && readFileS
 check("Slack interaction transcript exists", existsSync("docs/slack-interaction-transcript.md") && readFileSync("docs/slack-interaction-transcript.md", "utf8").includes("Create channel"), "interactive workflow proof");
 check("MCP tool transcript exists", existsSync("docs/mcp-tool-transcript.md") && readFileSync("docs/mcp-tool-transcript.md", "utf8").includes("list_demo_incidents"), "Best Technological Implementation proof");
 check("Recording readiness records PASS", existsSync("docs/recording-readiness.md") && readFileSync("docs/recording-readiness.md", "utf8").includes("Overall result: **PASS**"), "demo proof preflight");
+check("Recording take card exists", existsSync("docs/recording-take-card.md") && readFileSync("docs/recording-take-card.md", "utf8").includes("/signaldesk proof") && readFileSync("docs/recording-take-card.md", "utf8").includes("Runtime: MCP stdio"), "live recording operator card");
 check("demo preview screenshot exists", existsSync("docs/demo-preview.png"), "judge-visible static screenshot");
 check("MCP exposes detection plan", mcpServer.includes("build_detection_plan"), "security workflow depth");
 check("MCP exposes impact summary", mcpServer.includes("build_impact_summary"), "Agent for Good impact proof");

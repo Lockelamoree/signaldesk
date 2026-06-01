@@ -47,6 +47,7 @@ The tiebreak starts with technological implementation, so this repo prioritizes 
 - Static demo preview: `docs/demo-preview.html`.
 - Static demo screenshot: `docs/demo-preview.png`.
 - Recording readiness preflight: `docs/recording-readiness.md`.
+- Recording take card: `docs/recording-take-card.md`.
 - Video package: `docs/video-package.md`.
 - Demo thumbnail: `docs/thumbnail.png` with editable source at `docs/thumbnail.svg`.
 - GitHub launch checklist: `npm.cmd run github:launch:check`, then `npm.cmd run github:launch:strict` after the first public push.

@@ -74,6 +74,7 @@ Upload `docs/demo-captions.vtt` after the video is cut. The captions end at 2:52
 - If you need restart recovery during the synthetic demo, set `SIGNALDESK_PERSIST_BRIEFS=1` only while using synthetic data; it writes button state under `artifacts/private/`.
 - Keep `docs/impact-evaluation.md` open for the Potential Impact proof if the final cut needs a quick evidence receipt.
 - Run `npm.cmd run recording:check` before the final take and keep `docs/recording-readiness.md` open as the recording preflight.
+- Keep `docs/recording-take-card.md` visible during the final take so the first 60 seconds show Slack proof, `/signaldesk proof`, MCP runtime, and the channel handoff in order.
 - Use `docs/demo-preview.png` only as a storyboard fallback; final video still needs live Slack sandbox footage.
 - Regenerate the storyboard screenshot with `npm.cmd run demo:preview:screenshot` after preview HTML changes.
 - Run `npm.cmd run demo:thumbnail:check` before uploading the video thumbnail.

@@ -13,6 +13,7 @@ Overall result: **PASS**
 | recording file docs/demo-script.md | PASS | required recording artifact |
 | recording file docs/demo-transcript.md | PASS | required recording artifact |
 | recording file docs/video-package.md | PASS | required recording artifact |
+| recording file docs/recording-take-card.md | PASS | required recording artifact |
 | recording file docs/rules-compliance.md | PASS | required recording artifact |
 | recording file docs/demo-captions.vtt | PASS | required recording artifact |
 | recording file docs/thumbnail.png | PASS | required recording artifact |
@@ -32,6 +33,11 @@ Overall result: **PASS**
 | shot order includes incident channel creation | PASS | complete Slack workflow |
 | shot order includes MCP proof | PASS | integration proof |
 | shot order includes impact close | PASS | Agent for Good close |
+| recording take card includes first-minute proof order | PASS | live operator card |
+| recording take card includes Slack handoff proof | PASS | Slack workflow proof |
+| recording take card includes terminal proof | PASS | MCP proof |
+| recording take card includes impact and safety boundaries | PASS | demo safety |
+| recording take card includes final submission actions | PASS | post-recording closeout |
 | rules compliance map covers video restrictions | PASS | official rules preflight |
 | demo script names live sandbox requirement | PASS | evidence boundary |
 | demo script includes short demo fallback command | PASS | recording fallback |
@@ -70,6 +76,7 @@ Overall result: **PASS**
 - Rules compliance check from `npm.cmd run rules:check` before final upload.
 - App Home `Demo guide` or `Proof checklist` modal in the first 30 seconds.
 - `/signaldesk proof` checklist, then message shortcut or `/signaldesk demo` flow immediately after App Home proof.
+- `docs/recording-take-card.md` visible or rehearsed so the live take preserves proof order.
 - `Runtime: MCP stdio` visible in the incident brief.
 - Evidence IDs, claim audit, detection checks, first-response readiness, and guardrails.
 - `Create channel` action and the incident kickoff message.

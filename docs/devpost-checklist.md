@@ -50,6 +50,7 @@
 - Online public-link transcript from `npm.cmd run submission:final:online`.
 - Video title/description/shot order from `docs/video-package.md`.
 - Recording readiness preflight from `npm.cmd run recording:check` and `docs/recording-readiness.md`.
+- Recording take card from `docs/recording-take-card.md`.
 - Upload-ready demo thumbnail from `docs/thumbnail.png`; editable source at `docs/thumbnail.svg`.
 - Uploadable captions from `docs/demo-captions.vtt`.
 - Devpost form validation transcript from `npm.cmd run devpost:form:check`.

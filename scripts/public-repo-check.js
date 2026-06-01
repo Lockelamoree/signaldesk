@@ -33,6 +33,7 @@ const requiredFiles = [
   "docs/demo-captions.vtt",
   "docs/demo-preview.png",
   "docs/recording-readiness.md",
+  "docs/recording-take-card.md",
   "docs/devpost-form.md",
   "docs/thumbnail.svg",
   "docs/thumbnail.png",
@@ -78,6 +79,7 @@ check("Slack interaction transcript maps buttons", contains("docs/slack-interact
 check("MCP transcript maps all tools", contains("docs/mcp-tool-transcript.md", "triage_slack_alert") && contains("docs/mcp-tool-transcript.md", "list_demo_incidents"), "Best Technological Implementation artifact");
 check("Impact evaluation records PASS", contains("docs/impact-evaluation.md", "Overall result: **PASS**"), "Agent for Good impact proof");
 check("Recording readiness records PASS", contains("docs/recording-readiness.md", "Overall result: **PASS**"), "demo proof preflight");
+check("Recording take card names live proof order", contains("docs/recording-take-card.md", "/signaldesk proof") && contains("docs/recording-take-card.md", "Runtime: MCP stdio") && contains("docs/recording-take-card.md", "Create channel"), "demo operator card");
 check("GitHub settings include topics", contains("docs/github-repo-settings.md", "incident-response"), "discoverability");
 check("Judge proof records PASS", contains("docs/judge-proof.md", "Overall result: **PASS**"), "latest proof pack");
 
