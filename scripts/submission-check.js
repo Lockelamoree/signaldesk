@@ -20,6 +20,7 @@ const requiredFiles = [
   "docs/slack-interaction-transcript.md",
   "docs/mcp-tool-transcript.md",
   "docs/github-repo-settings.md",
+  "docs/live-gate-handoff.md",
   "docs/demo-script.md",
   "docs/demo-captions.vtt",
   "docs/demo-transcript.md",
@@ -137,6 +138,7 @@ check("README links judge quickstart", readme.includes("docs/judge-quickstart.md
 check("README embeds demo preview screenshot", readme.includes("docs/demo-preview.png"), "judge-visible first screen");
 check("README labels preview as storyboard", readme.includes("storyboard preview"), "evidence boundary");
 check("README names GitHub launch gate", readme.includes("github:launch:check"), "public repo launch safety");
+check("README names live account-gate handoff", readme.includes("docs/live-gate-handoff.md"), "Max-owned account gates");
 check("README names safe final URL setter", readme.includes("submission:set-urls"), "final URL replacement");
 check("README names Devpost paste bundle", readme.includes("submission:bundle"), "paste-ready submission packet");
 check("README names live gate status", readme.includes("submission:live-gates"), "external gate packet");
@@ -145,6 +147,7 @@ check("Devpost copy names MCP", devpostCopy.includes("Model Context Protocol") |
 check("Devpost form exists", existsSync("docs/devpost-form.md"), "paste-ready fields");
 check("Rules compliance map exists", existsSync("docs/rules-compliance.md") && readFileSync("docs/rules-compliance.md", "utf8").includes("Manual Final Attestations"), "official rules proof");
 check("Judge quickstart exists", existsSync("docs/judge-quickstart.md") && readFileSync("docs/judge-quickstart.md", "utf8").includes("Live Slack Sandbox Proof"), "judge test path");
+check("live handoff names required URLs", existsSync("docs/live-gate-handoff.md") && readFileSync("docs/live-gate-handoff.md", "utf8").includes("GitHub remote URL") && readFileSync("docs/live-gate-handoff.md", "utf8").includes("Slack sandbox URL"), "Max-owned account gates");
 check("Impact evaluation records PASS", existsSync("docs/impact-evaluation.md") && readFileSync("docs/impact-evaluation.md", "utf8").includes("Overall result: **PASS**"), "Potential Impact proof");
 check("Bonus prize map exists", existsSync("docs/bonus-prize-map.md") && readFileSync("docs/bonus-prize-map.md", "utf8").includes("Most Innovative Slack Agent"), "side-prize proof");
 check("Slack UX proof exists", existsSync("docs/slack-ux-proof.md") && readFileSync("docs/slack-ux-proof.md", "utf8").includes("Proof Checklist Modal"), "Best UX proof");

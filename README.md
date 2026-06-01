@@ -49,6 +49,7 @@ The tiebreak starts with technological implementation, so this repo prioritizes 
 - Video package: `docs/video-package.md`.
 - Demo thumbnail: `docs/thumbnail.png` with editable source at `docs/thumbnail.svg`.
 - GitHub launch checklist: `npm.cmd run github:launch:check`, then `npm.cmd run github:launch:strict` after the first public push.
+- Live account-gate handoff for Max: `docs/live-gate-handoff.md`.
 - Judge evidence matrix: `docs/judge-evidence-matrix.md`.
 - Bonus prize map: `docs/bonus-prize-map.md`.
 - Slack UX proof: `docs/slack-ux-proof.md`.
@@ -202,6 +203,7 @@ Expected result: the App Home tab shows the judge test path plus clickable `Demo
 - Public repo readiness output from `npm.cmd run repo:public:check`.
 - GitHub launch check from `npm.cmd run github:launch:check`; after the first push, strict output from `npm.cmd run github:launch:strict`.
 - Live gate status from `npm.cmd run submission:live-gates`.
+- Live account-gate handoff from `docs/live-gate-handoff.md`.
 - Demo thumbnail from `docs/thumbnail.png`, with editable source at `docs/thumbnail.svg`.
 - Paste-ready Devpost fields from `docs/devpost-form.md`.
 - Generated Devpost paste bundle from `npm.cmd run submission:bundle`.

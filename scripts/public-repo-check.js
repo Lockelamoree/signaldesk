@@ -18,6 +18,7 @@ const requiredFiles = [
   ".gitignore",
   ".github/workflows/ci.yml",
   "docs/github-repo-settings.md",
+  "docs/live-gate-handoff.md",
   "docs/rules-compliance.md",
   "docs/judge-quickstart.md",
   "docs/impact-evaluation.md",
@@ -64,6 +65,7 @@ check(".gitignore excludes .env", contains(".gitignore", ".env"), "secret hygien
 check(".gitignore keeps .env.example", contains(".gitignore", "!.env.example"), "setup usability");
 check(".gitignore excludes private artifacts", contains(".gitignore", "artifacts/private/"), "private evidence hygiene");
 check("GitHub settings include repo description", contains("docs/github-repo-settings.md", "MCP-backed Slack incident triage"), "public repo metadata");
+check("Live handoff names account-bound gates", contains("docs/live-gate-handoff.md", "GitHub remote URL") && contains("docs/live-gate-handoff.md", "Slack sandbox URL") && contains("docs/live-gate-handoff.md", "Demo video URL"), "external gate handoff");
 check("Rules compliance map covers video and sandbox", contains("docs/rules-compliance.md", "less than three minutes") && contains("docs/rules-compliance.md", "Slack developer sandbox URL"), "official rules map");
 check("Judge quickstart maps local and live proof", contains("docs/judge-quickstart.md", "npm.cmd run verify") && contains("docs/judge-quickstart.md", "Live Slack Sandbox Proof"), "judge test path");
 check("Judge evidence matrix maps rubric", contains("docs/judge-evidence-matrix.md", "Technological Implementation"), "rubric evidence map");

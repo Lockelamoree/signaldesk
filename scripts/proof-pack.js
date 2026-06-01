@@ -121,6 +121,7 @@ function formatMarkdown(proof) {
     "- `docs/slack-interaction-transcript.md`: Slack button and incident-channel interaction transcript.",
     "- `docs/mcp-tool-transcript.md`: full MCP tool-call transcript for every SignalDesk MCP tool.",
     "- `docs/github-repo-settings.md`: public repository metadata and launch checklist.",
+    "- `docs/live-gate-handoff.md`: account-bound handoff for public repo, Slack sandbox, video upload, and Devpost URLs.",
     "- `docs/demo-script.md`, `docs/demo-captions.vtt`, `docs/demo-preview.png`, and `docs/video-package.md`: three-minute demo plan.",
     "- `docs/recording-readiness.md`: final recording preflight for proof moments, readable assets, and sandbox access reminders.",
     "- `docs/thumbnail.svg` and `docs/thumbnail.png`: 1280x720 demo thumbnail showing completed MCP-backed triage.",

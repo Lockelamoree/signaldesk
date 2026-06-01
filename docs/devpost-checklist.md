@@ -16,6 +16,7 @@
 
 - Public GitHub repository with README, setup steps, architecture, and screenshots.
 - Public GitHub repo settings from `docs/github-repo-settings.md`.
+- Live account-gate handoff for Max from `docs/live-gate-handoff.md`.
 - GitHub launch check from `npm.cmd run github:launch:check`, then strict post-push check from `npm.cmd run github:launch:strict`.
 - A short "How judges can test" section.
 - Judge quickstart (`docs/judge-quickstart.md`).
