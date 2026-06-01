@@ -1,0 +1,28 @@
+WEBVTT
+
+00:00.000 --> 00:12.000
+Small teams coordinate security incidents in Slack, but many do not have a dedicated SOC.
+
+00:12.000 --> 00:28.000
+SignalDesk starts where the report already lives: a Slack message, shortcut, mention, or slash command.
+
+00:28.000 --> 00:46.000
+The Slack brief is backed by MCP stdio. It extracts indicators, assigns severity, and names candidate ATT&CK techniques.
+
+00:46.000 --> 01:08.000
+Every important claim points back to evidence IDs, so the agent helps responders reason without inventing facts.
+
+01:08.000 --> 01:30.000
+The Create channel action turns triage into a coordination space with owners, a kickoff message, and next actions.
+
+01:30.000 --> 01:52.000
+Evidence, detections, readiness, guardrails, and report export keep the incident handoff grounded and repeatable.
+
+01:52.000 --> 02:18.000
+The MCP smoke tests show the same triage engine available through triage, impact, evidence, detection plan, and report tools.
+
+02:18.000 --> 02:44.000
+SignalDesk does not replace responders. It gives under-resourced teams a safer first 15 minutes in Slack.
+
+02:44.000 --> 02:52.000
+That means preserved evidence, clear ownership, concrete log checks, and no unsupported claims.

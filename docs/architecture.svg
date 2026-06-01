@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="680" viewBox="0 0 1180 680" role="img" aria-labelledby="title desc">
+  <title id="title">SignalDesk Architecture</title>
+  <desc id="desc">Slack user input flows through a Slack Bolt app into a shared triage core, then returns a Block Kit incident brief with first-response readiness. MCP clients can call the same triage core through a stdio MCP server.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#334155"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .box { fill: #ffffff; stroke: #334155; stroke-width: 2; rx: 8; }
+      .core { fill: #e0f2fe; stroke: #0369a1; stroke-width: 2; rx: 8; }
+      .slack { fill: #f0fdf4; stroke: #15803d; stroke-width: 2; rx: 8; }
+      .mcp { fill: #fff7ed; stroke: #c2410c; stroke-width: 2; rx: 8; }
+      .title { font: 700 24px Arial, sans-serif; fill: #0f172a; }
+      .label { font: 700 16px Arial, sans-serif; fill: #0f172a; }
+      .text { font: 14px Arial, sans-serif; fill: #334155; }
+      .small { font: 12px Arial, sans-serif; fill: #475569; }
+      .line { stroke: #334155; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1180" height="680"/>
+  <text class="title" x="40" y="52">SignalDesk Architecture</text>
+  <text class="text" x="40" y="82">Slack-native security incident triage with a shared deterministic core and MCP tool interface.</text>
+
+  <rect class="slack" x="60" y="150" width="220" height="130"/>
+  <text class="label" x="85" y="188">Slack User</text>
+  <text class="text" x="85" y="218">/signaldesk command</text>
+  <text class="text" x="85" y="242">@SignalDesk mention</text>
+  <text class="small" x="85" y="266">Suspicious message or alert</text>
+
+  <rect class="slack" x="360" y="150" width="230" height="130"/>
+  <text class="label" x="388" y="188">Slack Bolt App</text>
+  <text class="text" x="388" y="218">Socket Mode</text>
+  <text class="text" x="388" y="242">Slash commands</text>
+  <text class="small" x="388" y="266">MCP-mode triage runtime</text>
+
+  <rect class="core" x="690" y="135" width="260" height="160"/>
+  <text class="label" x="720" y="174">Shared Triage Core</text>
+  <text class="text" x="720" y="206">Indicators + severity</text>
+  <text class="text" x="720" y="230">Scenario classification</text>
+  <text class="text" x="720" y="254">ATT&amp;CK candidates</text>
+  <text class="small" x="720" y="278">Evidence, detections, readiness</text>
+
+  <rect class="slack" x="860" y="395" width="250" height="140"/>
+  <text class="label" x="890" y="432">Slack Incident Brief</text>
+  <text class="text" x="890" y="462">Severity + indicators</text>
+  <text class="text" x="890" y="486">Roles + next actions</text>
+  <text class="small" x="890" y="512">Readiness / detections / report</text>
+
+  <rect class="mcp" x="360" y="405" width="230" height="130"/>
+  <text class="label" x="388" y="442">MCP Server</text>
+  <text class="text" x="388" y="472">stdio transport</text>
+  <text class="text" x="388" y="496">triage_slack_alert</text>
+  <text class="small" x="388" y="520">Triage, detection, impact tools</text>
+
+  <rect class="mcp" x="60" y="405" width="220" height="130"/>
+  <text class="label" x="88" y="442">Agent Client</text>
+  <text class="text" x="88" y="472">Discovers MCP tools</text>
+  <text class="text" x="88" y="496">Calls triage workflow</text>
+  <text class="small" x="88" y="520">Same output contract</text>
+
+  <path class="line" d="M280 215 H360"/>
+  <path class="line" d="M590 215 H690"/>
+  <path class="line" d="M820 295 V395"/>
+  <path class="line" d="M280 470 H360"/>
+  <path class="line" d="M590 470 C650 470 650 300 690 260"/>
+  <path class="line" d="M950 215 C1040 230 1070 320 1015 395"/>
+
+  <text class="small" x="304" y="202">Slack payload</text>
+  <text class="small" x="612" y="202">normalized alert</text>
+  <text class="small" x="832" y="350">Block Kit response</text>
+  <text class="small" x="300" y="458">JSON-RPC over stdio</text>
+  <text class="small" x="633" y="430">same triage engine</text>
+</svg>

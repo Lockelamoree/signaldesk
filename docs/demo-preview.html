@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SignalDesk Demo Preview</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1d1c1d;
+      --muted: #616061;
+      --line: #d6d3d6;
+      --surface: #ffffff;
+      --sidebar: #3f0e40;
+      --channel: #f8f8f8;
+      --accent: #1264a3;
+      --good: #007a5a;
+      --warn: #e01e5a;
+      --audit: #f6f6f6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: #e8e8e8;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 250px 1fr 360px;
+      background: var(--surface);
+    }
+
+    .sidebar {
+      background: var(--sidebar);
+      color: #fff;
+      padding: 18px 16px;
+    }
+
+    .workspace {
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 22px;
+    }
+
+    .nav-item {
+      padding: 8px 10px;
+      border-radius: 6px;
+      margin: 4px 0;
+      color: rgba(255, 255, 255, 0.84);
+      font-size: 14px;
+    }
+
+    .nav-item.active {
+      background: #1164a3;
+      color: #fff;
+    }
+
+    .channel-view {
+      background: var(--surface);
+      border-right: 1px solid var(--line);
+      min-width: 0;
+    }
+
+    .channel-header {
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .channel-header h1 {
+      font-size: 18px;
+      margin: 0 0 4px;
+    }
+
+    .channel-header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .proof-badge {
+      border: 1px solid #b7e1d2;
+      background: #effaf6;
+      color: #0b684f;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .messages {
+      padding: 18px 22px 36px;
+    }
+
+    .message {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: #36c5f0;
+      color: #063047;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+    }
+
+    .meta {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .meta strong {
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    .slash {
+      border: 1px solid var(--line);
+      background: var(--channel);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .brief {
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--warn);
+      border-radius: 8px;
+      padding: 16px;
+      max-width: 860px;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+    }
+
+    .brief h2 {
+      font-size: 18px;
+      margin: 0 0 10px;
+    }
+
+    .brief p {
+      margin: 0 0 12px;
+      line-height: 1.45;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .field {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px;
+      min-height: 62px;
+      background: #fbfbfb;
+    }
+
+    .field b {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .field span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .section-title {
+      font-weight: 700;
+      margin-top: 14px;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    ul {
+      margin: 6px 0 0;
+      padding-left: 20px;
+      line-height: 1.45;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .button {
+      border: 1px solid #8d8d8e;
+      background: #fff;
+      border-radius: 6px;
+      padding: 7px 11px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .button.primary {
+      border-color: var(--good);
+      background: var(--good);
+      color: #fff;
+    }
+
+    .side-panel {
+      background: #f7f7f7;
+      padding: 18px 18px 24px;
+      overflow: auto;
+    }
+
+    .panel-card {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .panel-card h3 {
+      margin: 0 0 10px;
+      font-size: 15px;
+    }
+
+    .mini {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .code {
+      background: var(--audit);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+
+    @media (max-width: 1100px) {
+      .app {
+        grid-template-columns: 210px 1fr;
+      }
+
+      .side-panel {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .grid,
+      .side-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .channel-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <aside class="sidebar">
+      <div class="workspace">Helping Hands Org</div>
+      <div class="nav-item"># general</div>
+      <div class="nav-item active"># security-help</div>
+      <div class="nav-item"># ops</div>
+      <div class="nav-item"># volunteer-support</div>
+    </aside>
+
+    <section class="channel-view">
+      <header class="channel-header">
+        <div>
+          <h1># security-help</h1>
+          <p>Nonprofit operations team - synthetic demo data - storyboard preview, not live Slack proof - message shortcut flow</p>
+        </div>
+        <div class="proof-badge">MCP + Slack Block Kit - evidence-gated</div>
+      </header>
+
+      <div class="messages">
+        <article class="message">
+          <div class="avatar">M</div>
+          <div>
+            <div class="meta"><strong>Max</strong> 10:14 AM</div>
+            <div class="slash">/signaldesk demo</div>
+          </div>
+        </article>
+
+        <article class="message">
+          <div class="avatar">M</div>
+          <div>
+            <div class="meta"><strong>Max</strong> 10:14 AM</div>
+            <div class="slash">Message shortcut selected: Triage with SignalDesk</div>
+          </div>
+        </article>
+
+        <article class="message">
+          <div class="avatar">S</div>
+          <div class="brief">
+            <div class="meta"><strong>SignalDesk</strong> 10:14 AM</div>
+            <h2>SignalDesk: HIGH triage</h2>
+            <p><b>Summary</b><br>HIGH confidence triage for Token or OAuth Exposure; extracted 1 URL(s), 1 IP address(es).</p>
+            <div class="grid">
+              <div class="field"><b>Scenario</b><span>Token or OAuth Exposure</span></div>
+              <div class="field"><b>Severity Score</b><span>100/100</span></div>
+              <div class="field"><b>Runtime</b><span>MCP stdio</span></div>
+              <div class="field"><b>Suggested Channel</b><span>#inc-token-exposure</span></div>
+            </div>
+            <div class="section-title">Indicators</div>
+            <ul>
+              <li>URL: https://donor-login.example.bad/reset</li>
+              <li>IP: 198.51.100.23</li>
+              <li>Domain: donor-login.example.bad</li>
+            </ul>
+            <div class="section-title">Candidate ATT&CK Techniques</div>
+            <ul>
+              <li>T1566 Phishing</li>
+              <li>T1528 Steal Application Access Token</li>
+            </ul>
+            <div class="section-title">Evidence IDs</div>
+            <ul>
+              <li>EV-001: source_report</li>
+              <li>EV-002: indicator_ips</li>
+              <li>EV-003: indicator_domains</li>
+              <li>EV-004: indicator_urls</li>
+            </ul>
+            <div class="section-title">Claim Audit</div>
+            <ul>
+              <li>CL-001 [candidate]: Scenario is most consistent with Token or OAuth Exposure.</li>
+              <li>CL-002 [deterministic]: Severity is high based on extracted indicators and risk keywords.</li>
+              <li>CL-004 [guardrail]: Compromise, attribution, and impact are not confirmed until logs validate them.</li>
+            </ul>
+            <div class="section-title">Detection Checks</div>
+            <ul>
+              <li>DET-001: Slack message history and audit logs (EV-001)</li>
+              <li>DET-002: Identity provider sign-in logs (EV-001, EV-002)</li>
+              <li>DET-004: DNS resolver and web proxy logs (EV-001, EV-003, EV-004)</li>
+            </ul>
+            <div class="section-title">First-Response Readiness</div>
+            <ul>
+              <li>100/100 strong readiness from evidence, detections, roles, guardrails, and Slack coordination.</li>
+              <li>Live impact still requires responders to validate logs and execute containment.</li>
+            </ul>
+            <div class="section-title">Next Actions</div>
+            <ul>
+              <li>Revoke or rotate exposed tokens if exposure is confirmed.</li>
+              <li>Reset the affected account session and require MFA re-verification.</li>
+              <li>Preserve the original message, thread, timestamps, user IDs, and clicked links.</li>
+              <li>Create a dedicated incident channel and assign owner, comms lead, and evidence lead.</li>
+            </ul>
+            <div class="actions">
+              <span class="button primary">Create channel</span>
+              <span class="button">Take owner</span>
+              <span class="button">Show checklist</span>
+              <span class="button">Evidence</span>
+              <span class="button">Detections</span>
+              <span class="button">Guardrails</span>
+              <span class="button">Report</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="message">
+          <div class="avatar">S</div>
+          <div>
+            <div class="meta"><strong>SignalDesk</strong> 10:15 AM</div>
+            <div class="slash">SignalDesk created #inc-token-exposure and posted the incident kickoff.</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <aside class="side-panel">
+      <div class="panel-card">
+        <h3>Demo Proof Moments</h3>
+        <div class="mini">
+          Show `/signaldesk`, the generated brief, channel creation, evidence, detections, report export, and MCP smoke output. Keep this under 2:55.
+        </div>
+      </div>
+      <div class="panel-card">
+        <h3>MCP Tools</h3>
+        <div class="code">triage_slack_alert
+build_response_checklist
+build_impact_summary
+export_evidence_ledger
+build_detection_plan
+generate_incident_report
+list_demo_incidents</div>
+      </div>
+      <div class="panel-card">
+        <h3>Guardrail</h3>
+        <div class="mini">
+          SignalDesk labels ATT&CK mappings as candidates and does not claim compromise until logs validate impact. A rare case of an agent not trusting user input more than humanity deserves.
+        </div>
+      </div>
+      <div class="panel-card">
+        <h3>Submission Track</h3>
+        <div class="mini">
+          Slack Agent for Good: a safe first 15 minutes for nonprofits, schools, clinics, and community teams without a full SOC.
+        </div>
+      </div>
+    </aside>
+  </main>
+</body>
+</html>

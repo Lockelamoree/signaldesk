@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">SignalDesk demo thumbnail</title>
+  <desc id="desc">A completed Slack incident brief showing MCP-backed security triage, evidence IDs, detection checks, and a create channel action.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#0f172a" flood-opacity="0.18"/>
+    </filter>
+    <style>
+      .bg { fill: #f4f6f8; }
+      .sidebar { fill: #3f0e40; }
+      .channel { fill: #ffffff; }
+      .panel { fill: #ffffff; stroke: #d8dee6; stroke-width: 2; }
+      .brief { fill: #ffffff; stroke: #d8dee6; stroke-width: 2; }
+      .accent { fill: #1264a3; }
+      .green { fill: #007a5a; }
+      .red { fill: #e01e5a; }
+      .muted { fill: #64748b; }
+      .ink { fill: #111827; }
+      .white { fill: #ffffff; }
+      .chip { fill: #effaf6; stroke: #8bd7bd; stroke-width: 2; }
+      .card { fill: #f8fafc; stroke: #d8dee6; stroke-width: 2; }
+      .title { font: 800 58px Arial, sans-serif; letter-spacing: 0; }
+      .subtitle { font: 700 28px Arial, sans-serif; letter-spacing: 0; }
+      .label { font: 700 22px Arial, sans-serif; letter-spacing: 0; }
+      .text { font: 18px Arial, sans-serif; letter-spacing: 0; }
+      .small { font: 16px Arial, sans-serif; letter-spacing: 0; }
+      .mono { font: 700 18px Consolas, "Courier New", monospace; letter-spacing: 0; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1280" height="720"/>
+  <rect class="sidebar" x="0" y="0" width="230" height="720"/>
+  <text class="label white" x="32" y="58">Helping Hands</text>
+  <rect class="accent" x="22" y="116" width="182" height="44" rx="8"/>
+  <text class="small white" x="42" y="144"># security-help</text>
+  <text class="small white" x="42" y="206" opacity="0.78"># ops</text>
+  <text class="small white" x="42" y="250" opacity="0.78"># volunteers</text>
+  <text class="small white" x="42" y="294" opacity="0.78"># general</text>
+
+  <rect class="channel" x="230" y="0" width="1050" height="720"/>
+  <text class="title ink" x="276" y="82">SignalDesk</text>
+  <text class="subtitle muted" x="278" y="123">MCP-backed security triage in Slack</text>
+  <rect class="chip" x="862" y="44" width="320" height="50" rx="10"/>
+  <text class="mono green" x="888" y="76">Runtime: MCP stdio</text>
+
+  <g filter="url(#shadow)">
+    <rect class="brief" x="274" y="158" width="800" height="470" rx="16"/>
+    <rect class="red" x="274" y="158" width="12" height="470" rx="6"/>
+    <text class="label ink" x="318" y="209">SignalDesk: HIGH triage</text>
+    <text class="text muted" x="318" y="246">Token or OAuth Exposure - fake donor portal link</text>
+
+    <rect class="card" x="318" y="280" width="176" height="82" rx="10"/>
+    <text class="small muted" x="338" y="313">Severity</text>
+    <text class="label red" x="338" y="344">100/100</text>
+
+    <rect class="card" x="514" y="280" width="224" height="82" rx="10"/>
+    <text class="small muted" x="534" y="313">Evidence</text>
+    <text class="mono ink" x="534" y="344">EV-001..004</text>
+
+    <rect class="card" x="758" y="280" width="260" height="82" rx="10"/>
+    <text class="small muted" x="778" y="313">Detection Checks</text>
+    <text class="mono green" x="778" y="344">DET-001..005</text>
+
+    <text class="label ink" x="318" y="410">Candidate ATT&amp;CK</text>
+    <text class="text muted" x="318" y="444">T1566 Phishing - T1528 Token Theft</text>
+
+    <text class="label ink" x="318" y="494">Claim Audit</text>
+    <text class="text muted" x="318" y="528">CL-004 guardrail: confirm impact with logs</text>
+
+    <rect class="green" x="318" y="560" width="170" height="46" rx="8"/>
+    <text class="label white" x="343" y="590">Create channel</text>
+    <rect class="panel" x="506" y="560" width="116" height="46" rx="8"/>
+    <text class="label ink" x="532" y="590">Evidence</text>
+    <rect class="panel" x="638" y="560" width="138" height="46" rx="8"/>
+    <text class="label ink" x="663" y="590">Detections</text>
+    <rect class="panel" x="792" y="560" width="104" height="46" rx="8"/>
+    <text class="label ink" x="820" y="590">Report</text>
+  </g>
+
+  <g>
+    <rect class="panel" x="900" y="405" width="270" height="150" rx="16"/>
+    <text class="label ink" x="926" y="446">Proof in one shot</text>
+    <text class="small muted" x="926" y="481">Slack Agent for Good</text>
+    <text class="small muted" x="926" y="512">Readiness 100/100</text>
+    <text class="small muted" x="926" y="543">Evidence-gated response</text>
+  </g>
+</svg>

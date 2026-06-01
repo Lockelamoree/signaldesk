@@ -1,0 +1,11 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.slack/
+dist/
+coverage/
+*.log
+artifacts/private/
+artifacts/demo/
+artifacts/submission/
