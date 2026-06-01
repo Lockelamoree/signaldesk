@@ -120,6 +120,7 @@ function formatMarkdown(proof) {
     "- `docs/bonus-prize-map.md`: side-prize evidence map for Best UX, Most Innovative Slack Agent, and Best Technological Implementation.",
     "- `docs/slack-ux-proof.md`: App Home, help, modal, and safe-error Block Kit receipts.",
     "- `docs/slack-interaction-transcript.md`: Slack button and incident-channel interaction transcript.",
+    "- `docs/slack-interaction-preview.html`: visual contact sheet for Slack button-response proof.",
     "- `docs/mcp-tool-transcript.md`: full MCP tool-call transcript for every SignalDesk MCP tool.",
     "- `docs/github-repo-settings.md`: public repository metadata and launch checklist.",
     "- `docs/live-gate-handoff.md`: account-bound handoff for public repo, Slack sandbox, video upload, and Devpost URLs.",

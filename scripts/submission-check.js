@@ -19,6 +19,7 @@ const requiredFiles = [
   "docs/bonus-prize-map.md",
   "docs/slack-ux-proof.md",
   "docs/slack-interaction-transcript.md",
+  "docs/slack-interaction-preview.html",
   "docs/mcp-tool-transcript.md",
   "docs/github-repo-settings.md",
   "docs/live-gate-handoff.md",
@@ -160,6 +161,7 @@ check("Impact evaluation records PASS", existsSync("docs/impact-evaluation.md") 
 check("Bonus prize map exists", existsSync("docs/bonus-prize-map.md") && readFileSync("docs/bonus-prize-map.md", "utf8").includes("Most Innovative Slack Agent"), "side-prize proof");
 check("Slack UX proof exists", existsSync("docs/slack-ux-proof.md") && readFileSync("docs/slack-ux-proof.md", "utf8").includes("Proof Checklist Modal") && readFileSync("docs/slack-ux-proof.md", "utf8").includes("Slash Proof Checklist"), "Best UX proof");
 check("Slack interaction transcript exists", existsSync("docs/slack-interaction-transcript.md") && readFileSync("docs/slack-interaction-transcript.md", "utf8").includes("Create channel"), "interactive workflow proof");
+check("Slack interaction preview exists", existsSync("docs/slack-interaction-preview.html") && readFileSync("docs/slack-interaction-preview.html", "utf8").includes("Action Response Contact Sheet"), "interactive visual proof");
 check("MCP tool transcript exists", existsSync("docs/mcp-tool-transcript.md") && readFileSync("docs/mcp-tool-transcript.md", "utf8").includes("list_demo_incidents"), "Best Technological Implementation proof");
 check("Recording readiness records PASS", existsSync("docs/recording-readiness.md") && readFileSync("docs/recording-readiness.md", "utf8").includes("Overall result: **PASS**"), "demo proof preflight");
 check("Recording take card exists", existsSync("docs/recording-take-card.md") && readFileSync("docs/recording-take-card.md", "utf8").includes("/signaldesk proof") && readFileSync("docs/recording-take-card.md", "utf8").includes("Runtime: MCP stdio"), "live recording operator card");

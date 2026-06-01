@@ -43,6 +43,7 @@
 - Bonus prize check from `npm.cmd run prize:check`.
 - Slack UX proof from `docs/slack-ux-proof.md`.
 - Slack interaction transcript from `docs/slack-interaction-transcript.md`.
+- Slack interaction visual preview from `docs/slack-interaction-preview.html`.
 - Slack interaction proof from `npm.cmd run slack:interactions:proof`.
 - Public repo readiness transcript from `npm.cmd run repo:public:check`.
 - Safe URL replacement from `npm.cmd run submission:set-urls -- --repo <url> --video <url> --sandbox <url> --devpost <url>`.

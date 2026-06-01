@@ -27,6 +27,7 @@ const requiredFiles = [
   "docs/bonus-prize-map.md",
   "docs/slack-ux-proof.md",
   "docs/slack-interaction-transcript.md",
+  "docs/slack-interaction-preview.html",
   "docs/mcp-tool-transcript.md",
   "docs/judge-proof.md",
   "docs/slack-sandbox-runbook.md",
@@ -76,6 +77,7 @@ check("Judge evidence matrix maps rubric", contains("docs/judge-evidence-matrix.
 check("Bonus prize map names side prizes", contains("docs/bonus-prize-map.md", "Best UX") && contains("docs/bonus-prize-map.md", "Most Innovative Slack Agent") && contains("docs/bonus-prize-map.md", "Best Technological Implementation"), "side-prize evidence map");
 check("Slack UX proof maps modals", contains("docs/slack-ux-proof.md", "Demo Guide Modal") && contains("docs/slack-ux-proof.md", "Proof Checklist Modal"), "Best UX proof artifact");
 check("Slack interaction transcript maps buttons", contains("docs/slack-interaction-transcript.md", "Create channel") && contains("docs/slack-interaction-transcript.md", "Detections") && contains("docs/slack-interaction-transcript.md", "Report"), "interactive workflow artifact");
+check("Slack interaction preview maps buttons", contains("docs/slack-interaction-preview.html", "Action Response Contact Sheet") && contains("docs/slack-interaction-preview.html", "Create channel") && contains("docs/slack-interaction-preview.html", "Detections") && contains("docs/slack-interaction-preview.html", "Report"), "interactive visual artifact");
 check("MCP transcript maps all tools", contains("docs/mcp-tool-transcript.md", "triage_slack_alert") && contains("docs/mcp-tool-transcript.md", "list_demo_incidents"), "Best Technological Implementation artifact");
 check("Impact evaluation records PASS", contains("docs/impact-evaluation.md", "Overall result: **PASS**"), "Agent for Good impact proof");
 check("Recording readiness records PASS", contains("docs/recording-readiness.md", "Overall result: **PASS**"), "demo proof preflight");

@@ -63,7 +63,7 @@ For the judged demo, SignalDesk runs with `SIGNALDESK_TRIAGE_MODE=mcp`, so Slack
 
 SignalDesk is a Node.js Slack app built with Bolt for JavaScript in Socket Mode. The triage core is shared by the Slack app and MCP server, and the Slack runtime can delegate triage through MCP for the live demo. Deterministic parsing extracts URLs, IPs, domains, emails, and hashes; maps likely scenario and candidate ATT&CK techniques; generates evidence IDs, claim IDs, detection IDs, and impact metric IDs; and validates claim-to-evidence references before output is accepted.
 
-The repo includes a judge quickstart, synthetic fixtures, an Agent for Good impact evaluation, rules compliance map, a recording readiness preflight, MCP smoke tests, Slack-to-MCP bridge proof, Slack interaction transcript, Block Kit constraint checks, secret scanning, syntax checks, a judge proof pack, judge evidence matrix, bonus-prize evidence map, architecture diagram, sample report, upload-ready demo thumbnail, uploadable captions, and sandbox runbook.
+The repo includes a judge quickstart, synthetic fixtures, an Agent for Good impact evaluation, rules compliance map, a recording readiness preflight, MCP smoke tests, Slack-to-MCP bridge proof, Slack interaction transcript and visual interaction preview, Block Kit constraint checks, secret scanning, syntax checks, a judge proof pack, judge evidence matrix, bonus-prize evidence map, architecture diagram, sample report, upload-ready demo thumbnail, uploadable captions, and sandbox runbook.
 
 ## Challenges
 
@@ -102,6 +102,7 @@ For security workflows, the fastest path is not always the most autonomous one. 
 - `docs/judge-evidence-matrix.md` available as the rubric-to-proof map.
 - `docs/bonus-prize-map.md` available as the Best UX, Most Innovative Slack Agent, and Best Technological Implementation proof map.
 - `docs/slack-interaction-transcript.md` generated after `npm.cmd run slack:interactions:proof`.
+- `docs/slack-interaction-preview.html` generated after `npm.cmd run slack:interactions:proof`.
 - `docs/impact-evaluation.md` generated after `npm.cmd run impact:evaluate`.
 - `docs/recording-readiness.md` generated after `npm.cmd run recording:check`.
 - Strict sandbox doctor output captured after `npm.cmd run sandbox:doctor -- --strict`.

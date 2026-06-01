@@ -98,6 +98,7 @@ const evidenceArtifacts = [
   ["Bonus prize map", "docs/bonus-prize-map.md"],
   ["Slack UX proof", "docs/slack-ux-proof.md"],
   ["Slack interaction transcript", "docs/slack-interaction-transcript.md"],
+  ["Slack interaction preview", "docs/slack-interaction-preview.html"],
   ["MCP tool transcript", "docs/mcp-tool-transcript.md"],
   ["Impact evaluation", "docs/impact-evaluation.md"],
   ["Recording readiness", "docs/recording-readiness.md"],

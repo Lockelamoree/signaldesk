@@ -40,6 +40,7 @@ Current strengths:
 - App Home gives judges a clear test path before they trigger the workflow.
 - App Home includes clickable Demo guide and Proof checklist modals, reducing judge setup ambiguity inside Slack.
 - Reusable Slack action payload builders and `docs/slack-interaction-transcript.md` prove the button-driven handoff path without requiring live tokens.
+- `docs/slack-interaction-preview.html` gives judges a visual contact sheet for the synthetic button-response states before live screenshots exist.
 - Message shortcut supports triaging a suspicious Slack message in place, reducing copy/paste friction.
 - Required technology proof: Slack can run with `SIGNALDESK_TRIAGE_MODE=mcp` and delegate triage to the MCP `triage_slack_alert` tool.
 - Evidence-gated security posture: SignalDesk says "candidate technique" and "confirm with logs" instead of inventing compromise.
@@ -79,7 +80,7 @@ Current risks:
 Assuming the Slack sandbox flow is demonstrated:
 
 - Technological Implementation: 4.5/5 now, 5/5 if live Slack in MCP mode plus MCP transcript are recorded cleanly.
-- Design: 3.5/5 now, 4.5/5 with polished Slack screenshots and button interactions.
+- Design: 4/5 now with App Home, proof command, interaction transcript, and visual contact sheet; 4.5/5 with polished live Slack screenshots and button interactions.
 - Potential Impact: 4/5 now, 5/5 if the demo opens with the nonprofit/school/clinic first-response problem.
 - Quality of Idea: 4/5 now, 4.5/5 if the submission contrasts clearly against generic Slack chatbots.
 

@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SignalDesk Slack Interaction Preview</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1d1c1d;
+      --muted: #616061;
+      --line: #d6d6d6;
+      --panel: #ffffff;
+      --slack: #4a154b;
+      --green: #007a5a;
+      --blue: #1264a3;
+      --amber: #f2c744;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #f8f8f8;
+      color: var(--ink);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      min-height: 100vh;
+    }
+
+    aside {
+      background: var(--slack);
+      color: #ffffff;
+      padding: 28px 22px;
+    }
+
+    aside h1 {
+      font-size: 20px;
+      line-height: 1.2;
+      margin: 0 0 28px;
+    }
+
+    .channel {
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin: 8px 0;
+      color: #f7f3f7;
+    }
+
+    .channel.active {
+      background: var(--blue);
+    }
+
+    main {
+      padding: 28px;
+    }
+
+    .hero {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-left: 5px solid #e01e5a;
+      border-radius: 8px;
+      padding: 22px;
+      max-width: 1100px;
+    }
+
+    .hero h2 {
+      margin: 0 0 8px;
+      font-size: 26px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(140px, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .meta {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px;
+      background: #fbfbfb;
+    }
+
+    .meta b {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 6px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .button {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px 14px;
+      background: #ffffff;
+      font-weight: 700;
+    }
+
+    .button.primary {
+      background: var(--green);
+      border-color: var(--green);
+      color: #ffffff;
+    }
+
+    .section-title {
+      margin: 28px 0 12px;
+      font-size: 18px;
+    }
+
+    .responses {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(280px, 1fr));
+      gap: 14px;
+      max-width: 1100px;
+    }
+
+    .response-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      min-height: 140px;
+    }
+
+    .response-topline {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .response-topline strong {
+      color: var(--green);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .response-card p {
+      color: var(--muted);
+      line-height: 1.45;
+      margin: 0 0 12px;
+    }
+
+    .terms {
+      border-top: 1px solid var(--line);
+      color: var(--blue);
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+      padding-top: 10px;
+    }
+
+    .notice {
+      background: #fff7d6;
+      border: 1px solid var(--amber);
+      border-radius: 8px;
+      line-height: 1.45;
+      margin-top: 22px;
+      max-width: 1100px;
+      padding: 14px 16px;
+    }
+
+    @media (max-width: 860px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        padding: 18px;
+      }
+
+      .meta-grid,
+      .responses {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside>
+      <h1>SignalDesk Interaction Preview</h1>
+      <div class="channel"># general</div>
+      <div class="channel active"># security-help</div>
+      <div class="channel"># inc-token-exposure</div>
+    </aside>
+    <main>
+      <section class="hero">
+        <h2>Button-driven Slack handoff</h2>
+        <p>HIGH confidence triage for Token or OAuth Exposure; extracted 1 URL(s), 1 IP address(es).</p>
+        <div class="meta-grid">
+          <div class="meta"><b>Runtime</b>mcp via triage_slack_alert</div>
+          <div class="meta"><b>Scenario</b>Token or OAuth Exposure</div>
+          <div class="meta"><b>Severity</b>high 100/100</div>
+          <div class="meta"><b>Channel</b>#inc-token-exposure</div>
+        </div>
+        <div class="actions">
+          <span class="button primary">Create channel</span>
+          <span class="button">Take owner</span>
+          <span class="button">Show checklist</span>
+          <span class="button">Evidence</span>
+          <span class="button">Detections</span>
+          <span class="button">Report</span>
+          <span class="button">Guardrails</span>
+        </div>
+      </section>
+
+      <h3 class="section-title">Action Response Contact Sheet</h3>
+      <section class="responses">
+
+        <article class="response-card">
+          <div class="response-topline">
+            <span>Initial incident brief</span>
+            <strong>in_channel</strong>
+          </div>
+          <p>14 Block Kit blocks, 7 interactive elements, runtime mcp via triage_slack_alert.</p>
+          <div class="terms">MCP stdio | evidence IDs | detection checks</div>
+        </article>
+        <article class="response-card">
+          <div class="response-topline">
+            <span>Take owner</span>
+            <strong>in_channel</strong>
+          </div>
+          <p>Max took incident ownership for Token or OAuth Exposure (high, 100/100). Next: confirm affected users, preserve evidence, and post the first update.</p>
+          <div class="terms">took incident ownership | preserve evidence</div>
+        </article>
+        <article class="response-card">
+          <div class="response-topline">
+            <span>Create channel</span>
+            <strong>in_channel</strong>
+          </div>
+          <p>SignalDesk created #inc-token-exposure and posted the incident kickoff.</p>
+          <div class="terms">created # | incident kickoff</div>
+        </article>
+        <article class="response-card">
+          <div class="response-topline">
+            <span>Show checklist</span>
+            <strong>ephemeral</strong>
+          </div>
+          <p>SignalDesk evidence checklist - Reporter, affected user, and business context - Original Slack permalink or screenshot with timestamps - Identity provider sign-in logs - Endpoint/network telemetry for the affected user - URL/domain reputation and redirect...</p>
+          <div class="terms">SignalDesk evidence checklist | Identity provider sign-in logs</div>
+        </article>
+        <article class="response-card">
+          <div class="response-topline">
+            <span>Evidence</span>
+            <strong>ephemeral</strong>
+          </div>
+          <p>SignalDesk evidence ledger - EV-001: source_report (security-help) - EV-002: indicator_ips (198.51.100.23) - EV-003: indicator_domains (donor-login.example.bad) - EV-004: indicator_urls (https://donor-login.example.bad/reset) Claim audit - CL-001 [candi...</p>
+          <div class="terms">SignalDesk evidence ledger | Claim audit | EV-001</div>
+        </article>
+        <article class="response-card">
+          <div class="response-topline">
+            <span>Detections</span>
+            <strong>ephemeral</strong>
+          </div>
+          <p>SignalDesk detection plan - DET-001: Preserve Slack source context Source: Slack message history and audit logs Evidence: EV-001 Query: message.permalink=&quot;&lt;source_permalink&gt;&quot; OR channel.id=&quot;&lt;reported_channel&gt;&quot; - DET-002: Review sign-ins from extracte...</p>
+          <div class="terms">SignalDesk detection plan | DET-001 | Evidence:</div>
+        </article>
+        <article class="response-card">
+          <div class="response-topline">
+            <span>Report</span>
+            <strong>ephemeral</strong>
+          </div>
+          <p># SignalDesk Incident Report: Token or OAuth Exposure Generated: 2026-06-01T10:13:34.449Z Reporter: interaction-transcript Channel: security-help Severity: HIGH (100/100) Confidence: medium Runtime: MCP stdio via triage_slack_alert ## Executive Summary H...</p>
+          <div class="terms">SignalDesk Incident Report | First-Response Readiness</div>
+        </article>
+        <article class="response-card">
+          <div class="response-topline">
+            <span>Guardrails</span>
+            <strong>ephemeral</strong>
+          </div>
+          <p>SignalDesk guardrails - This is triage, not attribution. - Do not post secrets, raw tokens, or private customer data into shared channels. - Confirm impact with logs before declaring compromise. - Prefer reversible containment before destructive cleanup.</p>
+          <div class="terms">SignalDesk guardrails | Confirm impact with logs</div>
+        </article>
+      </section>
+
+      <section class="notice">
+        Generated 2026-06-01T10:13:34.246Z by <code>npm.cmd run slack:interactions:proof</code>.
+        This is synthetic repo-local proof for judges and recording prep. It does not prove live Slack sandbox delivery.
+      </section>
+    </main>
+  </div>
+</body>
+</html>

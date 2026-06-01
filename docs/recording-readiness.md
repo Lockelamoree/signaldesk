@@ -22,6 +22,7 @@ Overall result: **PASS**
 | recording file docs/impact-evaluation.md | PASS | required recording artifact |
 | recording file docs/slack-ux-proof.md | PASS | required recording artifact |
 | recording file docs/slack-interaction-transcript.md | PASS | required recording artifact |
+| recording file docs/slack-interaction-preview.html | PASS | required recording artifact |
 | recording file docs/mcp-tool-transcript.md | PASS | required recording artifact |
 | recording file docs/slack-sandbox-runbook.md | PASS | required recording artifact |
 | recording file docs/judge-evidence-matrix.md | PASS | required recording artifact |
@@ -51,6 +52,7 @@ Overall result: **PASS**
 | impact evaluation latest result passes | PASS | Potential Impact proof |
 | Slack UX proof includes App Home surfaces | PASS | Best UX proof |
 | Slack interaction transcript covers buttons | PASS | interactive workflow proof |
+| Slack interaction preview covers visual contact sheet | PASS | interactive visual proof |
 | MCP transcript includes every tool | PASS | Best Technological Implementation proof |
 | sandbox runbook includes judge invite emails | PASS | FAQ-aligned access |
 | sandbox runbook includes strict doctor | PASS | live token preflight |
@@ -81,6 +83,7 @@ Overall result: **PASS**
 - Evidence IDs, claim audit, detection checks, first-response readiness, and guardrails.
 - `Create channel` action and the incident kickoff message.
 - Slack interaction transcript from `npm.cmd run slack:interactions:proof` as backup proof for button responses.
+- Slack interaction visual preview from `docs/slack-interaction-preview.html` as a backup contact sheet for button responses.
 - Terminal proof from `npm.cmd run smoke:slack-mcp`, `npm.cmd run smoke:mcp`, and `npm.cmd run impact:evaluate`.
 - Full MCP tool transcript from `npm.cmd run mcp:transcript`.
 - Judge sandbox access for `slackhack@salesforce.com` and `testing@devpost.com` as workspace Members.

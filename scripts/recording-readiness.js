@@ -41,6 +41,7 @@ const judgeProof = read("docs/judge-proof.md");
 const impactEvaluation = read("docs/impact-evaluation.md");
 const slackUxProof = read("docs/slack-ux-proof.md");
 const slackInteractionTranscript = read("docs/slack-interaction-transcript.md");
+const slackInteractionPreview = read("docs/slack-interaction-preview.html");
 const mcpTranscript = read("docs/mcp-tool-transcript.md");
 const sandboxRunbook = read("docs/slack-sandbox-runbook.md");
 const matrix = read("docs/judge-evidence-matrix.md");
@@ -60,6 +61,7 @@ const requiredFiles = [
   "docs/impact-evaluation.md",
   "docs/slack-ux-proof.md",
   "docs/slack-interaction-transcript.md",
+  "docs/slack-interaction-preview.html",
   "docs/mcp-tool-transcript.md",
   "docs/slack-sandbox-runbook.md",
   "docs/judge-evidence-matrix.md",
@@ -112,6 +114,15 @@ check("Slack interaction transcript covers buttons", containsAll(slackInteractio
   "Guardrails",
   "Private synthetic brief recovery"
 ]), "interactive workflow proof");
+check("Slack interaction preview covers visual contact sheet", containsAll(slackInteractionPreview, [
+  "SignalDesk Interaction Preview",
+  "Action Response Contact Sheet",
+  "Create channel",
+  "Evidence",
+  "Detections",
+  "Report",
+  "synthetic repo-local proof"
+]), "interactive visual proof");
 check("MCP transcript includes every tool", containsAll(mcpTranscript, [
   "triage_slack_alert",
   "build_response_checklist",
@@ -173,6 +184,7 @@ const markdown = [
   "- Evidence IDs, claim audit, detection checks, first-response readiness, and guardrails.",
   "- `Create channel` action and the incident kickoff message.",
   "- Slack interaction transcript from `npm.cmd run slack:interactions:proof` as backup proof for button responses.",
+  "- Slack interaction visual preview from `docs/slack-interaction-preview.html` as a backup contact sheet for button responses.",
   "- Terminal proof from `npm.cmd run smoke:slack-mcp`, `npm.cmd run smoke:mcp`, and `npm.cmd run impact:evaluate`.",
   "- Full MCP tool transcript from `npm.cmd run mcp:transcript`.",
   "- Judge sandbox access for `slackhack@salesforce.com` and `testing@devpost.com` as workspace Members.",

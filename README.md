@@ -56,6 +56,7 @@ The tiebreak starts with technological implementation, so this repo prioritizes 
 - Bonus prize map: `docs/bonus-prize-map.md`.
 - Slack UX proof: `docs/slack-ux-proof.md`.
 - Slack interaction transcript: `docs/slack-interaction-transcript.md`.
+- Slack interaction visual preview: `docs/slack-interaction-preview.html`.
 - MCP tool transcript: `docs/mcp-tool-transcript.md`.
 - Judge proof pack: `docs/judge-proof.md`.
 - Sample incident report: `docs/sample-incident-report.md`.

@@ -71,6 +71,7 @@ Upload `docs/demo-captions.vtt` after the video is cut. The captions end at 2:52
 - Keep `npm.cmd run check:block-kit` output available if you need to prove the Slack payload is within Block Kit limits.
 - Keep `docs/judge-proof.md` open as backup proof if terminal output is too dense for the recording.
 - Keep `docs/slack-interaction-transcript.md` open if a Slack button click is slow or needs a quick repo-local receipt.
+- Keep `docs/slack-interaction-preview.html` open as a visual backup for the button-response contact sheet.
 - If you need restart recovery during the synthetic demo, set `SIGNALDESK_PERSIST_BRIEFS=1` only while using synthetic data; it writes button state under `artifacts/private/`.
 - Keep `docs/impact-evaluation.md` open for the Potential Impact proof if the final cut needs a quick evidence receipt.
 - Run `npm.cmd run recording:check` before the final take and keep `docs/recording-readiness.md` open as the recording preflight.

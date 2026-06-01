@@ -51,7 +51,7 @@ The MCP server uses the official Model Context Protocol TypeScript SDK over stdi
 
 Every incident brief includes an evidence ledger (`EV-001`, `EV-002`, etc.), claims (`CL-001`, `CL-002`, etc.), detection opportunities (`DET-001`, `DET-002`, etc.) that cite evidence IDs, and first-response readiness metrics (`IM-001`, `IM-002`, etc.) that separate output completeness from live impact proof. The validator rejects unknown evidence IDs and invalid field references.
 
-Slack-only workflow behavior is also covered locally: message shortcut text extraction, Slack-safe channel naming, channel creation success, name-collision retry, missing-scope handling, and reusable action payloads are tested with fake Slack clients before the live sandbox run. `docs/slack-interaction-transcript.md` records the ownership, channel creation, checklist, evidence, detections, report, and guardrail button responses.
+Slack-only workflow behavior is also covered locally: message shortcut text extraction, Slack-safe channel naming, channel creation success, name-collision retry, missing-scope handling, and reusable action payloads are tested with fake Slack clients before the live sandbox run. `docs/slack-interaction-transcript.md` records the ownership, channel creation, checklist, evidence, detections, report, and guardrail button responses; `docs/slack-interaction-preview.html` gives judges a visual contact sheet for those synthetic button states.
 Generated Block Kit payloads are also checked against Slack message, section, action, and button limits before recording.
 
 ## Slack Technology Used
@@ -89,7 +89,7 @@ The hardest design tradeoff was keeping the output useful without pretending det
 - Recording readiness preflight that verifies the final video package shows Slack proof, MCP runtime, evidence IDs, readiness, and sandbox access requirements before the final take.
 - Judge quickstart that gives reviewers the shortest local proof path and separates repo-local evidence from live sandbox gates.
 - Slack UX proof artifact that validates App Home, help, modal, and safe-error Block Kit surfaces before live sandbox recording.
-- Slack interaction transcript proving the button-driven handoff path before live sandbox recording.
+- Slack interaction transcript and visual preview proving the button-driven handoff path before live sandbox recording.
 - Rules compliance map for video host, sandbox access, sensitive-data controls, and final manual attestations.
 - Synthetic fixture validation for multiple incident categories.
 - Slack Block Kit response with clear roles and action buttons.

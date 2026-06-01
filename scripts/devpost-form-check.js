@@ -105,6 +105,7 @@ check("what-it-does names demo help", whatItDoes.includes("demo help"), "judge n
 check("what-it-does names readiness metrics", whatItDoes.includes("first-response readiness"), "impact proof");
 check("how-built names Slack-to-MCP bridge", howBuilt.includes("Slack-to-MCP bridge"), "runtime proof");
 check("how-built names Slack interaction transcript", howBuilt.includes("Slack interaction transcript"), "interactive workflow proof");
+check("how-built names visual interaction preview", howBuilt.includes("visual interaction preview"), "interactive visual proof");
 check("how-built names rules compliance map", howBuilt.includes("rules compliance map"), "official rules proof");
 check("how-built names impact evaluation", howBuilt.includes("Agent for Good impact evaluation"), "Potential Impact proof");
 check("how-built names bonus-prize map", howBuilt.includes("bonus-prize evidence map"), "side-prize proof");
@@ -112,6 +113,7 @@ check("evidence checklist names judge proof", evidence.includes("docs/judge-proo
 check("evidence checklist names judge quickstart", evidence.includes("docs/judge-quickstart.md"), "judge test artifact");
 check("evidence checklist names bonus prize map", evidence.includes("docs/bonus-prize-map.md"), "side-prize artifact");
 check("evidence checklist names interaction transcript", evidence.includes("docs/slack-interaction-transcript.md"), "interactive workflow artifact");
+check("evidence checklist names interaction preview", evidence.includes("docs/slack-interaction-preview.html"), "interactive visual artifact");
 check("evidence checklist names rules compliance", evidence.includes("docs/rules-compliance.md"), "official rules artifact");
 check("evidence checklist names impact evaluation", evidence.includes("docs/impact-evaluation.md"), "Potential Impact artifact");
 check("evidence checklist names recording readiness", evidence.includes("docs/recording-readiness.md"), "demo preflight artifact");

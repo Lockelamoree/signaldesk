@@ -18,6 +18,7 @@ const map = read("docs/bonus-prize-map.md");
 const packageJson = JSON.parse(read("package.json"));
 const slackUxProof = read("docs/slack-ux-proof.md");
 const slackInteractionTranscript = read("docs/slack-interaction-transcript.md");
+const slackInteractionPreview = read("docs/slack-interaction-preview.html");
 const mcpTranscript = read("docs/mcp-tool-transcript.md");
 const impactEvaluation = read("docs/impact-evaluation.md");
 const judgeMatrix = read("docs/judge-evidence-matrix.md");
@@ -32,6 +33,7 @@ check("map links UX evidence", containsAll(map, [
   "/signaldesk proof",
   "docs/slack-ux-proof.md",
   "docs/slack-interaction-transcript.md",
+  "docs/slack-interaction-preview.html",
   "npm.cmd run slack:ux:proof",
   "npm.cmd run slack:interactions:proof",
   "npm.cmd run check:block-kit"
@@ -67,6 +69,13 @@ check("Slack interaction transcript supports Best UX", containsAll(slackInteract
   "Report",
   "Guardrails"
 ]), "docs/slack-interaction-transcript.md");
+check("Slack interaction preview supports Best UX", containsAll(slackInteractionPreview, [
+  "Action Response Contact Sheet",
+  "Create channel",
+  "Evidence",
+  "Detections",
+  "Report"
+]), "docs/slack-interaction-preview.html");
 check("MCP transcript supports technology prize", containsAll(mcpTranscript, [
   "triage_slack_alert",
   "build_response_checklist",
