@@ -39,6 +39,7 @@ The tiebreak starts with technological implementation, so this repo prioritizes 
 - Paste-ready Devpost form pack: `docs/devpost-form.md`.
 - Generated Devpost paste bundle: `artifacts/submission/devpost-paste-bundle.md` from `npm.cmd run submission:bundle`.
 - Live gate status packet: `artifacts/submission/live-gate-status.md` from `npm.cmd run submission:live-gates`.
+- Judge one-pager: `docs/judge-one-pager.md`.
 - Judge quickstart: `docs/judge-quickstart.md`.
 - Agent for Good impact evaluation: `docs/impact-evaluation.md`.
 - Demo transcript: `docs/demo-transcript.md`.
@@ -193,6 +194,7 @@ Expected result: the App Home tab shows the judge test path plus clickable `Demo
 - Screenshots of `/signaldesk`, the MCP tool call, the detection plan, and the final incident brief.
 - Static preview screenshot from `docs/demo-preview.png`, clearly labeled as repo-local storyboard proof.
 - Judge quickstart from `docs/judge-quickstart.md`.
+- Judge one-pager from `docs/judge-one-pager.md`.
 - Recording readiness preflight from `docs/recording-readiness.md`.
 - Judge proof pack from `npm.cmd run proof:pack`.
 - Judge evidence matrix from `docs/judge-evidence-matrix.md`.

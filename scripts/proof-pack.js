@@ -113,6 +113,7 @@ function formatMarkdown(proof) {
     "- `docs/devpost-copy.md`: Devpost-ready copy.",
     "- `docs/devpost-form.md`: exact Devpost form fields with external URL placeholders.",
     "- `docs/rules-compliance.md`: official rules-to-evidence map and manual final attestations.",
+    "- `docs/judge-one-pager.md`: 30-second judge landing sheet with rubric proof and evidence boundary.",
     "- `docs/judge-quickstart.md`: shortest judge path from clone to repo-local proof and live sandbox gates.",
     "- `docs/impact-evaluation.md`: deterministic Agent for Good impact-readiness evaluation across synthetic nonprofit, school, clinic, and community fixtures.",
     "- `docs/judge-evidence-matrix.md`: rubric-to-evidence map for judges.",

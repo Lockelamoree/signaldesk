@@ -19,6 +19,7 @@
 - Live account-gate handoff for Max from `docs/live-gate-handoff.md`.
 - GitHub launch check from `npm.cmd run github:launch:check`, then strict post-push check from `npm.cmd run github:launch:strict`.
 - A short "How judges can test" section.
+- Judge one-pager (`docs/judge-one-pager.md`).
 - Judge quickstart (`docs/judge-quickstart.md`).
 - Root architecture entry point (`ARCHITECTURE.md`) plus uploadable diagram (`docs/architecture.svg`).
 - Paste-ready Devpost form pack (`docs/devpost-form.md`).

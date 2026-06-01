@@ -12,6 +12,7 @@ const requiredFiles = [
   "docs/devpost-copy.md",
   "docs/devpost-form.md",
   "docs/rules-compliance.md",
+  "docs/judge-one-pager.md",
   "docs/judge-quickstart.md",
   "docs/impact-evaluation.md",
   "docs/judge-evidence-matrix.md",
@@ -142,10 +143,12 @@ check("README names live account-gate handoff", readme.includes("docs/live-gate-
 check("README names safe final URL setter", readme.includes("submission:set-urls"), "final URL replacement");
 check("README names Devpost paste bundle", readme.includes("submission:bundle"), "paste-ready submission packet");
 check("README names live gate status", readme.includes("submission:live-gates"), "external gate packet");
+check("README links judge one-pager", readme.includes("docs/judge-one-pager.md"), "30-second judge landing path");
 check("Devpost copy names Agent for Good", devpostCopy.includes("Slack Agent for Good"), "track alignment");
 check("Devpost copy names MCP", devpostCopy.includes("Model Context Protocol") || devpostCopy.includes("MCP"), "required tech alignment");
 check("Devpost form exists", existsSync("docs/devpost-form.md"), "paste-ready fields");
 check("Rules compliance map exists", existsSync("docs/rules-compliance.md") && readFileSync("docs/rules-compliance.md", "utf8").includes("Manual Final Attestations"), "official rules proof");
+check("Judge one-pager maps rubric and boundary", existsSync("docs/judge-one-pager.md") && readFileSync("docs/judge-one-pager.md", "utf8").includes("Technological Implementation") && readFileSync("docs/judge-one-pager.md", "utf8").includes("Evidence Boundary"), "30-second judge landing path");
 check("Judge quickstart exists", existsSync("docs/judge-quickstart.md") && readFileSync("docs/judge-quickstart.md", "utf8").includes("Live Slack Sandbox Proof"), "judge test path");
 check("live handoff names required URLs", existsSync("docs/live-gate-handoff.md") && readFileSync("docs/live-gate-handoff.md", "utf8").includes("GitHub remote URL") && readFileSync("docs/live-gate-handoff.md", "utf8").includes("Slack sandbox URL"), "Max-owned account gates");
 check("Impact evaluation records PASS", existsSync("docs/impact-evaluation.md") && readFileSync("docs/impact-evaluation.md", "utf8").includes("Overall result: **PASS**"), "Potential Impact proof");

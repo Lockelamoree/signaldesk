@@ -20,6 +20,7 @@ const requiredFiles = [
   "docs/github-repo-settings.md",
   "docs/live-gate-handoff.md",
   "docs/rules-compliance.md",
+  "docs/judge-one-pager.md",
   "docs/judge-quickstart.md",
   "docs/impact-evaluation.md",
   "docs/judge-evidence-matrix.md",
@@ -67,6 +68,7 @@ check(".gitignore excludes private artifacts", contains(".gitignore", "artifacts
 check("GitHub settings include repo description", contains("docs/github-repo-settings.md", "MCP-backed Slack incident triage"), "public repo metadata");
 check("Live handoff names account-bound gates", contains("docs/live-gate-handoff.md", "GitHub remote URL") && contains("docs/live-gate-handoff.md", "Slack sandbox URL") && contains("docs/live-gate-handoff.md", "Demo video URL"), "external gate handoff");
 check("Rules compliance map covers video and sandbox", contains("docs/rules-compliance.md", "less than three minutes") && contains("docs/rules-compliance.md", "Slack developer sandbox URL"), "official rules map");
+check("Judge one-pager maps rubric", contains("docs/judge-one-pager.md", "Technological Implementation") && contains("docs/judge-one-pager.md", "Evidence Boundary"), "30-second judge landing path");
 check("Judge quickstart maps local and live proof", contains("docs/judge-quickstart.md", "npm.cmd run verify") && contains("docs/judge-quickstart.md", "Live Slack Sandbox Proof"), "judge test path");
 check("Judge evidence matrix maps rubric", contains("docs/judge-evidence-matrix.md", "Technological Implementation"), "rubric evidence map");
 check("Bonus prize map names side prizes", contains("docs/bonus-prize-map.md", "Best UX") && contains("docs/bonus-prize-map.md", "Most Innovative Slack Agent") && contains("docs/bonus-prize-map.md", "Best Technological Implementation"), "side-prize evidence map");
