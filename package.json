@@ -30,6 +30,8 @@
     "proof:pack": "node scripts/proof-pack.js",
     "recording:check": "node scripts/recording-readiness.js",
     "repo:public:check": "node scripts/public-repo-check.js",
+    "github:launch:check": "node scripts/github-launch-check.js",
+    "github:launch:strict": "node scripts/github-launch-check.js --strict",
     "sandbox:doctor": "node scripts/slack-sandbox-doctor.js",
     "scan:secrets": "node scripts/secret-scan.js",
     "submission:check": "node scripts/submission-check.js",

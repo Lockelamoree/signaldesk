@@ -28,11 +28,22 @@ Use `docs/thumbnail.png` for upload fields that require raster images. Use `docs
 1. Run `npm.cmd run verify`.
 2. Run `npm.cmd run proof:pack`.
 3. Run `npm.cmd run repo:public:check`.
-4. Confirm `git status --short` contains only intended public files.
-5. Confirm `.env`, Slack tokens, private screenshots, browser state, and `artifacts/private/` are absent.
-6. Push to a public GitHub repository.
-7. Re-open the public repository in a private/incognito browser.
-8. Copy the public URL into `docs/devpost-form.md`.
+4. Run `npm.cmd run github:launch:check`.
+5. Confirm `git status --short` is clean.
+6. Confirm `.env`, Slack tokens, private screenshots, browser state, and `artifacts/private/` are absent.
+7. Add the public GitHub repository as `origin`.
+8. Push the default branch with upstream tracking.
+9. Run `npm.cmd run github:launch:strict`.
+10. Re-open the public repository in a private/incognito browser.
+11. Copy the public URL into `docs/devpost-form.md`.
+
+Suggested command shape after the public repository exists:
+
+```powershell
+git remote add origin https://github.com/<owner>/<repo>.git
+git push -u origin main
+npm.cmd run github:launch:strict
+```
 
 ## Branch and CI
 

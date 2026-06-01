@@ -35,6 +35,7 @@ const requiredFiles = [
   "docs/slack-sandbox-runbook.md",
   "docs/validation-report.md",
   "docs/video-package.md",
+  "scripts/github-launch-check.js",
   "scripts/devpost-paste-bundle.js",
   "scripts/set-submission-urls.js",
   "src/slack/app.js",
@@ -90,6 +91,8 @@ check("Devpost paste bundle in verify", packageJson.scripts?.verify?.includes("s
 check("sample report command exists", typeof packageJson.scripts?.["report:sample"] === "string", "handoff artifact proof");
 check("proof pack command exists", typeof packageJson.scripts?.["proof:pack"] === "string", "judge evidence packaging");
 check("public repo check command exists", typeof packageJson.scripts?.["repo:public:check"] === "string", "GitHub launch safety");
+check("GitHub launch check command exists", typeof packageJson.scripts?.["github:launch:check"] === "string", "public repo launch safety");
+check("strict GitHub launch command exists", typeof packageJson.scripts?.["github:launch:strict"] === "string", "post-push public repo safety");
 check("judge quickstart command exists", typeof packageJson.scripts?.["judge:quickstart:check"] === "string", "judge friction packaging");
 check("judge matrix command exists", typeof packageJson.scripts?.["judge:matrix:check"] === "string", "rubric evidence packaging");
 check("bonus prize command exists", typeof packageJson.scripts?.["prize:check"] === "string", "side-prize evidence packaging");
@@ -130,6 +133,7 @@ check("README has judge test path", readme.includes("How Judges Can Test"), "jud
 check("README links judge quickstart", readme.includes("docs/judge-quickstart.md"), "judge friction reducer");
 check("README embeds demo preview screenshot", readme.includes("docs/demo-preview.png"), "judge-visible first screen");
 check("README labels preview as storyboard", readme.includes("storyboard preview"), "evidence boundary");
+check("README names GitHub launch gate", readme.includes("github:launch:check"), "public repo launch safety");
 check("README names safe final URL setter", readme.includes("submission:set-urls"), "final URL replacement");
 check("README names Devpost paste bundle", readme.includes("submission:bundle"), "paste-ready submission packet");
 check("Devpost copy names Agent for Good", devpostCopy.includes("Slack Agent for Good"), "track alignment");

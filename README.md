@@ -47,6 +47,7 @@ The tiebreak starts with technological implementation, so this repo prioritizes 
 - Recording readiness preflight: `docs/recording-readiness.md`.
 - Video package: `docs/video-package.md`.
 - Demo thumbnail: `docs/thumbnail.png` with editable source at `docs/thumbnail.svg`.
+- GitHub launch checklist: `npm.cmd run github:launch:check`, then `npm.cmd run github:launch:strict` after the first public push.
 - Judge evidence matrix: `docs/judge-evidence-matrix.md`.
 - Bonus prize map: `docs/bonus-prize-map.md`.
 - Slack UX proof: `docs/slack-ux-proof.md`.
@@ -119,6 +120,7 @@ npm.cmd run check:block-kit
 npm.cmd run check:syntax
 npm.cmd run proof:pack
 npm.cmd run repo:public:check
+npm.cmd run github:launch:check
 npm.cmd run report:sample
 npm.cmd run scan:secrets
 npm.cmd run smoke:mcp
@@ -196,6 +198,7 @@ Expected result: the App Home tab shows the judge test path plus clickable `Demo
 - Slack interaction transcript from `docs/slack-interaction-transcript.md`.
 - Impact evaluation from `docs/impact-evaluation.md`.
 - Public repo readiness output from `npm.cmd run repo:public:check`.
+- GitHub launch check from `npm.cmd run github:launch:check`; after the first push, strict output from `npm.cmd run github:launch:strict`.
 - Demo thumbnail from `docs/thumbnail.png`, with editable source at `docs/thumbnail.svg`.
 - Paste-ready Devpost fields from `docs/devpost-form.md`.
 - Generated Devpost paste bundle from `npm.cmd run submission:bundle`.

@@ -16,6 +16,7 @@
 
 - Public GitHub repository with README, setup steps, architecture, and screenshots.
 - Public GitHub repo settings from `docs/github-repo-settings.md`.
+- GitHub launch check from `npm.cmd run github:launch:check`, then strict post-push check from `npm.cmd run github:launch:strict`.
 - A short "How judges can test" section.
 - Judge quickstart (`docs/judge-quickstart.md`).
 - Root architecture entry point (`ARCHITECTURE.md`) plus uploadable diagram (`docs/architecture.svg`).
