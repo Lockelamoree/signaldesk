@@ -38,6 +38,7 @@ The tiebreak starts with technological implementation, so this repo prioritizes 
 - Devpost draft copy: `docs/devpost-copy.md`.
 - Paste-ready Devpost form pack: `docs/devpost-form.md`.
 - Generated Devpost paste bundle: `artifacts/submission/devpost-paste-bundle.md` from `npm.cmd run submission:bundle`.
+- Live gate status packet: `artifacts/submission/live-gate-status.md` from `npm.cmd run submission:live-gates`.
 - Judge quickstart: `docs/judge-quickstart.md`.
 - Agent for Good impact evaluation: `docs/impact-evaluation.md`.
 - Demo transcript: `docs/demo-transcript.md`.
@@ -128,6 +129,7 @@ npm.cmd run mcp:transcript
 npm.cmd run smoke:slack-mcp
 npm.cmd run validate:fixtures
 npm.cmd run submission:check
+npm.cmd run submission:live-gates
 npm.cmd run submission:bundle
 npm.cmd run submission:set-urls -- --dry-run --repo https://github.com/signaldesk-app/signaldesk --video https://youtube.com/watch?v=signaldesk123 --sandbox https://signaldesk-demo.slack.com --devpost https://devpost.com/software/signaldesk
 npm.cmd run submission:final:check
@@ -199,6 +201,7 @@ Expected result: the App Home tab shows the judge test path plus clickable `Demo
 - Impact evaluation from `docs/impact-evaluation.md`.
 - Public repo readiness output from `npm.cmd run repo:public:check`.
 - GitHub launch check from `npm.cmd run github:launch:check`; after the first push, strict output from `npm.cmd run github:launch:strict`.
+- Live gate status from `npm.cmd run submission:live-gates`.
 - Demo thumbnail from `docs/thumbnail.png`, with editable source at `docs/thumbnail.svg`.
 - Paste-ready Devpost fields from `docs/devpost-form.md`.
 - Generated Devpost paste bundle from `npm.cmd run submission:bundle`.
@@ -222,6 +225,7 @@ $env:SIGNALDESK_DEMO_VIDEO_URL="<demo-video-url>"
 $env:SIGNALDESK_SLACK_SANDBOX_URL="<slack-sandbox-url>"
 $env:SIGNALDESK_DEVPOST_PROJECT_URL="<devpost-project-url>"
 npm.cmd run submission:set-urls
+npm.cmd run submission:live-gates
 npm.cmd run submission:final:check
 npm.cmd run submission:final:online
 ```

@@ -37,6 +37,7 @@ const requiredFiles = [
   "docs/video-package.md",
   "scripts/github-launch-check.js",
   "scripts/devpost-paste-bundle.js",
+  "scripts/live-gate-status.js",
   "scripts/set-submission-urls.js",
   "src/slack/app.js",
   "src/slack/actionPayloads.js",
@@ -87,6 +88,7 @@ check("MCP transcript in verify", packageJson.scripts?.verify?.includes("mcp:tra
 check("Slack MCP bridge in verify", packageJson.scripts?.verify?.includes("smoke:slack-mcp"), "Slack app can use MCP-backed triage");
 check("fixture validation in verify", packageJson.scripts?.verify?.includes("validate:fixtures"), "scenario coverage proof");
 check("public repo check in verify", packageJson.scripts?.verify?.includes("repo:public:check"), "public GitHub readiness");
+check("live gate status in verify", packageJson.scripts?.verify?.includes("submission:live-gates"), "current external gate packet");
 check("Devpost paste bundle in verify", packageJson.scripts?.verify?.includes("submission:bundle"), "paste-ready submission packet");
 check("sample report command exists", typeof packageJson.scripts?.["report:sample"] === "string", "handoff artifact proof");
 check("proof pack command exists", typeof packageJson.scripts?.["proof:pack"] === "string", "judge evidence packaging");
@@ -104,6 +106,7 @@ check("impact evaluation command exists", typeof packageJson.scripts?.["impact:e
 check("recording readiness command exists", typeof packageJson.scripts?.["recording:check"] === "string", "demo preflight packaging");
 check("sandbox doctor command exists", typeof packageJson.scripts?.["sandbox:doctor"] === "string", "live demo preflight");
 check("Devpost paste bundle command exists", typeof packageJson.scripts?.["submission:bundle"] === "string", "paste-ready submission packet");
+check("live gate status command exists", typeof packageJson.scripts?.["submission:live-gates"] === "string", "external gate packet");
 check("safe URL setter command exists", typeof packageJson.scripts?.["submission:set-urls"] === "string", "final URL replacement");
 check("final submission check command exists", typeof packageJson.scripts?.["submission:final:check"] === "string", "strict external gate");
 check("online final submission check command exists", typeof packageJson.scripts?.["submission:final:online"] === "string", "strict public link gate");
@@ -136,6 +139,7 @@ check("README labels preview as storyboard", readme.includes("storyboard preview
 check("README names GitHub launch gate", readme.includes("github:launch:check"), "public repo launch safety");
 check("README names safe final URL setter", readme.includes("submission:set-urls"), "final URL replacement");
 check("README names Devpost paste bundle", readme.includes("submission:bundle"), "paste-ready submission packet");
+check("README names live gate status", readme.includes("submission:live-gates"), "external gate packet");
 check("Devpost copy names Agent for Good", devpostCopy.includes("Slack Agent for Good"), "track alignment");
 check("Devpost copy names MCP", devpostCopy.includes("Model Context Protocol") || devpostCopy.includes("MCP"), "required tech alignment");
 check("Devpost form exists", existsSync("docs/devpost-form.md"), "paste-ready fields");

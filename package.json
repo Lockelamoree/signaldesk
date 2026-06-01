@@ -36,6 +36,7 @@
     "scan:secrets": "node scripts/secret-scan.js",
     "submission:check": "node scripts/submission-check.js",
     "submission:bundle": "node scripts/devpost-paste-bundle.js",
+    "submission:live-gates": "node scripts/live-gate-status.js",
     "submission:set-urls": "node scripts/set-submission-urls.js",
     "submission:final:check": "node scripts/final-submission-check.js",
     "submission:final:online": "node scripts/final-submission-check.js --online",
@@ -44,7 +45,7 @@
     "smoke:slack-mcp": "node scripts/slack-mcp-bridge-smoke.js",
     "mcp:transcript": "node scripts/mcp-tool-transcript.js",
     "test": "node --test",
-    "verify": "npm run scan:secrets && npm run check:syntax && npm run check:block-kit && npm run slack:ux:proof && npm run slack:interactions:proof && npm run demo:preview:check && npm run demo:thumbnail:check && npm run demo:captions:check && npm run devpost:form:check && npm run rules:check && npm run impact:evaluate && npm run recording:check && npm run judge:quickstart:check && npm run judge:matrix:check && npm run prize:check && npm run sandbox:doctor && npm run test && npm run smoke:mcp && npm run mcp:transcript && npm run smoke:slack-mcp && npm run validate:fixtures && npm run repo:public:check && npm run submission:bundle && npm run submission:check"
+    "verify": "npm run scan:secrets && npm run check:syntax && npm run check:block-kit && npm run slack:ux:proof && npm run slack:interactions:proof && npm run demo:preview:check && npm run demo:thumbnail:check && npm run demo:captions:check && npm run devpost:form:check && npm run rules:check && npm run impact:evaluate && npm run recording:check && npm run judge:quickstart:check && npm run judge:matrix:check && npm run prize:check && npm run sandbox:doctor && npm run test && npm run smoke:mcp && npm run mcp:transcript && npm run smoke:slack-mcp && npm run validate:fixtures && npm run repo:public:check && npm run submission:live-gates && npm run submission:bundle && npm run submission:check"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.29.0",

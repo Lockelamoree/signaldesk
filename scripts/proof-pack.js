@@ -28,6 +28,7 @@ const commands = [
   { label: "Slack-to-MCP bridge smoke test", args: ["run", "smoke:slack-mcp"] },
   { label: "Fixture validation", args: ["run", "validate:fixtures"] },
   { label: "Public repo readiness", args: ["run", "repo:public:check"] },
+  { label: "Live gate status", args: ["run", "submission:live-gates"] },
   { label: "Submission readiness", args: ["run", "submission:check"] },
   { label: "Demo asset export", args: ["run", "demo:assets"] }
 ];
@@ -125,6 +126,7 @@ function formatMarkdown(proof) {
     "- `docs/thumbnail.svg` and `docs/thumbnail.png`: 1280x720 demo thumbnail showing completed MCP-backed triage.",
     "- `docs/sample-incident-report.md`: evidence-gated report example.",
     "- `docs/slack-sandbox-runbook.md`: live Slack proof checklist.",
+    "- `artifacts/submission/live-gate-status.md`: generated current-state packet for live external gates.",
     "- `artifacts/demo/incident-brief.json`: generated sample brief.",
     "- `artifacts/demo/slack-blocks.json`: generated Block Kit payload.",
     "- `artifacts/demo/incident-report.md`: generated Markdown report.",

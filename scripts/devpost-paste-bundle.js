@@ -126,6 +126,7 @@ check("impact evaluation passed", impactEvaluation.includes("Overall result: **P
 check("recording readiness passed", recordingReadiness.includes("Overall result: **PASS**"), "recording proof");
 check("judge proof passed", judgeProof.includes("Overall result: **PASS**"), "judge proof");
 check("safe URL setter command exists", typeof packageJson.scripts?.["submission:set-urls"] === "string", "final URL replacement");
+check("live gate status command exists", typeof packageJson.scripts?.["submission:live-gates"] === "string", "current external gate packet");
 
 for (const artifact of evidenceArtifacts) {
   check(`artifact exists: ${artifact.path}`, artifact.exists, artifact.label);
@@ -229,6 +230,7 @@ function formatMarkdown(bundle) {
     "npm.cmd run verify",
     "npm.cmd run proof:pack",
     "npm.cmd run recording:check",
+    "npm.cmd run submission:live-gates",
     "npm.cmd run sandbox:doctor -- --strict",
     "npm.cmd run submission:final:check",
     "npm.cmd run submission:final:online",
