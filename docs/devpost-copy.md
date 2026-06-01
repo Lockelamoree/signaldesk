@@ -6,11 +6,11 @@ SignalDesk
 
 ## Tagline
 
-Slack-native security incident triage for teams without a SOC.
+Slack incident response for small teams that do not have a SOC.
 
 ## Elevator Pitch
 
-SignalDesk gives nonprofits, schools, clinics, and community teams a safe first 15 minutes when a suspicious Slack message, leaked token, or incident report appears. It turns messy alert text into a structured Slack incident brief with severity, indicators, likely ATT&CK techniques, response roles, evidence-linked detection checks, evidence checklist, and guardrails against overclaiming.
+SignalDesk helps nonprofits, schools, clinics, and community teams handle the first 15 minutes of a security scare in Slack. It turns a messy report into a structured incident brief with severity, indicators, candidate ATT&CK techniques, response roles, evidence-linked detection checks, an evidence checklist, and guardrails against overclaiming.
 
 ## Track
 
@@ -18,11 +18,13 @@ Slack Agent for Good
 
 ## Inspiration
 
-Many public-interest teams coordinate real work in Slack but do not have dedicated security responders. When someone reports a phishing link, OAuth consent trick, suspicious script, or possible data exposure, the first response is often a chaotic thread: unclear owner, missing evidence, premature impact claims, and delayed containment. SignalDesk exists to make that first response calmer, faster, and more evidence-driven.
+I built SignalDesk around a very common security moment: someone posts "is this bad?" in Slack, and suddenly the team is trying to investigate in a thread while also doing their actual jobs.
+
+For a large company, that thread probably gets routed to a SOC. For a nonprofit, school, clinic, or volunteer team, there may be no SOC. There may be one technical person, a busy operations lead, and a lot of uncertainty. SignalDesk exists to make that first response calmer: preserve evidence, assign an owner, check the right logs, and avoid declaring compromise before the facts are there.
 
 ## What It Does
 
-SignalDesk adds a message shortcut, `/signaldesk` command, and app mention flow inside Slack. A user can triage the suspicious Slack message in place or paste alert text, and SignalDesk produces a Block Kit incident brief that includes:
+SignalDesk adds a message shortcut, `/signaldesk` command, App Home, and app mention flow inside Slack. A responder can triage the suspicious message in place or paste alert text, then get a Block Kit incident brief that includes:
 
 - Scenario classification such as token exposure, credential phishing, malware execution, or possible data exfiltration.
 - Severity score and label.
@@ -32,27 +34,25 @@ SignalDesk adds a message shortcut, `/signaldesk` command, and app mention flow 
 - Evidence-linked detection opportunities with safe hunt queries for identity, Slack, proxy/DNS, OAuth, endpoint, and cloud logs.
 - First-response readiness metrics that show whether evidence, claims, detections, roles, guardrails, and Slack coordination are prepared.
 - First response actions.
-- Evidence-gated Markdown incident report export.
-- One-click public incident channel creation with kickoff message.
+- Markdown incident report export.
+- One-click incident channel creation with a kickoff message.
 - Suggested incident roles.
-- Suggested incident channel name and kickoff message.
 - Evidence checklist and safety guardrails.
 - Interactive buttons for taking ownership, creating the incident channel, showing the evidence checklist, reviewing detection opportunities, exporting the report, and checking guardrails.
 
-SignalDesk also publishes a Slack App Home tab, clickable Demo guide and Proof checklist modals, `/signaldesk proof`, and no-input demo help that give judges and responders the `/signaldesk demo` command, full synthetic fallback command, expected proof signals, MCP runtime expectation, and evidence boundary before they run the workflow.
+SignalDesk also includes a Slack App Home tab, clickable Demo guide and Proof checklist modals, `/signaldesk proof`, and no-input demo help. Those surfaces are mainly there to make the judge path honest and easy: here is the demo command, here is what proof to look for, here is the MCP runtime expectation, and here is what is still synthetic.
 
-For the judged demo, the Slack app can run with `SIGNALDESK_TRIAGE_MODE=mcp`, so Slack triage delegates to the MCP stdio server through `triage_slack_alert`. The MCP server also exposes `build_response_checklist`, `build_impact_summary`, `export_evidence_ledger`, `build_detection_plan`, `generate_incident_report`, and `list_demo_incidents`.
+For the judged demo, the Slack app can run with `SIGNALDESK_TRIAGE_MODE=mcp`, so Slack triage delegates to the MCP stdio server through `triage_slack_alert`. The same Model Context Protocol server also exposes `build_response_checklist`, `build_impact_summary`, `export_evidence_ledger`, `build_detection_plan`, `generate_incident_report`, and `list_demo_incidents`.
 
 ## How We Built It
 
-SignalDesk is a Node.js Slack app built with Bolt for JavaScript in Socket Mode. The core triage engine is dependency-light and shared between the Slack app and the MCP server, and the Slack runtime has an MCP-backed mode that calls the MCP `triage_slack_alert` tool for live Slack responses.
+SignalDesk is a Node.js Slack app built with Bolt for JavaScript in Socket Mode. I kept the triage engine small and shared it between the Slack app and the MCP server, so the same logic powers the local tests, the Slack workflow, and the MCP tools. In MCP mode, Slack calls the `triage_slack_alert` tool for live Slack responses.
 
-The MCP server uses the official Model Context Protocol TypeScript SDK over stdio. Synthetic validation fixtures cover several incident types: nonprofit OAuth phishing, school script execution, clinic exfiltration warning, and a low-signal community report.
+The MCP server uses the official Model Context Protocol TypeScript SDK over stdio. The synthetic fixtures cover the situations I wanted to support first: nonprofit OAuth phishing, school script execution, clinic exfiltration warning, and a low-signal community report.
 
-Every incident brief includes an evidence ledger (`EV-001`, `EV-002`, etc.), claims (`CL-001`, `CL-002`, etc.), detection opportunities (`DET-001`, `DET-002`, etc.) that cite evidence IDs, and first-response readiness metrics (`IM-001`, `IM-002`, etc.) that separate output completeness from live impact proof. The validator rejects unknown evidence IDs and invalid field references.
+Every brief includes an evidence ledger (`EV-001`, `EV-002`, etc.), claims (`CL-001`, `CL-002`, etc.), detection opportunities (`DET-001`, `DET-002`, etc.) that cite evidence IDs, and first-response readiness metrics (`IM-001`, `IM-002`, etc.). The validator rejects unknown evidence IDs and invalid field references, because security output should not be allowed to quietly drift away from its evidence.
 
-Slack-only workflow behavior is also covered locally: message shortcut text extraction, Slack-safe channel naming, channel creation success, name-collision retry, missing-scope handling, and reusable action payloads are tested with fake Slack clients before the live sandbox run. `docs/slack-interaction-transcript.md` records the ownership, channel creation, checklist, evidence, detections, report, and guardrail button responses; `docs/slack-interaction-preview.html` gives judges a visual contact sheet for those synthetic button states.
-Generated Block Kit payloads are also checked against Slack message, section, action, and button limits before recording.
+Slack-only behavior is tested locally too: message shortcut extraction, Slack-safe channel names, channel creation, name-collision retry, missing-scope handling, and reusable action payloads. `docs/slack-interaction-transcript.md` records the ownership, channel creation, checklist, evidence, detections, report, and guardrail button responses; `docs/slack-interaction-preview.html` gives judges a visual interaction preview for those synthetic button states. Generated Block Kit payloads are checked against Slack message, section, action, and button limits before recording. The Slack-to-MCP bridge, rules compliance map, Agent for Good impact evaluation, and bonus-prize evidence map are included so the submission has receipts instead of hand-waving.
 
 ## Slack Technology Used
 
@@ -66,49 +66,45 @@ Generated Block Kit payloads are also checked against Slack message, section, ac
 
 SignalDesk is built for teams that protect donors, students, patients, volunteers, and community members without enterprise security staff. The impact is not "AI replaces responders." The impact is that the first responder gets a reliable checklist, a named owner, and a no-drama path to preserve evidence and contain obvious risk.
 
-The repo includes `npm.cmd run impact:evaluate`, which generates `docs/impact-evaluation.md`. In the current deterministic fixture set, SignalDesk reaches 98.3/100 average first-response readiness across nonprofit operations, education, public health, and community safety scenarios while keeping the live-impact boundary explicit.
+The repo includes `npm.cmd run impact:evaluate`, which generates `docs/impact-evaluation.md`. In the current fixture set, SignalDesk reaches 98.3/100 average first-response readiness across nonprofit operations, education, public health, and community safety scenarios while keeping the live-impact boundary explicit.
 
 ## What Makes It Different
 
-SignalDesk is not a generic chatbot inside Slack. It is a narrow incident-response workflow where Slack is the right place for the work to happen. It also deliberately avoids claiming compromise or attribution without evidence. That makes it safer for real teams during stressful moments.
+SignalDesk is not a generic chatbot dropped into Slack. It is a narrow incident-response workflow for a place where incident coordination already happens. It deliberately avoids claiming compromise or attribution without evidence, which matters when a stressed team is trying not to make the situation worse.
 
 ## Challenges
 
-The hardest design tradeoff was keeping the output useful without pretending deterministic triage is a full investigation. SignalDesk intentionally labels its ATT&CK matches as candidates, includes guardrails, and asks responders to validate impact with logs.
+The hardest design tradeoff was keeping the output useful without pretending the agent completed an investigation. SignalDesk labels ATT&CK matches as candidates, includes guardrails, and pushes responders back to logs before they call anything confirmed.
 
 ## Accomplishments
 
 - Shared triage engine across Slack and MCP.
 - Working MCP smoke test that spawns the server and calls the triage tool.
-- Full MCP tool transcript that exercises every registered SignalDesk MCP tool and records structured output.
+- Full MCP tool transcript for every registered SignalDesk MCP tool.
 - Slack-to-MCP bridge smoke test proving the Slack runtime can call the MCP triage tool.
-- Evidence-gated incident report export.
-- Evidence-linked detection plan for analyst handoff.
-- Deterministic first-response readiness metrics for Agent for Good impact proof.
-- Reproducible Agent for Good impact evaluation across synthetic nonprofit, school, clinic, and community-team incidents.
-- Recording readiness preflight that verifies the final video package shows Slack proof, MCP runtime, evidence IDs, readiness, and sandbox access requirements before the final take.
-- Judge quickstart that gives reviewers the shortest local proof path and separates repo-local evidence from live sandbox gates.
-- Slack UX proof artifact that validates App Home, help, modal, and safe-error Block Kit surfaces before live sandbox recording.
-- Slack interaction transcript and visual preview proving the button-driven handoff path before live sandbox recording.
+- Incident report export and evidence-linked detection plan for analyst handoff.
+- First-response readiness metrics for Agent for Good impact proof.
+- Reproducible impact evaluation across synthetic nonprofit, school, clinic, and community-team incidents.
+- Recording readiness preflight for Slack proof, MCP runtime, evidence IDs, readiness, and sandbox access.
+- Judge quickstart that separates repo-local evidence from live sandbox gates.
+- Slack UX proof for App Home, help, modal, and safe-error Block Kit surfaces.
+- Slack interaction transcript and visual preview for the button-driven handoff path.
 - Rules compliance map for video host, sandbox access, sensitive-data controls, and final manual attestations.
 - Synthetic fixture validation for multiple incident categories.
-- Slack Block Kit response with clear roles and action buttons.
-- Slack App Home onboarding surface for the judge test path.
+- Slack Block Kit response with roles, action buttons, and incident channel creation.
 - App Home Demo guide and Proof checklist modals for low-friction judge verification.
-- `/signaldesk demo`, `/signaldesk proof`, no-input `/signaldesk`, and app mention help for judges who need the synthetic demo command or proof checklist without typing a long fixture.
-- Safe runtime-check response if MCP or Slack setup fails during live testing, without exposing tokens or stack traces.
+- `/signaldesk demo`, `/signaldesk proof`, no-input `/signaldesk`, and app mention help for judges who need the demo command or proof checklist quickly.
+- Safe runtime-check response if MCP or Slack setup fails, without exposing tokens or stack traces.
 - Optional private synthetic-demo brief recovery so Slack buttons can survive a local app restart during recording without committing state.
-- Slack channel creation action for incident coordination.
 - Submission-ready architecture and demo script.
 
 ## What We Learned
 
-For security workflows, the fastest path is not always the most autonomous one. A good agent should reduce uncertainty, preserve evidence, and help humans make better decisions before taking irreversible action.
+For security workflows, the most useful agent is not always the most autonomous one. A good agent should reduce uncertainty, preserve evidence, and help humans make better decisions before anyone takes an irreversible action.
 
 ## What's Next
 
 - Add Slack Real-Time Search or Slack MCP retrieval for permission-aware thread context.
-- Add optional incident state storage with explicit retention controls.
 - Add integrations for identity provider logs and URL reputation lookups.
 - Persist incident state with explicit retention controls for longer live response windows.
 - Build a lightweight nonprofit onboarding template.

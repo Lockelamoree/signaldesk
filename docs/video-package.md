@@ -4,7 +4,7 @@ Target length: 2:40-2:55.
 
 ## Title
 
-SignalDesk: Evidence-Gated Security Triage in Slack
+SignalDesk: A Safer First 15 Minutes in Slack
 
 ## Thumbnail
 
@@ -14,15 +14,15 @@ Visual: `docs/thumbnail.png` is the upload-ready 1280x720 PNG thumbnail. `docs/t
 
 ## YouTube Description
 
-SignalDesk is a Slack-native security incident agent for nonprofits, schools, clinics, and community teams without a full SOC.
+SignalDesk is a Slack incident response helper for nonprofits, schools, clinics, and community teams that do not have a full SOC.
 
 In this demo:
 
-- `/signaldesk` turns suspicious Slack context into an incident brief.
+- `/signaldesk` turns suspicious Slack context into a first-response incident brief.
 - SignalDesk extracts indicators, assigns severity, and maps candidate ATT&CK techniques.
 - Evidence IDs and claim audits keep the response grounded.
 - Detection opportunities turn the brief into concrete next log searches.
-- First-response readiness shows evidence, detection, role, guardrail, and Slack coordination coverage without claiming live impact.
+- First-response readiness shows evidence, detection, role, guardrail, and Slack coordination coverage without pretending the incident is fully investigated.
 - The repo-local impact evaluation shows 98.3/100 average readiness across synthetic nonprofit, school, clinic, and community-team incidents.
 - The app creates a dedicated incident channel and posts the kickoff message.
 - The Slack runtime runs in MCP mode, calling the `triage_slack_alert` tool over stdio.
@@ -58,7 +58,7 @@ Upload `docs/demo-captions.vtt` after the video is cut. The captions end at 2:52
    Show `npm.cmd run smoke:slack-mcp`, then `npm.cmd run mcp:transcript` with `triage_slack_alert`, `build_impact_summary`, `export_evidence_ledger`, `build_detection_plan`, `generate_incident_report`, and `list_demo_incidents`. If time allows, show the `npm.cmd run impact:evaluate` summary line with 98.3/100 average readiness.
 
 7. 2:30-2:50: Impact close.
-   "SignalDesk does not replace responders. It gives under-resourced teams a safe first 15 minutes: preserve evidence, assign owners, contain obvious risk, and avoid unsupported claims."
+   "SignalDesk does not replace responders. It gives small teams a safer first 15 minutes: preserve evidence, assign owners, contain obvious risk, and avoid unsupported claims."
 
 ## Recording Checklist
 

@@ -51,23 +51,25 @@ Fast demo command:
 
 ## Inspiration
 
-Nonprofits, schools, clinics, and volunteer teams often coordinate security incidents in Slack without a dedicated SOC. When someone reports a phishing link, OAuth consent trick, suspicious script, or possible data exposure, the first response can turn into a chaotic thread: no clear owner, missing evidence, premature impact claims, and delayed containment. SignalDesk gives those teams a calm, evidence-driven first 15 minutes.
+I built SignalDesk for the moment when someone posts "is this bad?" in Slack and the team has to respond before anyone is sure what happened.
+
+For nonprofits, schools, clinics, and volunteer teams, there may not be a SOC to route that thread to. There may be one technical person, a busy operations lead, and a lot of missing context. SignalDesk gives those teams a calmer first 15 minutes: preserve evidence, name an owner, create a channel, check the right logs, and avoid making claims the evidence does not support yet.
 
 ## What It Does
 
-SignalDesk adds a Slack App Home tab, clickable App Home demo/proof modals, message shortcut, `/signaldesk demo` shortcut command, `/signaldesk proof` proof checklist, no-input demo help, and app mention flow for security incident triage. The App Home, proof, and help payloads give judges the test path and proof signals, while the triage flows convert messy alert text into a Block Kit incident brief with scenario, severity, indicators, candidate MITRE ATT&CK techniques, evidence IDs, claim audit, detection checks, first-response readiness, response roles, and buttons for ownership, evidence, detections, report export, guardrails, and incident channel creation.
+SignalDesk adds a Slack App Home tab, clickable App Home demo/proof modals, message shortcut, `/signaldesk demo` shortcut command, `/signaldesk proof` proof checklist, no-input demo help, and app mention flow for security incident triage. The judge-facing surfaces explain the test path and proof signals up front. The triage surfaces convert messy alert text into a Block Kit incident brief with scenario, severity, indicators, candidate MITRE ATT&CK techniques, evidence IDs, claim audit, detection checks, first-response readiness, response roles, and buttons for ownership, evidence, detections, report export, guardrails, and incident channel creation.
 
 For the judged demo, SignalDesk runs with `SIGNALDESK_TRIAGE_MODE=mcp`, so Slack triage calls the MCP `triage_slack_alert` tool over stdio. The MCP server also exposes `build_response_checklist`, `build_impact_summary`, `export_evidence_ledger`, `build_detection_plan`, `generate_incident_report`, and `list_demo_incidents`.
 
 ## How We Built It
 
-SignalDesk is a Node.js Slack app built with Bolt for JavaScript in Socket Mode. The triage core is shared by the Slack app and MCP server, and the Slack runtime can delegate triage through MCP for the live demo. Deterministic parsing extracts URLs, IPs, domains, emails, and hashes; maps likely scenario and candidate ATT&CK techniques; generates evidence IDs, claim IDs, detection IDs, and impact metric IDs; and validates claim-to-evidence references before output is accepted.
+SignalDesk is a Node.js Slack app built with Bolt for JavaScript in Socket Mode. The triage core is shared by the Slack app and MCP server, so local tests, Slack responses, and MCP tools all use the same incident logic. The parser extracts URLs, IPs, domains, emails, and hashes; maps a likely scenario and candidate ATT&CK techniques; generates evidence IDs, claim IDs, detection IDs, and impact metric IDs; and validates claim-to-evidence references before output is accepted.
 
-The repo includes a judge quickstart, synthetic fixtures, an Agent for Good impact evaluation, rules compliance map, a recording readiness preflight, MCP smoke tests, Slack-to-MCP bridge proof, Slack interaction transcript and visual interaction preview, Block Kit constraint checks, secret scanning, syntax checks, a judge proof pack, judge evidence matrix, bonus-prize evidence map, architecture diagram, sample report, upload-ready demo thumbnail, uploadable captions, and sandbox runbook.
+The repo includes a judge quickstart, synthetic fixtures, an Agent for Good impact evaluation, rules compliance map, recording readiness preflight, MCP smoke tests, Slack-to-MCP bridge proof, Slack interaction transcript and visual interaction preview, Block Kit constraint checks, secret scanning, syntax checks, judge proof pack, judge evidence matrix, bonus-prize evidence map, architecture diagram, sample report, upload-ready demo thumbnail, uploadable captions, and sandbox runbook.
 
 ## Challenges
 
-The hardest tradeoff was making the agent useful without pretending it completed an investigation. SignalDesk deliberately says "candidate" technique, preserves evidence IDs, and labels compromise, attribution, and data impact as unconfirmed until logs validate them. Security agents should reduce uncertainty, not generate confident fan fiction. Ah yes, the classic enterprise feature: hallucinated certainty.
+The hardest tradeoff was making the agent useful without pretending it completed an investigation. SignalDesk deliberately says "candidate" technique, preserves evidence IDs, and labels compromise, attribution, and data impact as unconfirmed until logs validate them. Security agents should reduce uncertainty, not generate confident fiction with a nicer UI.
 
 ## Accomplishments
 
@@ -78,11 +80,11 @@ The hardest tradeoff was making the agent useful without pretending it completed
 - `npm.cmd run impact:evaluate` records 98.3/100 average first-response readiness across nonprofit, school, clinic, and community-team fixtures.
 - Dedicated incident channel creation with kickoff message.
 - Tests for scenario classification, evidence validation, Slack workflow helpers, MCP bridge, and Block Kit limits.
-- `npm.cmd run proof:pack` produces a judge-facing evidence receipt.
+- `npm.cmd run proof:pack` produces a judge-facing evidence receipt, because a security demo should not run on "trust me."
 
 ## What We Learned
 
-For security workflows, the fastest path is not always the most autonomous one. A good agent should preserve evidence, name assumptions, keep humans in control, and make the next log checks obvious. Slack is the right surface because the incident coordination is already happening there.
+For security workflows, the best agent is not always the one that does the most by itself. A useful agent preserves evidence, names assumptions, keeps humans in control, and makes the next log checks obvious. Slack is the right surface because the incident coordination is already happening there.
 
 ## What's Next
 

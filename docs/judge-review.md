@@ -27,23 +27,23 @@ Inferred sponsor preference:
 
 - Slack should be the place where work happens, not just a notification endpoint.
 - MCP, RTS, or Slack AI should be central enough to see in the demo.
-- A narrow workflow with proof beats a generic agent pitch.
+- A narrow workflow with proof beats a broad "AI assistant" pitch.
 - The first minute of the video must show the working product and the user it helps.
-- Side-prize positioning should be explicit but evidence-gated: Best UX through the Slack onboarding path, Most Innovative Slack Agent through the evidence-gated first-response workflow, and Best Technological Implementation through the full MCP transcript and Slack-to-MCP bridge.
+- Side-prize positioning should be explicit but supported: Best UX through the Slack onboarding path, Most Innovative Slack Agent through the first-response workflow, and Best Technological Implementation through the full MCP transcript and Slack-to-MCP bridge.
 
 ## Project Fit
 
 Current strengths:
 
 - Clear Agent for Good user: nonprofits, schools, clinics, and community teams without full SOC staffing.
-- Concrete Slack-native workflow: `/signaldesk` turns messy security context into a structured incident brief.
+- Concrete Slack workflow: `/signaldesk` turns messy security context into a structured incident brief.
 - App Home gives judges a clear test path before they trigger the workflow.
 - App Home includes clickable Demo guide and Proof checklist modals, reducing judge setup ambiguity inside Slack.
 - Reusable Slack action payload builders and `docs/slack-interaction-transcript.md` prove the button-driven handoff path without requiring live tokens.
 - `docs/slack-interaction-preview.html` gives judges a visual contact sheet for the synthetic button-response states before live screenshots exist.
 - Message shortcut supports triaging a suspicious Slack message in place, reducing copy/paste friction.
 - Required technology proof: Slack can run with `SIGNALDESK_TRIAGE_MODE=mcp` and delegate triage to the MCP `triage_slack_alert` tool.
-- Evidence-gated security posture: SignalDesk says "candidate technique" and "confirm with logs" instead of inventing compromise.
+- Careful security posture: SignalDesk says "candidate technique" and "confirm with logs" instead of inventing compromise.
 - Claim-to-evidence mapping: each brief includes evidence IDs and validation status.
 - Evidence-linked detection opportunities give analysts concrete next queries across Slack, identity, OAuth, DNS/proxy, network, endpoint, and cloud logs.
 - First-response readiness metrics make the Agent for Good impact visible without claiming live containment or compromise proof.
@@ -73,7 +73,8 @@ Current risks:
 - No demo video yet.
 - RTS is not implemented; MCP is the primary required technology proof.
 - Slack buttons keep recent incident state in memory during the local app run, but they do not persist incident state across restarts.
-- No public GitHub URL or Devpost submission URL exists yet.
+- Public GitHub repo is pushed, but it still needs a private-browser visibility check before Devpost.
+- No Devpost submission URL exists yet.
 
 ## Rubric Score Estimate
 
@@ -91,7 +92,7 @@ Without Slack sandbox proof, the project should be treated as incomplete for sub
 1. Install SignalDesk into a Slack developer sandbox and capture `/signaldesk` working end to end.
 2. Record a 2:30-2:50 demo using the nonprofit OAuth phishing fixture.
 3. Capture screenshots of the Slack brief, the "Take owner" button, the checklist button, the detection plan, and MCP smoke output.
-4. Add the public GitHub URL and demo video URL to `docs/devpost-copy.md`.
+4. Add the public GitHub URL, demo video URL, Slack sandbox URL, and Devpost URL through `submission:set-urls`.
 5. Invite `slackhack@salesforce.com` and `testing@devpost.com` to the sandbox as members before submitting.
 
 ## Evidence Status
@@ -114,6 +115,7 @@ Confirmed:
 - Devpost form check passes.
 - Slack sandbox doctor passes in repo-safe mode; strict mode requires real Slack tokens.
 - Public repo readiness check passes.
+- Strict GitHub launch check passes after pushing to `https://github.com/Lockelamoree/signaldesk`.
 - Judge evidence matrix check passes.
 - Strict final submission check exists and is expected to fail until public URLs and real Slack token env vars are present.
 - Architecture artifact exists at `docs/architecture.svg`.
@@ -124,4 +126,4 @@ Unproven:
 - Live Slack command response.
 - Judge sandbox access.
 - Public video availability.
-- Public repository visibility.
+- Public repository visibility from a private browser session.

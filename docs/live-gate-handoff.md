@@ -1,17 +1,18 @@
 # Live Gate Handoff
 
-This file is the short handoff for the account-bound work Codex cannot complete without Max's logged-in GitHub, Slack, YouTube/Vimeo, and Devpost sessions.
+This is the short handoff for the account-bound work that still needs Max's logged-in Slack, video host, and Devpost sessions.
 
-Current status: repo-local proof is ready; external submission gates are pending.
+Current status: repo-local proof is ready and the public GitHub repo has been pushed. Slack sandbox access, demo video, final Devpost URL, and final URL replacement are still pending.
 
 ## Max-Owned Actions
 
-1. Create the public GitHub repository.
-   - Visibility: public.
-   - Suggested name: `signaldesk`.
-   - Description: `MCP-backed Slack incident triage for teams without a SOC`.
-   - Topics: `slack`, `mcp`, `incident-response`, `security`, `hackathon`, `agent-for-good`, `block-kit`, `soc`.
-   - Return to Codex with the remote URL, for example `https://github.com/<owner>/signaldesk.git`.
+1. Confirm the public GitHub repository.
+   - Browser URL: `https://github.com/Lockelamoree/signaldesk`.
+   - GitHub remote URL: `https://github.com/Lockelamoree/signaldesk.git`.
+   - Visibility should be public.
+   - Suggested description: `MCP-backed Slack incident triage for teams without a SOC`.
+   - Suggested topics: `slack`, `mcp`, `incident-response`, `security`, `hackathon`, `agent-for-good`, `block-kit`, `soc`.
+   - Open it in a private browser once so we know judges can see it. Public GitHub settings love being "almost public" at the worst possible time.
 
 2. Create and install the Slack sandbox app.
    - Join the Slack Developer Program and open the developer sandbox.
@@ -40,11 +41,11 @@ Current status: repo-local proof is ready; external submission gates are pending
 
 ## What To Send Back To Codex
 
-Send these four URLs:
+Send the remaining URLs once they exist:
 
 ```text
-GitHub remote URL:
-Public repo URL:
+GitHub remote URL: https://github.com/Lockelamoree/signaldesk.git
+Public repo URL: https://github.com/Lockelamoree/signaldesk
 Demo video URL:
 Slack sandbox URL:
 Devpost project URL:
@@ -54,11 +55,9 @@ The GitHub remote URL can end in `.git`; the public repo URL should be the brows
 
 ## Codex Resume Commands
 
-After Max sends the URLs, Codex can run:
+After Max sends the final URLs, Codex can run:
 
 ```powershell
-git remote add origin <github-remote-url>
-git push -u origin main
 npm.cmd run github:launch:strict
 npm.cmd run submission:set-urls -- --repo <public-repo-url> --video <demo-video-url> --sandbox <slack-sandbox-url> --devpost <devpost-project-url>
 npm.cmd run submission:live-gates
@@ -88,4 +87,3 @@ Do not submit until:
 - `npm.cmd run submission:final:check` passes.
 - `npm.cmd run submission:final:online` passes.
 - The public repo, video, Slack sandbox URL, and Devpost project URL open from a private browser session.
-

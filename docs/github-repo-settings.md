@@ -1,12 +1,13 @@
 # GitHub Repo Settings
 
-Use these settings when publishing the repository before Devpost submission.
+Use these settings for the public repository before Devpost submission.
 
 ## About
 
 - Description: `MCP-backed Slack incident triage for teams without a SOC`
 - Website: `TODO_DEVPOST_PROJECT_URL`
 - Topics: `slack`, `mcp`, `incident-response`, `security`, `hackathon`, `agent-for-good`, `block-kit`, `soc`
+- Public repo: `https://github.com/Lockelamoree/signaldesk`
 - Include in the repository home page:
   - Releases: off unless a final release is created.
   - Packages: off.
@@ -14,7 +15,7 @@ Use these settings when publishing the repository before Devpost submission.
 
 ## Social Preview
 
-Use `docs/thumbnail.png` for upload fields that require raster images. Use `docs/thumbnail.svg` as the editable source, or a live Slack screenshot with the same proof signals:
+Use `docs/thumbnail.png` for upload fields that require raster images. `docs/thumbnail.svg` is the editable source. A live Slack screenshot is fine too, but only if it is sharper and still shows the same proof signals:
 
 - SignalDesk name visible.
 - Runtime: `MCP stdio`.
@@ -31,13 +32,13 @@ Use `docs/thumbnail.png` for upload fields that require raster images. Use `docs
 4. Run `npm.cmd run github:launch:check`.
 5. Confirm `git status --short` is clean.
 6. Confirm `.env`, Slack tokens, private screenshots, browser state, and `artifacts/private/` are absent.
-7. Add the public GitHub repository as `origin`.
+7. Confirm `origin` points at `https://github.com/Lockelamoree/signaldesk.git`.
 8. Push the default branch with upstream tracking.
 9. Run `npm.cmd run github:launch:strict`.
 10. Re-open the public repository in a private/incognito browser.
-11. Copy the public URL into `docs/devpost-form.md`.
+11. Copy the public URL into `docs/devpost-form.md` when the final video, sandbox, and Devpost URLs are ready.
 
-Suggested command shape after the public repository exists:
+Command shape if the remote ever needs to be recreated:
 
 ```powershell
 git remote add origin https://github.com/<owner>/<repo>.git

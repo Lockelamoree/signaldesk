@@ -2,7 +2,7 @@
 
 Current event state checked on June 1, 2026.
 
-This is the shortest path for a judge or reviewer to verify SignalDesk without guessing which artifact matters first. It proves repo-local behavior, then shows exactly what still requires the live Slack developer sandbox.
+This is the shortest path for a judge or reviewer to verify SignalDesk without digging through the whole repo. It starts with local proof, then calls out what still needs the live Slack developer sandbox.
 
 ## 1. Local Proof
 
@@ -12,14 +12,14 @@ Install dependencies with lifecycle scripts disabled:
 npm.cmd ci --ignore-scripts
 ```
 
-Run the full local proof suite:
+Run the local proof suite:
 
 ```powershell
 npm.cmd run verify
 npm.cmd run proof:pack
 ```
 
-Expected result:
+What should happen:
 
 - `npm.cmd run verify` passes.
 - `npm.cmd run proof:pack` writes `docs/judge-proof.md`.
@@ -39,7 +39,7 @@ Open these artifacts in this order:
 8. `docs/rules-compliance.md` for official rules, video restrictions, and manual final attestations.
 9. `docs/judge-evidence-matrix.md` for rubric-to-evidence mapping.
 
-The static storyboard is synthetic repo-local proof. It is not a substitute for live Slack sandbox footage.
+The static storyboard is synthetic repo-local proof. It is useful for a fast read, but it is not a substitute for live Slack sandbox footage.
 
 ## 3. Required Technology Proof
 
@@ -52,7 +52,7 @@ npm.cmd run mcp:transcript
 npm.cmd run smoke:slack-mcp
 ```
 
-Expected proof:
+What to look for:
 
 - `docs/slack-interaction-transcript.md` records the Slack button responses for ownership, channel creation, evidence, detections, report, and guardrails.
 - MCP tools include `triage_slack_alert`, `build_response_checklist`, `build_impact_summary`, `export_evidence_ledger`, `build_detection_plan`, `generate_incident_report`, and `list_demo_incidents`.
@@ -78,7 +78,7 @@ In Slack, use the `Triage with SignalDesk` message shortcut on a synthetic suspi
 /signaldesk demo
 ```
 
-Expected Slack result:
+What the Slack sandbox should show:
 
 - Opening SignalDesk App Home shows the judge test path, fallback command, proof signals, evidence boundary, and clickable `Demo guide` plus `Proof checklist` modals.
 - Running `/signaldesk proof` shows the proof checklist as a Slack message if App Home is not visible during recording.
@@ -120,10 +120,10 @@ Expected state before clicking Submit:
 - Technological Implementation: Slack Bolt app, MCP stdio server, Slack-to-MCP smoke test, Block Kit limits, and local unit tests.
 - Design: App Home onboarding, message shortcut, `/signaldesk`, app mention flow, action buttons, incident channel creation, and readable Block Kit output.
 - Potential Impact: Agent for Good focus for nonprofits, schools, clinics, and community teams, plus `docs/impact-evaluation.md`.
-- Quality of the Idea: evidence-gated security workflow with claims, evidence IDs, detections, guardrails, and report export instead of a generic chatbot.
+- Quality of the Idea: focused security workflow with claims, evidence IDs, detections, guardrails, and report export instead of a generic chatbot.
 
 ## Evidence Boundary
 
-Confirmed locally: deterministic triage, MCP tool calls, Slack-to-MCP bridge behavior, fixture coverage, impact readiness, recording package readiness, public repo readiness, and submission artifact completeness.
+Confirmed locally: triage logic, MCP tool calls, Slack-to-MCP bridge behavior, fixture coverage, impact readiness, recording package readiness, public repo readiness, and submission artifact completeness.
 
 Still external: live Slack sandbox install, judge access, public GitHub URL, public or unlisted demo video, Devpost project URL, and final online link reachability.

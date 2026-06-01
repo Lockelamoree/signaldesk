@@ -1,46 +1,48 @@
 # SignalDesk
 
-SignalDesk is a Slack-native security incident agent for teams that do not have a full SOC. It turns a messy alert, suspicious message, or incident thread into a clear incident brief, evidence checklist, evidence-linked detection checks, MITRE ATT&CK candidate mapping, and next-action plan inside Slack.
+SignalDesk is a Slack incident helper for teams that do not have a security operations center on standby. When someone drops a suspicious link, leaked token, or half-explained alert into Slack, SignalDesk turns that messy moment into a usable first-response brief: what we know, what we do not know yet, who should own the next step, and which logs are worth checking first.
 
-Recommended hackathon track: **Slack Agent for Good**. The social-impact angle is direct: nonprofits, schools, clinics, mutual-aid groups, and small public-interest teams often coordinate in Slack but lack dedicated incident response staff. SignalDesk gives them a safe first 15 minutes instead of a panic scroll.
+The project is aimed at the **Slack Agent for Good** track. The people I had in mind are nonprofits, schools, clinics, mutual-aid groups, and small public-interest teams that already coordinate in Slack but usually do not have dedicated incident response staff. The goal is simple: give them a safer first 15 minutes instead of a panic scroll.
 
-Backup track: **New Slack Agent** if the final story becomes more general SecOps productivity than social good.
+There is also a backup fit for **New Slack Agent**, but the stronger story is social impact: helping small teams protect donors, students, patients, volunteers, and staff without pretending an agent replaces a real security team.
 
 ![SignalDesk Slack triage storyboard showing MCP runtime, first-response readiness, detections, and incident actions](docs/demo-preview.png)
 
-This image is a repo-local storyboard preview generated from synthetic data. The final Devpost video still needs live Slack developer sandbox footage.
+This is a repo-local storyboard preview built from synthetic data. It is here so reviewers can understand the workflow quickly; the final Devpost video still needs live Slack developer sandbox footage.
 
-## Why This Can Win
+## Why I Built It
 
-The Slack Agent Builder Challenge judges score four equally weighted areas:
+Most small teams do not fail incident response because they lack a beautiful dashboard. They fail because the first thread gets noisy: nobody owns it, evidence gets lost, someone declares impact too early, and the useful log checks show up too late.
 
-- Technological Implementation: SignalDesk uses a Slack app plus MCP security tools with deterministic, testable triage logic.
-- Design: the primary UX is a Slack command and mention flow that produces a structured Block Kit incident brief.
-- Potential Impact: fast, repeatable incident coordination for under-resourced teams.
-- Quality of the Idea: not a generic chatbot; it is a specific workflow where Slack is the natural coordination surface.
+SignalDesk tries to make that first thread calmer. It gives responders a clear Slack brief, evidence IDs, candidate ATT&CK mappings, detection checks, response roles, guardrails, and a dedicated incident channel handoff. It is not trying to be an all-knowing analyst. It is trying to be the reliable teammate who says, "Before we speculate, here is what we can prove and what to check next."
 
-The tiebreak starts with technological implementation, so this repo prioritizes end-to-end proof before cosmetic polish.
+For the Slack Agent Builder Challenge, the fit is:
+
+- Technological Implementation: Slack Bolt, Block Kit, Socket Mode, and MCP server integration through `SIGNALDESK_TRIAGE_MODE=mcp`.
+- Design: the workflow starts where the report already lives: slash command, app mention, message shortcut, App Home, and action buttons.
+- Potential Impact: a repeatable first-response path for teams that cannot hire a full SOC.
+- Quality of the Idea: a focused incident-response workflow in Slack, not another generic chatbot wearing a security hoodie.
 
 ## Demo Flow
 
-1. A team member runs `/signaldesk` with a suspicious Slack message, alert text, or pasted thread context.
-2. SignalDesk extracts indicators, assigns a severity band, maps likely ATT&CK techniques, and generates evidence-linked detection checks.
-3. The agent posts a Slack Block Kit brief with first-response readiness, actions, response roles, suggested incident channel, evidence needed, detection opportunities, and guardrails.
-4. The App Home tab and `/signaldesk proof` give judges the test path, fallback command, and proof signals to look for.
-5. For the judged demo, Slack can run in `SIGNALDESK_TRIAGE_MODE=mcp`, delegating triage to the MCP stdio server through `triage_slack_alert`.
+1. A teammate runs `/signaldesk`, mentions the app, or uses the `Triage with SignalDesk` shortcut on a suspicious message.
+2. SignalDesk extracts indicators, assigns a severity band, maps candidate ATT&CK techniques, and builds detection checks tied back to evidence.
+3. The app posts a Block Kit incident brief with first-response readiness, response roles, suggested incident channel, evidence checklist, report export, and guardrails.
+4. The App Home tab, `Demo guide`, `Proof checklist`, `/signaldesk demo`, `/signaldesk proof`, and no-input demo help give judges a low-friction way to test it.
+5. For the judged demo, Slack runs in `SIGNALDESK_TRIAGE_MODE=mcp`, so the Slack path calls the MCP stdio server through `triage_slack_alert`.
 
-## Repository Proof
+## Repo Map
 
-- Architecture diagram: `docs/architecture.svg`.
-- Root architecture entry point: `ARCHITECTURE.md`.
-- Public repo settings: `docs/github-repo-settings.md`.
-- Rules compliance map: `docs/rules-compliance.md`.
+Security demos should come with receipts, not vibes. The main ones are:
+
+- Start here: `docs/judge-one-pager.md`.
+- Judge quickstart: `docs/judge-quickstart.md`.
+- Architecture diagram: `docs/architecture.svg`, with `ARCHITECTURE.md` as the root overview.
 - Devpost draft copy: `docs/devpost-copy.md`.
 - Paste-ready Devpost form pack: `docs/devpost-form.md`.
+- Rules compliance map: `docs/rules-compliance.md`.
 - Generated Devpost paste bundle: `artifacts/submission/devpost-paste-bundle.md` from `npm.cmd run submission:bundle`.
 - Live gate status packet: `artifacts/submission/live-gate-status.md` from `npm.cmd run submission:live-gates`.
-- Judge one-pager: `docs/judge-one-pager.md`.
-- Judge quickstart: `docs/judge-quickstart.md`.
 - Agent for Good impact evaluation: `docs/impact-evaluation.md`.
 - Demo transcript: `docs/demo-transcript.md`.
 - Demo captions: `docs/demo-captions.vtt`.
@@ -50,7 +52,8 @@ The tiebreak starts with technological implementation, so this repo prioritizes 
 - Recording take card: `docs/recording-take-card.md`.
 - Video package: `docs/video-package.md`.
 - Demo thumbnail: `docs/thumbnail.png` with editable source at `docs/thumbnail.svg`.
-- GitHub launch checklist: `npm.cmd run github:launch:check`, then `npm.cmd run github:launch:strict` after the first public push.
+- Public repo settings: `docs/github-repo-settings.md`.
+- GitHub launch checklist: `npm.cmd run github:launch:check`, then `npm.cmd run github:launch:strict` after public push.
 - Live account-gate handoff for Max: `docs/live-gate-handoff.md`.
 - Judge evidence matrix: `docs/judge-evidence-matrix.md`.
 - Bonus prize map: `docs/bonus-prize-map.md`.
@@ -102,7 +105,7 @@ Run the MCP server:
 npm.cmd run mcp
 ```
 
-Run the deterministic demo and tests:
+Run the local demo and proof scripts:
 
 ```powershell
 npm.cmd run demo
@@ -171,7 +174,7 @@ npm.cmd run start
 /signaldesk demo
 ```
 
-Expected result: the App Home tab shows the judge test path plus clickable `Demo guide` and `Proof checklist` modals, `/signaldesk proof` shows the proof checklist as a Slack message, `/signaldesk demo` triggers the canonical synthetic incident, `/signaldesk` without text shows demo help, and the Slack workflow produces a Block Kit incident brief with runtime `MCP stdio`, severity, indicators, candidate ATT&CK techniques, evidence IDs, claim audit, detection checks, first-response readiness, response roles, and buttons for creating an incident channel, ownership, checklist, evidence, detections, report, and guardrails.
+Expected result: App Home shows the judge test path plus clickable `Demo guide` and `Proof checklist` modals. `/signaldesk proof` posts the proof checklist, `/signaldesk demo` runs the synthetic incident, `/signaldesk` without text shows demo help, and the Slack workflow produces a Block Kit brief with `Runtime: MCP stdio`, severity, indicators, candidate ATT&CK techniques, evidence IDs, claim audit, detection checks, first-response readiness, response roles, and buttons for channel creation, ownership, checklist, evidence, detections, report, and guardrails.
 
 ## Security Notes
 
@@ -182,10 +185,10 @@ Expected result: the App Home tab shows the judge test path plus clickable `Demo
 - `SIGNALDESK_PERSIST_BRIEFS=1` can recover synthetic demo button state after a local app restart by writing to `artifacts/private/brief-store`; keep it off for real Slack data unless explicit retention controls exist.
 - `npm.cmd run check:block-kit` validates generated Slack blocks against message, section, action, and button limits before sandbox recording.
 - `npm.cmd run sandbox:doctor -- --strict` validates real Slack token prefixes, manifest settings, scopes, and MCP demo mode before live recording.
-- If triage fails during live testing, SignalDesk posts runtime-check guidance instead of a partial incident brief, and redacts token-shaped strings rather than exposing secrets or stack traces.
-- SignalDesk should avoid storing Slack message bodies outside the workspace in the hackathon demo unless explicit consent and retention controls are implemented.
+- If triage fails during live testing, SignalDesk posts runtime-check guidance instead of a half-built incident brief, and it redacts token-shaped strings rather than leaking secrets or stack traces.
+- Do not store real Slack message bodies outside the workspace for this hackathon demo unless explicit consent and retention controls are in place.
 
-## Submission Proof Still Needed
+## Still Needed Before Devpost
 
 - Public demo video under 3 minutes.
 - Uploadable captions from `docs/demo-captions.vtt`.
