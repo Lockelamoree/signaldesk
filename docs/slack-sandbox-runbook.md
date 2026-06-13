@@ -45,6 +45,12 @@ npm.cmd run sandbox:doctor -- --strict
 npm.cmd run start
 ```
 
+Or use the local prompt helper, which keeps tokens in the current PowerShell process and does not write them to disk:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\start-live-slack.ps1
+```
+
 Optional synthetic-demo recovery:
 
 ```powershell

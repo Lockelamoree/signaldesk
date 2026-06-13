@@ -52,6 +52,12 @@ npm.cmd run sandbox:doctor -- --strict
 npm.cmd run start
 ```
 
+Token-safe helper:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\start-live-slack.ps1
+```
+
 Use Slack:
 
 ```text
@@ -79,4 +85,3 @@ Do not click Submit until all of these are true:
 - `npm.cmd run submission:final:online` passes.
 - Public repo, demo video, Slack sandbox URL, and Devpost project URL open in a private browser session.
 - The two judge emails are invited to the Slack sandbox.
-
