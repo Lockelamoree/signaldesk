@@ -2,7 +2,7 @@
 
 This is the short handoff for the account-bound work that still needs Max's logged-in Slack, video host, and Devpost sessions.
 
-Current status: repo-local proof is ready and the public GitHub repo has been pushed. Slack sandbox access, demo video, final Devpost URL, and final URL replacement are still pending.
+Current status: repo-local proof is ready and the public GitHub repo has been pushed. Slack sandbox access, demo video, final Devpost URL, and final URL replacement are still pending. The shortest blocker checklist is `docs/live-submission-blockers.md`.
 
 ## Max-Owned Actions
 

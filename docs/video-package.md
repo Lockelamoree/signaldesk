@@ -58,7 +58,7 @@ Upload `docs/demo-captions.vtt` after the video is cut. The captions end at 2:52
    Show `npm.cmd run smoke:slack-mcp`, then `npm.cmd run mcp:transcript` with `triage_slack_alert`, `build_impact_summary`, `export_evidence_ledger`, `build_detection_plan`, `generate_incident_report`, and `list_demo_incidents`. If time allows, show the `npm.cmd run impact:evaluate` summary line with 98.3/100 average readiness.
 
 7. 2:30-2:50: Impact close.
-   "SignalDesk does not replace responders. It gives small teams a safer first 15 minutes: preserve evidence, assign owners, contain obvious risk, and avoid unsupported claims."
+   "SignalDesk does not replace responders. It gives small teams a safe first 15 minutes: preserve evidence, assign owners, contain obvious risk, and avoid unsupported claims."
 
 ## Recording Checklist
 

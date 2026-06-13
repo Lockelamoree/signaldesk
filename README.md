@@ -55,6 +55,7 @@ Security demos should come with receipts, not vibes. The main ones are:
 - Public repo settings: `docs/github-repo-settings.md`.
 - GitHub launch checklist: `npm.cmd run github:launch:check`, then `npm.cmd run github:launch:strict` after public push.
 - Live account-gate handoff for Max: `docs/live-gate-handoff.md`.
+- Live submission blockers: `docs/live-submission-blockers.md`.
 - Judge evidence matrix: `docs/judge-evidence-matrix.md`.
 - Bonus prize map: `docs/bonus-prize-map.md`.
 - Slack UX proof: `docs/slack-ux-proof.md`.
