@@ -5,11 +5,18 @@ Reporter: demo-user
 Channel: security-help
 Severity: HIGH (100/100)
 Confidence: medium
+Report Decision: Incident report
 Runtime: MCP stdio via triage_slack_alert
 
 ## Executive Summary
 
 HIGH confidence triage for Token or OAuth Exposure; extracted 1 URL(s), 1 IP address(es).
+
+## Report Decision
+
+Enough signal for an incident report: 3 extracted indicator(s); Token or OAuth Exposure scenario language; 2 ATT&CK candidate(s); severity score 100/100; confirmed user action; sensitive or production context.
+
+Decision signals: 3 extracted indicator(s); Token or OAuth Exposure scenario language; 2 ATT&CK candidate(s); severity score 100/100; confirmed user action; sensitive or production context.
 
 ## First-Response Readiness
 

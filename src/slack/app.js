@@ -238,7 +238,7 @@ app.action("signaldesk_create_channel", async ({ ack, body, client, respond }) =
   }
 
   const result = await createIncidentChannel({ brief, client });
-  await respond(buildCreateChannelPayload(result));
+  await respond(buildCreateChannelPayload(result, brief));
 });
 
 app.action("signaldesk_show_checklist", async ({ ack, body, respond }) => {

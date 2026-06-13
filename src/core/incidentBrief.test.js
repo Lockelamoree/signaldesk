@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildIncidentBrief, buildImpactMetrics, buildIncidentReport, buildSlackBlocks, classifyScenario, extractIndicators, mapMitreTechniques, validateEvidenceClaims } from "./incidentBrief.js";
+import { buildIncidentBrief, buildImpactMetrics, buildIncidentReport, buildSlackBlocks, classifyScenario, decideReportNeed, extractIndicators, mapMitreTechniques, validateEvidenceClaims } from "./incidentBrief.js";
 import { sampleIncidents } from "./sampleIncidents.js";
 
 const sampleAlert = "User clicked a fake OAuth consent page at https://login-example.bad/oauth from 198.51.100.23 and pasted an access token.";
@@ -46,6 +46,10 @@ test("buildIncidentBrief returns actionable triage", () => {
   assert.equal(brief.impactMetrics.counters.detectionChecks, brief.detectionOpportunities.length);
   assert.ok(brief.impactMetrics.signals.some((signal) => signal.id === "IM-003" && signal.evidenceIds.includes("EV-001")));
   assert.ok(brief.guardrails.length >= 2);
+  assert.equal(brief.reportDecision.needed, true);
+  assert.equal(brief.reportDecision.reportNeeded, true);
+  assert.equal(brief.reportDecision.level, "incident_report");
+  assert.ok(brief.reportDecision.signals.some((signal) => signal.includes("Token or OAuth Exposure")));
 });
 
 test("buildSlackBlocks returns Slack block kit payload", () => {
@@ -59,6 +63,7 @@ test("buildSlackBlocks returns Slack block kit payload", () => {
     assert.ok(block.elements.length <= 5, "Slack action blocks allow at most 5 elements");
   }
   assert.ok(JSON.stringify(blocks).includes("Evidence IDs"));
+  assert.ok(JSON.stringify(blocks).includes("Report Decision"));
   assert.ok(JSON.stringify(blocks).includes("Detection Checks"));
   assert.ok(JSON.stringify(blocks).includes("First-Response Readiness"));
   assert.ok(JSON.stringify(blocks).includes("signaldesk_create_channel"));
@@ -96,6 +101,27 @@ test("classifyScenario returns a safe fallback for weak reports", () => {
   assert.equal(scenario.id, "security_report");
 });
 
+test("weak reports stay intake-only until evidence exists", () => {
+  const decision = decideReportNeed({ alertText: "signaldesk im scared" });
+  const brief = buildIncidentBrief({
+    alertText: "signaldesk im scared",
+    reporter: "max",
+    channel: "test",
+    timestamp: "2026-06-13T15:19:00.204Z"
+  });
+  const report = buildIncidentReport(brief);
+
+  assert.equal(decision.needed, false);
+  assert.equal(brief.scenario.id, "security_report");
+  assert.equal(brief.reportDecision.needed, false);
+  assert.equal(brief.reportDecision.level, "intake_only");
+  assert.match(brief.summary, /No incident report needed yet/);
+  assert.ok(brief.reportDecision.missingContext.length >= 3);
+  assert.ok(report.startsWith("# SignalDesk Intake Note"));
+  assert.ok(report.includes("## Report Decision"));
+  assert.ok(report.includes("Needed before report export"));
+});
+
 test("sample incidents satisfy expected scenario, severity, and techniques", () => {
   for (const sample of sampleIncidents) {
     const brief = buildIncidentBrief({
@@ -107,6 +133,7 @@ test("sample incidents satisfy expected scenario, severity, and techniques", () 
 
     assert.equal(brief.scenario.id, sample.expectedScenario, sample.id);
     assert.equal(brief.severity.label, sample.expectedSeverity, sample.id);
+    assert.equal(brief.reportDecision.needed, sample.id !== "community-low-signal", sample.id);
     assert.equal(brief.evidenceValidation.valid, true, sample.id);
     assert.ok(brief.detectionOpportunities.length >= 1, `${sample.id} missing detection opportunities`);
     for (const expectedTechnique of sample.expectedTechniques) {
@@ -140,6 +167,7 @@ test("buildIncidentReport exports evidence-gated markdown", () => {
   const report = buildIncidentReport(brief);
 
   assert.ok(report.startsWith("# SignalDesk Incident Report"));
+  assert.ok(report.includes("## Report Decision"));
   assert.ok(report.includes("## Evidence Ledger"));
   assert.ok(report.includes("## First-Response Readiness"));
   assert.ok(report.includes("EV-001"));

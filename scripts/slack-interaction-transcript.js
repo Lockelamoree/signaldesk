@@ -30,12 +30,31 @@ function assertIncludes(label, text, terms) {
   }
 }
 
+function actionIds(payload) {
+  return (payload.blocks ?? [])
+    .filter((block) => block.type === "actions")
+    .flatMap((block) => block.elements ?? [])
+    .map((element) => element.action_id)
+    .filter(Boolean);
+}
+
 function responseRow(label, payload, expectedTerms) {
   assertIncludes(label, payload.text, expectedTerms);
+  const ids = actionIds(payload);
+  if (ids.length) {
+    assertSlackBlocksValid(payload.blocks);
+    assertIncludes(`${label} follow-up buttons`, ids.join(","), [
+      "signaldesk_show_evidence",
+      "signaldesk_show_detections",
+      "signaldesk_export_report"
+    ]);
+  }
   return {
     label,
     responseType: payload.response_type,
     textLength: payload.text.length,
+    actionCount: ids.length,
+    actionIds: ids,
     expectedTerms,
     excerpt: excerpt(payload.text)
   };
@@ -86,11 +105,13 @@ const rows = [
     label: "Initial incident brief",
     responseType: "in_channel",
     textLength: brief.summary.length,
+    actionCount: blockValidation.summary.interactiveElements,
+    actionIds: [],
     expectedTerms: ["MCP stdio", "evidence IDs", "detection checks"],
     excerpt: `${blockValidation.summary.blocks} Block Kit blocks, ${blockValidation.summary.interactiveElements} interactive elements, runtime ${brief.runtime.mode} via ${brief.runtime.tool}.`
   },
   responseRow("Take owner", buildOwnerAckPayload({ brief, user: "Max" }), ["took incident ownership", "preserve evidence"]),
-  responseRow("Create channel", buildCreateChannelPayload(channelResult), ["created #", "incident kickoff"]),
+  responseRow("Create channel", buildCreateChannelPayload(channelResult, brief), ["created #", "incident kickoff"]),
   responseRow("Show checklist", buildChecklistPayload(brief), ["SignalDesk evidence checklist", "Identity provider sign-in logs"]),
   responseRow("Evidence", buildEvidencePayload(brief), ["SignalDesk evidence ledger", "Claim audit", "EV-001"]),
   responseRow("Detections", buildDetectionsPayload(brief), ["SignalDesk detection plan", "DET-001", "Evidence:"]),
@@ -142,7 +163,7 @@ function formatPreviewHtml({ brief, rows, channelResult, generatedAt }) {
             <strong>${htmlEscape(row.responseType)}</strong>
           </div>
           <p>${htmlEscape(presentationText(row.excerpt))}</p>
-          <div class="terms">${htmlEscape(row.expectedTerms.join(" | "))}</div>
+          <div class="terms">${htmlEscape([...row.expectedTerms, `${row.actionCount} buttons`].join(" | "))}</div>
         </article>`).join("");
 
   return `<!doctype html>
@@ -400,9 +421,9 @@ const markdown = [
   "",
   "## Action Responses",
   "",
-  "| Interaction | Response type | Text length | Proof terms | Excerpt |",
-  "| --- | --- | ---: | --- | --- |",
-  ...rows.map((row) => `| ${tableEscape(row.label)} | ${tableEscape(row.responseType)} | ${row.textLength} | ${tableEscape(row.expectedTerms.join(", "))} | ${tableEscape(row.excerpt)} |`),
+  "| Interaction | Response type | Text length | Buttons | Proof terms | Excerpt |",
+  "| --- | --- | ---: | ---: | --- | --- |",
+  ...rows.map((row) => `| ${tableEscape(row.label)} | ${tableEscape(row.responseType)} | ${row.textLength} | ${row.actionCount} | ${tableEscape(row.expectedTerms.join(", "))} | ${tableEscape(row.excerpt)} |`),
   "",
   "## Fake Slack Client Calls",
   "",

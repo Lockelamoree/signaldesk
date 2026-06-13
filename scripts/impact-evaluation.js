@@ -59,6 +59,8 @@ function buildEvaluation() {
       missingTechniques,
       readinessScore: brief.impactMetrics.readinessScore,
       readinessLabel: brief.impactMetrics.readinessLabel,
+      reportDecision: brief.reportDecision.label,
+      reportNeeded: brief.reportDecision.needed,
       evidenceItems: brief.evidenceLedger.length,
       claims: brief.claims.length,
       detectionChecks: brief.detectionOpportunities.length,
@@ -80,6 +82,8 @@ function buildEvaluation() {
     averageReadinessScore: average(readinessScores),
     minimumReadinessScore: Math.min(...readinessScores),
     maximumReadinessScore: Math.max(...readinessScores),
+    reportReadyFixtures: rows.filter((row) => row.reportNeeded).length,
+    intakeOnlyFixtures: rows.filter((row) => !row.reportNeeded).length,
     evidenceItems: sum(rows.map((row) => row.evidenceItems)),
     claims: sum(rows.map((row) => row.claims)),
     detectionChecks: sum(rows.map((row) => row.detectionChecks)),
@@ -108,6 +112,9 @@ function buildEvaluation() {
     if (!row.evidenceValidation.valid) {
       failures.push(`${row.fixture}: evidence validation failed: ${row.evidenceValidation.errors.join("; ")}.`);
     }
+    if (row.fixture === "community-low-signal" && row.reportNeeded) {
+      failures.push(`${row.fixture}: low-signal report should remain intake-only until concrete evidence is provided.`);
+    }
     if (row.readinessScore < 80) {
       failures.push(`${row.fixture}: readiness score ${row.readinessScore} is below the 80/100 floor.`);
     }
@@ -132,7 +139,7 @@ function buildEvaluation() {
 
 function formatMarkdown(evaluation) {
   const rows = evaluation.rows.map((row) => (
-    `| ${tableEscape(row.title)} | ${tableEscape(row.community)} | ${row.actualScenario} | ${row.actualSeverity} ${row.severityScore}/100 | ${row.readinessScore}/100 | ${row.evidenceItems} | ${row.detectionChecks} | ${row.roleAssignments} | ${row.guardrails} | ${row.evidenceValidation.valid ? "PASS" : "FAIL"} |`
+    `| ${tableEscape(row.title)} | ${tableEscape(row.community)} | ${row.actualScenario} | ${row.actualSeverity} ${row.severityScore}/100 | ${tableEscape(row.reportDecision)} | ${row.readinessScore}/100 | ${row.evidenceItems} | ${row.detectionChecks} | ${row.roleAssignments} | ${row.guardrails} | ${row.evidenceValidation.valid ? "PASS" : "FAIL"} |`
   ));
 
   return [
@@ -151,6 +158,8 @@ function formatMarkdown(evaluation) {
     `- Scenarios covered: ${evaluation.aggregate.scenarioCoverage.join(", ")}.`,
     `- Average first-response readiness: ${evaluation.aggregate.averageReadinessScore}/100.`,
     `- Minimum first-response readiness: ${evaluation.aggregate.minimumReadinessScore}/100.`,
+    `- Report-ready fixtures: ${evaluation.aggregate.reportReadyFixtures}.`,
+    `- Intake-only fixtures: ${evaluation.aggregate.intakeOnlyFixtures}.`,
     `- Evidence items prepared: ${evaluation.aggregate.evidenceItems}.`,
     `- Evidence-linked detection checks prepared: ${evaluation.aggregate.detectionChecks}.`,
     `- Response roles suggested: ${evaluation.aggregate.roleAssignments}.`,
@@ -158,14 +167,15 @@ function formatMarkdown(evaluation) {
     "",
     "## Fixture Results",
     "",
-    "| Fixture | Community | Scenario | Severity | Readiness | Evidence | Detections | Roles | Guardrails | Claims valid |",
-    "| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |",
+    "| Fixture | Community | Scenario | Severity | Report decision | Readiness | Evidence | Detections | Roles | Guardrails | Claims valid |",
+    "| --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |",
     ...rows,
     "",
     "## Pass Criteria",
     "",
     "- At least four Agent for Good fixtures cover nonprofit operations, education, public health, and community safety.",
     "- Required scenarios are covered: token exposure, malware execution, data exfiltration, and low-signal security reports.",
+    "- Low-signal security reports stay intake-only until concrete indicators, affected users/systems, confirmed action, or sensitive context exists.",
     "- Each fixture preserves source evidence, validates claims against evidence IDs, generates detection checks, assigns response roles, includes guardrails, and suggests a Slack coordination path.",
     "- Each fixture reaches at least 80/100 first-response readiness, and the average stays at or above 90/100.",
     "",

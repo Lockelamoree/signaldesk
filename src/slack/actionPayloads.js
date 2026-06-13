@@ -14,27 +14,73 @@ const DEFAULT_GUARDRAILS = [
   "Confirm impact with logs before declaring compromise."
 ];
 
-export function buildOwnerAckPayload({ brief, user = "A responder" } = {}) {
-  const context = brief ? ` for ${brief.scenario.label} (${brief.severity.label}, ${brief.severity.score}/100)` : "";
-
+function button(actionId, text, value, style) {
   return {
-    response_type: "in_channel",
-    text: `${user} took incident ownership${context}. Next: confirm affected users, preserve evidence, and post the first update.`
+    type: "button",
+    action_id: actionId,
+    text: {
+      type: "plain_text",
+      text,
+      emoji: false
+    },
+    value,
+    ...(style ? { style } : {})
   };
 }
 
-export function buildCreateChannelPayload(result) {
+export function buildFollowupActionBlocks(brief) {
+  if (!brief?.id) return [];
+
+  const createStyle = brief.reportDecision?.needed === false ? undefined : "primary";
+  const reportLabel = brief.reportDecision?.needed === false ? "Intake note" : "Report";
+
+  return [
+    {
+      type: "actions",
+      elements: [
+        button("signaldesk_create_channel", "Create channel", brief.id, createStyle),
+        button("signaldesk_ack_owner", "Take owner", brief.id),
+        button("signaldesk_show_checklist", "Show checklist", brief.id),
+        button("signaldesk_show_evidence", "Evidence", brief.id),
+        button("signaldesk_show_guardrails", "Guardrails", brief.id)
+      ]
+    },
+    {
+      type: "actions",
+      elements: [
+        button("signaldesk_show_detections", "Detections", brief.id),
+        button("signaldesk_export_report", reportLabel, brief.id)
+      ]
+    }
+  ];
+}
+
+function withFollowupActions(payload, brief) {
+  const blocks = buildFollowupActionBlocks(brief);
+  return blocks.length ? { ...payload, blocks } : payload;
+}
+
+export function buildOwnerAckPayload({ brief, user = "A responder" } = {}) {
+  const context = brief ? ` for ${brief.scenario.label} (${brief.severity.label}, ${brief.severity.score}/100)` : "";
+
+  return withFollowupActions({
+    response_type: "in_channel",
+    text: `${user} took incident ownership${context}. Next: confirm affected users, preserve evidence, and post the first update.`
+  }, brief);
+}
+
+export function buildCreateChannelPayload(result, brief) {
   if (result?.ok) {
-    return {
+    return withFollowupActions({
       response_type: "in_channel",
       text: `SignalDesk created #${result.channelName} and posted the incident kickoff.`
-    };
+    }, brief);
   }
 
-  return {
+  return withFollowupActions({
     response_type: "ephemeral",
     text: `SignalDesk could not create the incident channel (${result?.error ?? "unknown_error"}). Check that the app has channels:manage and workspace channel creation is allowed.`
-  };
+  }, brief);
 }
 
 export function buildMissingBriefPayload(subject = "Incident details") {
@@ -47,13 +93,13 @@ export function buildMissingBriefPayload(subject = "Incident details") {
 export function buildChecklistPayload(brief) {
   const checklist = brief?.evidenceChecklist ?? DEFAULT_CHECKLIST;
 
-  return {
+  return withFollowupActions({
     response_type: "ephemeral",
     text: [
       "*SignalDesk evidence checklist*",
       ...checklist.map((item) => `- ${item}`)
     ].join("\n")
-  };
+  }, brief);
 }
 
 export function buildEvidencePayload(brief) {
@@ -61,7 +107,7 @@ export function buildEvidencePayload(brief) {
     return buildMissingBriefPayload("Evidence details");
   }
 
-  return {
+  return withFollowupActions({
     response_type: "ephemeral",
     text: [
       "*SignalDesk evidence ledger*",
@@ -73,20 +119,20 @@ export function buildEvidencePayload(brief) {
       "*Claim audit*",
       ...brief.claims.map((claim) => `- ${claim.id} [${claim.status}]: ${claim.text}`)
     ].join("\n")
-  };
+  }, brief);
 }
 
 export function buildGuardrailsPayload(brief) {
   const guardrails = brief?.guardrails ?? DEFAULT_GUARDRAILS;
 
-  return {
+  return withFollowupActions({
     response_type: "ephemeral",
     text: [
       "*SignalDesk guardrails*",
       ...guardrails.map((item) => `- ${item}`),
       "- Prefer reversible containment before destructive cleanup."
     ].join("\n")
-  };
+  }, brief);
 }
 
 export function buildDetectionsPayload(brief) {
@@ -94,7 +140,7 @@ export function buildDetectionsPayload(brief) {
     return buildMissingBriefPayload("Detection details");
   }
 
-  return {
+  return withFollowupActions({
     response_type: "ephemeral",
     text: [
       "*SignalDesk detection plan*",
@@ -105,7 +151,7 @@ export function buildDetectionsPayload(brief) {
         `  Query: \`${detection.query}\``
       ].join("\n"))
     ].join("\n")
-  };
+  }, brief);
 }
 
 export function buildReportPayload(brief) {
@@ -116,8 +162,8 @@ export function buildReportPayload(brief) {
   const report = buildIncidentReport(brief);
   const excerpt = report.length > 2900 ? `${report.slice(0, 2800)}\n\n[Report truncated for Slack preview.]` : report;
 
-  return {
+  return withFollowupActions({
     response_type: "ephemeral",
     text: `\`\`\`${excerpt}\`\`\``
-  };
+  }, brief);
 }

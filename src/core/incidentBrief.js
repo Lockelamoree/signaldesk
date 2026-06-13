@@ -78,6 +78,10 @@ function matches(pattern, text) {
   return unique(text.match(pattern) ?? []);
 }
 
+function countIndicators(indicators) {
+  return Object.values(indicators ?? {}).reduce((total, values) => total + (Array.isArray(values) ? values.length : 0), 0);
+}
+
 export function extractIndicators(text) {
   const normalized = String(text ?? "");
   const urls = matches(URL_PATTERN, normalized);
@@ -157,7 +161,68 @@ export function mapMitreTechniques(text) {
     .map(({ id, name }) => ({ id, name }));
 }
 
-function buildSummary(severity, indicators, scenario) {
+const CONFIRMED_ACTION_PATTERN = /\b(clicked|entered|approved|downloaded|executed|installed|forwarded|pasted)\b/i;
+const NEGATED_ACTION_PATTERN = /\b(nobody|no one|none|not|never|did not|didn't|has not|hasn't|have not|haven't)\b(?:\W+\w+){0,4}\W+(clicked|entered|approved|downloaded|executed|installed|forwarded|pasted)\b/i;
+const SENSITIVE_CONTEXT_PATTERN = /\b(donor|patient|student|payroll|pii|sensitive data|customer|production|admin|finance)\b/i;
+
+const REPORT_INTAKE_MISSING_CONTEXT = [
+  "Concrete indicator such as a URL, IP, domain, email, file hash, or Slack permalink",
+  "Affected user, workspace, device, app, or business process",
+  "Action taken by the reporter: ignored, clicked, entered credentials, approved MFA, or downloaded a file",
+  "Timestamp and source channel/thread for follow-up evidence"
+];
+
+function hasConfirmedUserAction(text) {
+  const content = String(text ?? "");
+  return CONFIRMED_ACTION_PATTERN.test(content) && !NEGATED_ACTION_PATTERN.test(content);
+}
+
+function articleFor(label) {
+  return /^[aeiou]/i.test(label) ? "an" : "a";
+}
+
+export function decideReportNeed({
+  alertText,
+  indicators = extractIndicators(alertText),
+  severity = scoreSeverity(alertText, indicators),
+  scenario = classifyScenario(alertText),
+  candidateTechniques = mapMitreTechniques(alertText)
+}) {
+  const content = String(alertText ?? "");
+  const indicatorTotal = countIndicators(indicators);
+  const signals = [];
+
+  if (indicatorTotal) signals.push(`${indicatorTotal} extracted indicator(s)`);
+  if (scenario.id !== "security_report") signals.push(`${scenario.label} scenario language`);
+  if (candidateTechniques.length) signals.push(`${candidateTechniques.length} ATT&CK candidate(s)`);
+  if (severity.score >= 45) signals.push(`severity score ${severity.score}/100`);
+  if (hasConfirmedUserAction(content)) signals.push("confirmed user action");
+  if (SENSITIVE_CONTEXT_PATTERN.test(content)) signals.push("sensitive or production context");
+
+  const needed = signals.length > 0;
+  const level = needed
+    ? severity.label === "high" ? "incident_report" : "triage_report"
+    : "intake_only";
+  const labelByLevel = {
+    incident_report: "Incident report",
+    triage_report: "Triage report",
+    intake_only: "Intake only"
+  };
+
+  return {
+    needed,
+    reportNeeded: needed,
+    level,
+    label: labelByLevel[level],
+    reason: needed
+      ? `Enough signal for ${articleFor(labelByLevel[level])} ${labelByLevel[level].toLowerCase()}: ${signals.join("; ")}.`
+      : "No incident report needed yet: the message does not include concrete indicators, affected systems/users, confirmed user action, or sensitive context.",
+    signals,
+    missingContext: needed ? [] : REPORT_INTAKE_MISSING_CONTEXT
+  };
+}
+
+function buildSummary(severity, indicators, scenario, reportDecision) {
   const bits = [];
   if (indicators.urls.length) bits.push(`${indicators.urls.length} URL(s)`);
   if (indicators.ips.length) bits.push(`${indicators.ips.length} IP address(es)`);
@@ -165,6 +230,10 @@ function buildSummary(severity, indicators, scenario) {
   if (indicators.hashes.length) bits.push(`${indicators.hashes.length} hash value(s)`);
 
   const signal = bits.length ? bits.join(", ") : "no obvious indicators";
+
+  if (reportDecision?.needed === false) {
+    return `${severity.label.toUpperCase()} confidence intake for ${scenario.label}; extracted ${signal}. No incident report needed yet; collect a concrete indicator, affected user/system, action taken, or timestamp before escalating.`;
+  }
 
   return `${severity.label.toUpperCase()} confidence triage for ${scenario.label}; extracted ${signal}.`;
 }
@@ -603,6 +672,13 @@ export function buildIncidentBrief({ alertText, reporter = "unknown", channel = 
   const severity = scoreSeverity(alertText, indicators);
   const scenario = classifyScenario(alertText);
   const techniques = mapMitreTechniques(alertText);
+  const reportDecision = decideReportNeed({
+    alertText,
+    indicators,
+    severity,
+    scenario,
+    candidateTechniques: techniques
+  });
   const evidenceLedger = buildEvidenceLedger({ alertText, reporter, channel, timestamp }, indicators);
   const claims = buildEvidenceClaims({ scenario, severity, candidateTechniques: techniques, evidenceLedger });
   const evidenceValidation = validateEvidenceClaims({ evidenceLedger, claims });
@@ -633,7 +709,8 @@ export function buildIncidentBrief({ alertText, reporter = "unknown", channel = 
     generatedAt: timestamp,
     reporter,
     channel,
-    summary: buildSummary(severity, indicators, scenario),
+    summary: buildSummary(severity, indicators, scenario, reportDecision),
+    reportDecision,
     scenario,
     severity,
     indicators,
@@ -653,6 +730,12 @@ export function buildIncidentBrief({ alertText, reporter = "unknown", channel = 
 }
 
 export function buildSlackBlocks(brief) {
+  const reportDecision = brief.reportDecision ?? {
+    needed: true,
+    label: "Triage report",
+    reason: "Report decision was not recorded on this brief.",
+    missingContext: []
+  };
   const techniqueText = brief.candidateTechniques.length
     ? brief.candidateTechniques.map((technique) => `${technique.id} ${technique.name}`).join("\n")
     : "No ATT&CK technique matched yet.";
@@ -681,13 +764,22 @@ export function buildSlackBlocks(brief) {
     `${brief.impactMetrics.counters.evidenceItems} evidence item(s), ${brief.impactMetrics.counters.detectionChecks} detection check(s), ${brief.impactMetrics.counters.roleAssignments} role(s)`,
     "Impact still requires log validation and human containment."
   ].join("\n");
+  const decisionText = reportDecision.needed === false
+    ? [
+      `*${reportDecision.label}*`,
+      reportDecision.reason,
+      "",
+      "*Needed before report export*",
+      ...reportDecision.missingContext.map((item) => `- ${item}`)
+    ].join("\n")
+    : `*${reportDecision.label}*\n${reportDecision.reason}`;
 
   return [
     {
       type: "header",
       text: {
         type: "plain_text",
-        text: `SignalDesk: ${brief.severity.label.toUpperCase()} triage`,
+        text: `SignalDesk: ${brief.severity.label.toUpperCase()} ${reportDecision.needed === false ? "intake" : "triage"}`,
         emoji: false
       }
     },
@@ -706,6 +798,13 @@ export function buildSlackBlocks(brief) {
         { type: "mrkdwn", text: `*Runtime*\n${brief.runtime?.mode === "mcp" ? "MCP stdio" : "local core"}` },
         { type: "mrkdwn", text: `*Suggested Channel*\n#${brief.slackPlan.suggestedChannelName}` }
       ]
+    },
+    {
+      type: "section",
+      text: {
+        type: "mrkdwn",
+        text: `*Report Decision*\n${decisionText}`
+      }
     },
     {
       type: "section",
@@ -775,7 +874,7 @@ export function buildSlackBlocks(brief) {
             emoji: false
           },
           value: brief.id,
-          style: "primary"
+          ...(reportDecision.needed === false ? {} : { style: "primary" })
         },
         {
           type: "button",
@@ -837,7 +936,7 @@ export function buildSlackBlocks(brief) {
           action_id: "signaldesk_export_report",
           text: {
             type: "plain_text",
-            text: "Report",
+            text: reportDecision.needed === false ? "Intake note" : "Report",
             emoji: false
           },
           value: brief.id
@@ -875,6 +974,15 @@ function runtimeLabel(brief) {
 }
 
 export function buildIncidentReport(brief) {
+  const reportDecision = brief.reportDecision ?? {
+    needed: true,
+    label: "Triage report",
+    reason: "Report decision was not recorded on this brief.",
+    missingContext: []
+  };
+  const title = reportDecision.needed === false
+    ? `# SignalDesk Intake Note: ${brief.scenario.label}`
+    : `# SignalDesk Incident Report: ${brief.scenario.label}`;
   const indicatorRows = Object.entries(brief.indicators).flatMap(([kind, values]) =>
     values.map((value) => ({ Kind: kind, Value: value }))
   );
@@ -906,18 +1014,27 @@ export function buildIncidentReport(brief) {
   }));
 
   return [
-    `# SignalDesk Incident Report: ${brief.scenario.label}`,
+    title,
     "",
     `Generated: ${brief.generatedAt}`,
     `Reporter: ${brief.reporter}`,
     `Channel: ${brief.channel}`,
     `Severity: ${brief.severity.label.toUpperCase()} (${brief.severity.score}/100)`,
     `Confidence: ${brief.confidence}`,
+    `Report Decision: ${reportDecision.label}`,
     `Runtime: ${runtimeLabel(brief)}`,
     "",
     "## Executive Summary",
     "",
     brief.summary,
+    "",
+    "## Report Decision",
+    "",
+    reportDecision.reason,
+    "",
+    reportDecision.missingContext.length
+      ? ["Needed before report export:", markdownList(reportDecision.missingContext)].join("\n\n")
+      : `Decision signals: ${reportDecision.signals?.join("; ") || "recorded triage signal"}.`,
     "",
     "## First-Response Readiness",
     "",
@@ -979,6 +1096,8 @@ export function buildIncidentReport(brief) {
       ? "Evidence claim validation passed."
       : `Evidence claim validation failed: ${brief.evidenceValidation.errors.join("; ")}`,
     "",
-    "This report is triage support, not attribution or final impact determination."
+    reportDecision.needed === false
+      ? "This intake note is triage support, not an incident report, attribution, or final impact determination."
+      : "This report is triage support, not attribution or final impact determination."
   ].join("\n");
 }

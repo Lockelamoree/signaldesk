@@ -48,6 +48,7 @@ server.registerTool(
   async ({ alertText }) => {
     const brief = buildIncidentBrief({ alertText, reporter: "mcp-client", channel: "mcp" });
     const output = {
+      reportDecision: brief.reportDecision,
       severity: brief.severity,
       actions: brief.recommendedActions,
       evidence: brief.evidenceChecklist,
@@ -82,6 +83,7 @@ server.registerTool(
     const brief = buildIncidentBrief({ alertText, reporter, channel });
     const output = {
       impactMetrics: brief.impactMetrics,
+      reportDecision: brief.reportDecision,
       scenario: brief.scenario,
       severity: brief.severity,
       evidenceValidation: brief.evidenceValidation
@@ -146,6 +148,7 @@ server.registerTool(
     const output = {
       detectionOpportunities: brief.detectionOpportunities,
       evidenceValidation: brief.evidenceValidation,
+      reportDecision: brief.reportDecision,
       scenario: brief.scenario,
       severity: brief.severity,
       indicators: brief.indicators
@@ -181,6 +184,7 @@ server.registerTool(
       report,
       evidenceValidation: brief.evidenceValidation,
       impactMetrics: brief.impactMetrics,
+      reportDecision: brief.reportDecision,
       scenario: brief.scenario,
       severity: brief.severity
     };

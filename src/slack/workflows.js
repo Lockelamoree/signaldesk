@@ -26,7 +26,7 @@ export function incidentKickoffBlocks(brief) {
       type: "header",
       text: {
         type: "plain_text",
-        text: `SignalDesk: ${brief.scenario.label}`,
+        text: `SignalDesk: ${brief.reportDecision?.needed === false ? "Intake" : brief.scenario.label}`,
         emoji: false
       }
     },
@@ -36,6 +36,7 @@ export function incidentKickoffBlocks(brief) {
         type: "mrkdwn",
         text: [
           `*Severity:* ${brief.severity.label.toUpperCase()} (${brief.severity.score}/100)`,
+          `*Report decision:* ${brief.reportDecision?.label ?? "Triage report"} - ${brief.reportDecision?.reason ?? "Report decision was not recorded on this brief."}`,
           `*Summary:* ${brief.summary}`,
           "",
           "*Immediate actions*",

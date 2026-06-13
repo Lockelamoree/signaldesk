@@ -13,6 +13,8 @@ Overall result: **PASS**
 - Scenarios covered: token_exposure, malware_execution, data_exfiltration, security_report.
 - Average first-response readiness: 98.3/100.
 - Minimum first-response readiness: 93/100.
+- Report-ready fixtures: 3.
+- Intake-only fixtures: 1.
 - Evidence items prepared: 10.
 - Evidence-linked detection checks prepared: 14.
 - Response roles suggested: 15.
@@ -20,17 +22,18 @@ Overall result: **PASS**
 
 ## Fixture Results
 
-| Fixture | Community | Scenario | Severity | Readiness | Evidence | Detections | Roles | Guardrails | Claims valid |
-| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| Nonprofit OAuth Phishing | nonprofit operations | token_exposure | high 100/100 | 100/100 | 4 | 5 | 4 | 3 | PASS |
-| School Script Download | education | malware_execution | high 92/100 | 100/100 | 2 | 4 | 4 | 3 | PASS |
-| Clinic Exfiltration Warning | public health | data_exfiltration | high 86/100 | 100/100 | 3 | 3 | 4 | 3 | PASS |
-| Community Low-Signal Report | community safety | security_report | low 34/100 | 93/100 | 1 | 2 | 3 | 3 | PASS |
+| Fixture | Community | Scenario | Severity | Report decision | Readiness | Evidence | Detections | Roles | Guardrails | Claims valid |
+| --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
+| Nonprofit OAuth Phishing | nonprofit operations | token_exposure | high 100/100 | Incident report | 100/100 | 4 | 5 | 4 | 3 | PASS |
+| School Script Download | education | malware_execution | high 92/100 | Incident report | 100/100 | 2 | 4 | 4 | 3 | PASS |
+| Clinic Exfiltration Warning | public health | data_exfiltration | high 86/100 | Incident report | 100/100 | 3 | 3 | 4 | 3 | PASS |
+| Community Low-Signal Report | community safety | security_report | low 34/100 | Intake only | 93/100 | 1 | 2 | 3 | 3 | PASS |
 
 ## Pass Criteria
 
 - At least four Agent for Good fixtures cover nonprofit operations, education, public health, and community safety.
 - Required scenarios are covered: token exposure, malware execution, data exfiltration, and low-signal security reports.
+- Low-signal security reports stay intake-only until concrete indicators, affected users/systems, confirmed action, or sensitive context exists.
 - Each fixture preserves source evidence, validates claims against evidence IDs, generates detection checks, assigns response roles, includes guardrails, and suggests a Slack coordination path.
 - Each fixture reaches at least 80/100 first-response readiness, and the average stays at or above 90/100.
 

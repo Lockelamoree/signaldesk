@@ -18,12 +18,12 @@ This transcript proves the repo-local MCP stdio server exposes and successfully 
 
 | Tool | Structured Output Keys | Result Summary |
 | --- | --- | --- |
-| `triage_slack_alert` | id, generatedAt, reporter, channel, summary, scenario, severity, indicators, candidateTechniques, recommendedActions, roleAssignments, evidenceChecklist, evidenceLedger, claims, evidenceValidation, detectionOpportunities, impactMetrics, slackPlan, guardrails, confidence | high 100/100; Token or OAuth Exposure; 4 evidence; 5 detections; 100/100 readiness |
-| `build_response_checklist` | severity, actions, evidence, impactMetrics, guardrails | 6 actions; 6 evidence prompts; 3 guardrails; 100/100 readiness |
-| `build_impact_summary` | impactMetrics, scenario, severity, evidenceValidation | 100/100 readiness; SignalDesk turns one Slack report into a prepared first-response package; live impact still requires responders to validate logs and execute containment.; validation valid |
+| `triage_slack_alert` | id, generatedAt, reporter, channel, summary, reportDecision, scenario, severity, indicators, candidateTechniques, recommendedActions, roleAssignments, evidenceChecklist, evidenceLedger, claims, evidenceValidation, detectionOpportunities, impactMetrics, slackPlan, guardrails, confidence | high 100/100; Token or OAuth Exposure; 4 evidence; 5 detections; 100/100 readiness |
+| `build_response_checklist` | reportDecision, severity, actions, evidence, impactMetrics, guardrails | 6 actions; 6 evidence prompts; 3 guardrails; 100/100 readiness |
+| `build_impact_summary` | impactMetrics, reportDecision, scenario, severity, evidenceValidation | 100/100 readiness; SignalDesk turns one Slack report into a prepared first-response package; live impact still requires responders to validate logs and execute containment.; validation valid |
 | `export_evidence_ledger` | evidenceLedger, claims, validation | 4 evidence IDs; 4 claims; validation valid |
-| `build_detection_plan` | detectionOpportunities, evidenceValidation, scenario, severity, indicators | 5 evidence-linked detections; 1 URL; 1 IP |
-| `generate_incident_report` | report, evidenceValidation, impactMetrics, scenario, severity | 114 report lines; 100/100 readiness; validation valid |
+| `build_detection_plan` | detectionOpportunities, evidenceValidation, reportDecision, scenario, severity, indicators | 5 evidence-linked detections; 1 URL; 1 IP |
+| `generate_incident_report` | report, evidenceValidation, impactMetrics, reportDecision, scenario, severity | 121 report lines; 100/100 readiness; validation valid |
 | `list_demo_incidents` | incidents | 4 synthetic incidents listed |
 
 ## Evidence Boundary
