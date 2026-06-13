@@ -16,7 +16,7 @@ Slack Agent for Good
 
 ## Project URL Fields
 
-- Public repository: `TODO_PUBLIC_REPO_URL`
+- Public repository: `https://github.com/Lockelamoree/signaldesk`
 - Demo video: `TODO_DEMO_VIDEO_URL`
 - Slack developer sandbox: `TODO_SLACK_SANDBOX_URL`
 - Devpost project: `TODO_DEVPOST_PROJECT_URL`

@@ -30,7 +30,7 @@ In this demo:
 
 Built for the Slack Agent Builder Challenge, Slack Agent for Good track.
 
-Repository: TODO_PUBLIC_REPO_URL
+Repository: https://github.com/Lockelamoree/signaldesk
 Devpost: TODO_DEVPOST_URL
 
 ## Captions
